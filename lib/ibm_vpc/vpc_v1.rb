@@ -34,6 +34,7 @@ module IbmVpc
     include Concurrent::Async
     DEFAULT_SERVICE_NAME = "vpc"
     DEFAULT_SERVICE_URL = "https://us-south.iaas.cloud.ibm.com/v1"
+    DEFAULT_SERVICE_VERSION = "2020-12-15"
     attr_accessor :version
     attr_accessor :generation
     ##
@@ -55,7 +56,7 @@ module IbmVpc
       defaults[:service_url] = DEFAULT_SERVICE_URL
       defaults[:service_name] = DEFAULT_SERVICE_NAME
       defaults[:authenticator] = nil
-      defaults[:version] = nil
+      defaults[:version] = DEFAULT_SERVICE_VERSION
       defaults[:generation] = 2
       user_service_url = args[:service_url] unless args[:service_url].nil?
       args = defaults.merge(args)
