@@ -26,8 +26,8 @@ require "json"
 require "ibm_cloud_sdk_core"
 require_relative "./common.rb"
 
-# Module for the Watson APIs
-module IBMWatson
+# Module for the IBM Cloud VPC APIs
+module IbmVpc
   ##
   # The vpc V1 service.
   class VpcV1 < IBMCloudSdkCore::BaseService
