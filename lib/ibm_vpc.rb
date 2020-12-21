@@ -6,4 +6,5 @@ module IbmVpc
   DetailedResponse = IBMCloudSdkCore::DetailedResponse
 
   require_relative "./ibm_vpc/common.rb"
+  require_relative "./ibm_vpc/vpc_v1.rb"
 end
