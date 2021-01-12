@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require "ibm_vpc/version"
 require "ibm_cloud_sdk_core"
 
+# Module for the VPC APIs
 module IbmVpc
   ApiException = IBMCloudSdkCore::ApiException
   DetailedResponse = IBMCloudSdkCore::DetailedResponse
