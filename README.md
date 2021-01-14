@@ -61,6 +61,63 @@ gem install "ibm_vpc"
 ## Using the SDK
 For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
 
+### Authentication
+
+```ruby
+require "ibm_vpc"
+
+# First select an authentication type (IAM, Bearer, etc...)
+# See https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md#authentication for
+# a full list of available authenticators.
+
+# IAM example
+authenticator = IbmVpc::Authenticators::IamAuthenticator.new(
+  apikey: "<iam_apikey>",
+  url: "<iam_url>" # optional - the default value is https://iam.cloud.ibm.com/identity/token
+)
+
+# Bearer Token example
+authenticator = IbmVpc::Authenticators::BearerTokenAuthenticator.new(
+  bearer_token: "<access_token>"
+)
+```
+
+### Using the VPC API client
+
+Setting up and using the API client is simple, just pass in your authenticator object and then you can issue API calls:
+
+```ruby
+
+# Pass the authenticator into the VpcV1 service
+vpc_v1 = IbmVpc::VpcV1.new(
+  version: "2020-12-15" # Will default to the latest version if not specified
+  authenticator: authenticator
+)
+
+# Now you can start to make API calls
+response = vpc_v1.list_instances()
+response["instances"].each do |instance|
+  puts instance["name"]
+end
+```
+
+If a collection response has a lot of items in it, the results will be paginated.
+
+```ruby
+start = nil
+instances = []
+
+loop do
+  response = vpc_v1.list_instances(start: start)
+  instances += response["instances"]
+
+  next_link = response.dig("next", "href")
+  break if next_link.nil?
+
+  start = CGI.parse(URI(next_link).query)["start"].first
+end
+```
+
 ## Questions
 
 If you are having difficulties using this SDK or have a question about the IBM Cloud services,
