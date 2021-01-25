@@ -40,7 +40,7 @@ IBM Cloud services:
 
 Service Name | Imported Class Name
 --- | ---
-<!-- [Example Service](https://cloud.ibm.com/apidocs/example-service) | exampleservicev1 -->
+[VPC](https://cloud.ibm.com/apidocs/vpc) | `IbmVpc::VpcV1`
 
 ## Prerequisites
 
