@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "json"
-require_relative "./test_helper"
+require_relative "../test_helper"
 require "webmock/minitest"
 
 #########################

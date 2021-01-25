@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "codecov", "~> 0.1"
+  spec.add_development_dependency "dotenv", "~> 2.4"
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "minitest-hooks"
   spec.add_development_dependency "minitest-reporters"

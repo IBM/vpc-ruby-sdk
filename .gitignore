@@ -8,6 +8,7 @@
 /spec/reports/
 /tmp/
 /Gemfile.lock
+/test/html_reports/
 
 # rspec failure tracking
 .rspec_status
