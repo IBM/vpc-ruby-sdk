@@ -1,6 +1,10 @@
 language: ruby
-dist: trusty
 cache: bundler
+sudo: required
+
+rvm:
+- 2.5.1
+- 2.6.1
 
 notifications:
   email: true
