@@ -10,7 +10,7 @@ notifications:
   email: false
 
 matrix:
-  fast_finish: true 
+  fast_finish: true
 
 before_install:
   - git fetch --tags
