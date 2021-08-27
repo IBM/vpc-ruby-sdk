@@ -1,0 +1,10 @@
+{
+  "name": "vpc-ruby-sdk",
+  "version": "0.2.0",
+  "description": "Ruby client library to interact with various IBM Cloud VPC APIs",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/IBM/vpc-ruby-sdk/issues"
+  },
+  "homepage": "https://github.com/IBM/vpc-ruby-sdk#readme"
+}
