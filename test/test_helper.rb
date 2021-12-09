@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require("simplecov")
-require("codecov")
+require "simplecov_json_formatter"
 require("minitest/reporters")
 
 if ENV["COVERAGE"]
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov if ENV["CI"]
+  SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter if ENV["CI"]
   unless SimpleCov.running
     SimpleCov.start do
       add_filter "/test/"
