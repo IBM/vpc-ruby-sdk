@@ -38,7 +38,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs?generation=2&version=2022-03-29")
       .with(
         headers: {
           "Accept" => "application/json"
@@ -57,7 +57,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -73,7 +73,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339?generation=2&version=2022-03-29")
       .with(
         headers: { "Host" => "us-south.iaas.cloud.ibm.com" }
       )
@@ -113,7 +113,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -132,7 +132,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -149,7 +149,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/default_network_acl?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/default_network_acl?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -165,7 +165,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/default_routing_table?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/default_routing_table?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -181,7 +181,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/default_security_group?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/default_security_group?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -203,7 +203,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -219,7 +219,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" },
         body: { "cidr" => "10.1.0.0/16",
@@ -246,7 +246,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2022-03-29")
       .with(
         headers: { "Host" => "us-south.iaas.cloud.ibm.com" }
       )
@@ -265,7 +265,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -280,12 +280,12 @@ class VpcV1Test < Minitest::Test
 
   def test_update_vpc_address_prefix
     message_response = { "cidr" => "10.1.0.0/16", "created_at" => "2019-01-07T16:56:54Z", "has_subnets" => false,
-                         "href" => "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2021-12-07", "id" => "df760133-3513-47e7-b980-26cca666561b", "is_default" => false, "name" => "my-vpc-address-prefix-1-updated", "zone" => { "href" => "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south/zones/us-south-1", "name" => "us-south-1" } }
+                         "href" => "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2022-03-29", "id" => "df760133-3513-47e7-b980-26cca666561b", "is_default" => false, "name" => "my-vpc-address-prefix-1-updated", "zone" => { "href" => "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south/zones/us-south-1", "name" => "us-south-1" } }
     headers = {
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/address_prefixes/df760133-3513-47e7-b980-26cca666561b?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -305,7 +305,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/routes?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/f64efe74-a5a2-45c7-b37d-5071d2dd6339/routes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -324,7 +324,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -348,7 +348,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2022-03-29")
       .with(
         headers: { "Host" => "us-south.iaas.cloud.ibm.com" }
       )
@@ -366,7 +366,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -386,7 +386,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -406,7 +406,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -425,7 +425,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -443,7 +443,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe?generation=2&version=2022-03-29")
       .with(
         headers: { "Host" => "us-south.iaas.cloud.ibm.com" }
       )
@@ -461,7 +461,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -480,7 +480,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -505,7 +505,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe/routes?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe/routes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -525,7 +525,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe/routes?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/982d72b7-db1b-4606-afb2-ed6bd4b0bed1/routing_tables/eee6e0f4-ff31-41b4-8584-3cdd50b8fffe/routes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -550,7 +550,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables/6885e83f-03b2-4603-8a86-db2a0f55c840/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables/6885e83f-03b2-4603-8a86-db2a0f55c840/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2022-03-29")
       .with(
         headers: { "Host" => "us-south.iaas.cloud.ibm.com" }
       )
@@ -570,7 +570,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables/6885e83f-03b2-4603-8a86-db2a0f55c840/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables/6885e83f-03b2-4603-8a86-db2a0f55c840/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -591,7 +591,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables/6885e83f-03b2-4603-8a86-db2a0f55c840/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpcs/128c1fcf-79bc-40d0-88a1-b7c58f05cf5b/routing_tables/6885e83f-03b2-4603-8a86-db2a0f55c840/routes/9cdddd42-8ce1-4ca9-ba65-06ffd4d6cf19?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -614,7 +614,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -631,7 +631,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/subnets?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/subnets?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -649,7 +649,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959?generation=2&version=2022-03-29")
       .with(
         headers: { "Host" => "us-south.iaas.cloud.ibm.com" }
       )
@@ -666,7 +666,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -685,7 +685,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -705,7 +705,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959/network_acl?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959/network_acl?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -724,7 +724,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959/network_acl?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959/network_acl?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -743,7 +743,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959/public_gateway?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/subnets/8722d01c-9c78-4555-82b5-53ad1266f959/public_gateway?generation=2&version=2022-03-29")
       .with(
         headers: { "Host" => "us-south.iaas.cloud.ibm.com" }
       )
@@ -760,7 +760,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/d4d3ef82-bebb-446e-bbe4-038bc82f6776/public_gateway?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/d4d3ef82-bebb-446e-bbe4-038bc82f6776/public_gateway?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -779,7 +779,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/subnets/4fd00a61-fe63-4186-81c9-f7253b5c1cd7/public_gateway?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/subnets/4fd00a61-fe63-4186-81c9-f7253b5c1cd7/public_gateway?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -799,7 +799,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/6885e83f-03b2-4603-8a86-db2a0f55c840/routing_table?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/6885e83f-03b2-4603-8a86-db2a0f55c840/routing_table?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -818,7 +818,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/subnets/6885e83f-03b2-4603-8a86-db2a0f55c840/routing_table?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/subnets/6885e83f-03b2-4603-8a86-db2a0f55c840/routing_table?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -842,7 +842,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -861,7 +861,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -879,7 +879,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips/0716-7768a27e-cd6c-4a13-a9e6-d67a964e54a5?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips/0716-7768a27e-cd6c-4a13-a9e6-d67a964e54a5?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_subnet_reserved_ip(
       subnet_id: "0716-b28a7e6d-a66b-4de7-8713-15dcffdce401",
@@ -894,7 +894,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips/0716-7768a27e-cd6c-4a13-a9e6-d67a964e54a5?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips/0716-7768a27e-cd6c-4a13-a9e6-d67a964e54a5?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -914,7 +914,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips/0716-7768a27e-cd6c-4a13-a9e6-d67a964e54a5?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/subnets/0716-b28a7e6d-a66b-4de7-8713-15dcffdce401/reserved_ips/0716-7768a27e-cd6c-4a13-a9e6-d67a964e54a5?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -935,7 +935,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/images?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/images?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -952,7 +952,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/images?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/images?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -970,7 +970,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/images/72251a2e-d6c5-42b4-97b0-b5f8e8d1f479?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/images/72251a2e-d6c5-42b4-97b0-b5f8e8d1f479?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_image(
       id: "72251a2e-d6c5-42b4-97b0-b5f8e8d1f479"
@@ -984,7 +984,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/images/72251a2e-d6c5-42b4-97b0-b5f8e8d1f479?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/images/72251a2e-d6c5-42b4-97b0-b5f8e8d1f479?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1003,7 +1003,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/images/72251a2e-d6c5-42b4-97b0-b5f8e8d1f479?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/images/72251a2e-d6c5-42b4-97b0-b5f8e8d1f479?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1023,7 +1023,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/operating_systems?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/operating_systems?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1040,7 +1040,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/operating_systems/red-7-amd64?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/operating_systems/red-7-amd64?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1059,7 +1059,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1076,7 +1076,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1094,7 +1094,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_placement_group(
       id: "3fad3f2204eb4998c3964d254ffcd771"
@@ -1108,7 +1108,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1127,7 +1127,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/placement_groups/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1147,7 +1147,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/keys?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/keys?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1164,7 +1164,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/keys?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/keys?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1182,7 +1182,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/keys/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/keys/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_key(
       id: "3fad3f2204eb4998c3964d254ffcd771"
@@ -1196,7 +1196,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/keys/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/keys/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1215,7 +1215,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/keys/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/keys/3fad3f2204eb4998c3964d254ffcd771?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1235,7 +1235,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/profiles?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/profiles?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1252,7 +1252,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/profiles/bx2-8x32?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/profiles/bx2-8x32?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1271,7 +1271,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1290,7 +1290,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" },
         body: '{"image":{"id":"3f9a2d96-830e-4100-9b4c-663225a3f872"},"keys":[{"id":"363f6d70-0000-0001-0000-00000013b96c"}],"name":"my-instance-template","primary_network_interface":{"subnet":{"id":"0d933c75-492a-4756-9832-1200585dfa79"}},"profile":{"name":"bx2-2x8"},"vpc":{"id":"dc201ab2-8536-4904-86a8-084d84582133"},"zone":{"name":"us-south-1"}}'
@@ -1333,7 +1333,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates/3f9a2d96-830e-4100-9b4c-663225a3f872?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates/3f9a2d96-830e-4100-9b4c-663225a3f872?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_template(
       id: "3f9a2d96-830e-4100-9b4c-663225a3f872"
@@ -1349,7 +1349,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates/3f9a2d96-830e-4100-9b4c-663225a3f872?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates/3f9a2d96-830e-4100-9b4c-663225a3f872?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1370,7 +1370,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates/3f9a2d96-830e-4100-9b4c-663225a3f872?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance/templates/3f9a2d96-830e-4100-9b4c-663225a3f872?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1390,7 +1390,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1407,7 +1407,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1478,7 +1478,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance(
       id: "eb1b7391-2ca2-4ab5-84a8-b92157a633b0"
@@ -1492,7 +1492,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1511,7 +1511,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1531,7 +1531,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/disks?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/disks?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1550,7 +1550,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/disks/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/disks/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1570,7 +1570,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/disks/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/disks/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1591,7 +1591,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/initialization?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/initialization?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1610,7 +1610,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/console_access_token?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/console_access_token?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1630,7 +1630,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/actions?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/actions?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1650,7 +1650,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1702,7 +1702,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1726,7 +1726,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_network_interface(
       instance_id: "eb1b7391-2ca2-4ab5-84a8-b92157a633b0",
@@ -1774,7 +1774,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1827,7 +1827,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1848,7 +1848,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1867,7 +1867,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.remove_instance_network_interface_floating_ip(
       instance_id: "eb1b7391-2ca2-4ab5-84a8-b92157a633b0",
@@ -1883,7 +1883,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1904,7 +1904,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1925,7 +1925,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/snapshots?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/snapshots?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1942,13 +1942,21 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/snapshots?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/snapshots?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
       .to_return(status: 200, body: message_response.to_json, headers: headers)
+    volume_identity_model = {
+      'id': "eb1b7391-2ca2-4ab5-85a8-b92157a633b0"
+    }
+
+    snapshot_prototype_model = {
+      'source_volume': volume_identity_model,
+      'name': "my-snapshot"
+    }
     service_response = service.create_snapshot(
-      source_volume: "eb1b7391-2ca2-4ab5-84a8-b92157a633b0"
+      snapshot_prototype: snapshot_prototype_model
     )
 
     assert_equal(message_response, service_response.result)
@@ -1961,7 +1969,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/snapshots/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/snapshots/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1980,7 +1988,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/snapshots/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/snapshots/eb1b7391-2ca2-4ab5-84a8-b92157a633b0?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -1998,7 +2006,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/snapshots/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/snapshots/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2022-03-29")
       .to_return(status: 200, body: "", headers: headers)
     service.delete_snapshot(
       id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60"
@@ -2010,7 +2018,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/snapshots?generation=2&source_volume.id=r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/snapshots?generation=2&source_volume.id=r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60&version=2022-03-29")
       .to_return(status: 200, body: "", headers: headers)
     service.delete_snapshots(
       source_volume_id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60"
@@ -2026,7 +2034,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2045,7 +2053,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2065,7 +2073,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments/fdb3642d-c849-4c29-97a9-03b868616f88?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments/fdb3642d-c849-4c29-97a9-03b868616f88?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_volume_attachment(
       instance_id: "eb1b7391-2ca2-4ab5-84a8-b92157a633b0",
@@ -2080,7 +2088,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments/fdb3642d-c849-4c29-97a9-03b868616f88?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments/fdb3642d-c849-4c29-97a9-03b868616f88?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2100,7 +2108,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments/fdb3642d-c849-4c29-97a9-03b868616f88?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instances/eb1b7391-2ca2-4ab5-84a8-b92157a633b0/volume_attachments/fdb3642d-c849-4c29-97a9-03b868616f88?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2121,7 +2129,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2138,7 +2146,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2169,7 +2177,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2022-03-29")
       .to_return(status: 200, body: message_response.to_json, headers: headers)
     service.delete_instance_group(
       id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60"
@@ -2183,7 +2191,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2021-12-07?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2022-03-29?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2202,7 +2210,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2221,7 +2229,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/load_balancer?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/load_balancer?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_group_load_balancer(
       instance_group_id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60"
@@ -2238,7 +2246,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2257,7 +2265,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2276,7 +2284,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_group_manager(
       instance_group_id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60",
@@ -2291,7 +2299,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2311,7 +2319,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2335,7 +2343,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/actions?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/actions?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2355,7 +2363,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/actions?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/actions?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2375,7 +2383,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/actions/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/actions/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_group_manager_action(
       instance_group_id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60",
@@ -2391,7 +2399,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/actions/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/actions/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2412,7 +2420,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/actions/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/actions/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2437,7 +2445,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2457,7 +2465,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2477,7 +2485,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies/r018-02d7b6c3-e3c8-4569-ba6a-caa5d4d6146c?generation=2&version=2021-12-07?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies/r018-02d7b6c3-e3c8-4569-ba6a-caa5d4d6146c?generation=2&version=2022-03-29?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_group_manager_policy(
       instance_group_id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60",
@@ -2493,7 +2501,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies/r018-02d7b6c3-e3c8-4569-ba6a-caa5d4d6146c?generation=2&version=2021-12-07?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies/r018-02d7b6c3-e3c8-4569-ba6a-caa5d4d6146c?generation=2&version=2022-03-29?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2514,7 +2522,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies/r018-02d7b6c3-e3c8-4569-ba6a-caa5d4d6146c?generation=2&version=2021-12-07?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/managers/r018-4f2f7036-86b0-4d1b-a729-12357d45b00f/policies/r018-02d7b6c3-e3c8-4569-ba6a-caa5d4d6146c?generation=2&version=2022-03-29?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2535,7 +2543,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_group_memberships(
       instance_group_id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60"
@@ -2553,7 +2561,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2571,7 +2579,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships/04977d01-89c0-488b-a599-3d0dc32880e7?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships/04977d01-89c0-488b-a599-3d0dc32880e7?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_instance_group_membership(
       instance_group_id: "r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60",
@@ -2586,7 +2594,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships/04977d01-89c0-488b-a599-3d0dc32880e7?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships/04977d01-89c0-488b-a599-3d0dc32880e7?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2606,7 +2614,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships/04977d01-89c0-488b-a599-3d0dc32880e7?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/instance_groups/r018-7b3ac170-01f3-43d6-87ec-f0ed11ed3f60/memberships/04977d01-89c0-488b-a599-3d0dc32880e7?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2627,7 +2635,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2644,7 +2652,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2660,7 +2668,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups/4bbce614c13444cd8fc5e7e878ef8e21?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups/4bbce614c13444cd8fc5e7e878ef8e21?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_dedicated_host_group(
       id: "4bbce614c13444cd8fc5e7e878ef8e21"
@@ -2674,7 +2682,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups/4bbce614c13444cd8fc5e7e878ef8e21?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups/4bbce614c13444cd8fc5e7e878ef8e21?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2693,7 +2701,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups/4bbce614c13444cd8fc5e7e878ef8e21?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/groups/4bbce614c13444cd8fc5e7e878ef8e21?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2713,7 +2721,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/profiles?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/profiles?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2730,7 +2738,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/profiles/mx2-host-152x1216?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_host/profiles/mx2-host-152x1216?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2751,7 +2759,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2768,7 +2776,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2793,7 +2801,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_dedicated_host(
       id: "0787-8c2a09be-ee18-4af2-8ef4-6a6060732221"
@@ -2807,7 +2815,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2826,7 +2834,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2846,7 +2854,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221/disks?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221/disks?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2865,7 +2873,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221/disks/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221/disks/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2885,7 +2893,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221/disks/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/dedicated_hosts/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221/disks/0787-8c2a09be-ee18-4af2-8ef4-6a6060732221?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2906,7 +2914,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volume/profiles?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volume/profiles?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2923,7 +2931,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volume/profiles/10iops-tier?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volume/profiles/10iops-tier?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2942,7 +2950,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volumes?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volumes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2959,7 +2967,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/volumes?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/volumes?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -2985,7 +2993,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/volumes/2d1bb5a8-40a8-447a-acf7-0eadc8aeb054?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/volumes/2d1bb5a8-40a8-447a-acf7-0eadc8aeb054?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_volume(
       id: "2d1bb5a8-40a8-447a-acf7-0eadc8aeb054"
@@ -2999,7 +3007,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volumes/2d1bb5a8-40a8-447a-acf7-0eadc8aeb054?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/volumes/2d1bb5a8-40a8-447a-acf7-0eadc8aeb054?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3018,7 +3026,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/volumes/2d1bb5a8-40a8-447a-acf7-0eadc8aeb054?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/volumes/2d1bb5a8-40a8-447a-acf7-0eadc8aeb054?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3040,7 +3048,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3057,7 +3065,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3079,7 +3087,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south/zones?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south/zones?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3098,7 +3106,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south/zones/us-south-1?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/regions/us-south/zones/us-south-1?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3118,7 +3126,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3135,7 +3143,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3154,7 +3162,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways/d4d3ef82-bebb-446e-bbe4-038bc82f6776?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways/d4d3ef82-bebb-446e-bbe4-038bc82f6776?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_public_gateway(
       id: "d4d3ef82-bebb-446e-bbe4-038bc82f6776"
@@ -3168,7 +3176,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways/d4d3ef82-bebb-446e-bbe4-038bc82f6776?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways/d4d3ef82-bebb-446e-bbe4-038bc82f6776?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3187,7 +3195,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways/d4d3ef82-bebb-446e-bbe4-038bc82f6776?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/public_gateways/d4d3ef82-bebb-446e-bbe4-038bc82f6776?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3207,7 +3215,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3224,7 +3232,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3247,7 +3255,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_floating_ip(
       id: "ad0cded3-53a3-4d4a-9809-8c59b50d2b80"
@@ -3261,7 +3269,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3280,7 +3288,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/ad0cded3-53a3-4d4a-9809-8c59b50d2b80?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3300,7 +3308,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3317,7 +3325,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/network_acls?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/network_acls?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3340,7 +3348,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_network_acl(
       id: "3217cb8b-5368-452a-9399-a84f14fb539d"
@@ -3354,7 +3362,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3373,7 +3381,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3397,7 +3405,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3416,7 +3424,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3435,7 +3443,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules/cb19f11d-0e25-4650-a8ab-f4539da563ee?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules/cb19f11d-0e25-4650-a8ab-f4539da563ee?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_network_acl_rule(
       network_acl_id: "3217cb8b-5368-452a-9399-a84f14fb539d",
@@ -3450,7 +3458,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules/cb19f11d-0e25-4650-a8ab-f4539da563ee?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules/cb19f11d-0e25-4650-a8ab-f4539da563ee?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3470,7 +3478,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules/cb19f11d-0e25-4650-a8ab-f4539da563ee?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/network_acls/3217cb8b-5368-452a-9399-a84f14fb539d/rules/cb19f11d-0e25-4650-a8ab-f4539da563ee?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3491,7 +3499,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3508,7 +3516,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/security_groups?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/security_groups?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3526,7 +3534,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_security_group(
       id: "2d364f0a-a870-42c3-a554-000001099037"
@@ -3540,7 +3548,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3559,7 +3567,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/targets/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/targets/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3579,7 +3587,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/targets?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/targets?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3598,7 +3606,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/31cf397a-286a-4289-a7e7-92f177e7e491/targets/31cf397a-286a-4289-a7e7-92f177e7e491?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/31cf397a-286a-4289-a7e7-92f177e7e491/targets/31cf397a-286a-4289-a7e7-92f177e7e491?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3615,7 +3623,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/targets/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/targets/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2022-03-29")
       .to_return(status: 204, body: "", headers: headers)
     service.delete_security_group_target_binding(
       security_group_id: "2d364f0a-a870-42c3-a554-000001099037",
@@ -3630,7 +3638,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3638,84 +3646,6 @@ class VpcV1Test < Minitest::Test
     service_response = service.update_security_group(
       id: "2d364f0a-a870-42c3-a554-000001099037",
       security_group_patch: {}
-    )
-
-    assert_equal(message_response, service_response.result)
-  end
-
-  def test_list_security_group_network_interfaces
-    message_response = {
-      "first" => { "href" => "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/network_interfaces?limit=50" }, "limit" => 50, "network_interfaces" => [{
-        "allow_ip_spoofing" => false, "created_at" => "2019-01-31T03:42:32.993Z", "floating_ips" => [{
-          "address" => "192.0.2.2", "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/181b8670-52bf-47af-a5ca-7aff7f3824d1", "id" => "181b8670-52bf-47af-a5ca-7aff7f3824d1", "name" => "my-floating-ip"
-        }], "href" => "https://us-south.iaas.cloud.ibm.com/v1/instances/123a490a-9e64-4254-a93b-9a3af3ede270/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20", "id" => "35bd3f19-bdd4-434b-ad6a-5e9358d65e20", "name" => "molecule-find-wild-name-dictionary-trench", "port_speed" => 1000, "primary_ipv4_address" => "10.0.0.32", "resource_type" => "network_interface", "security_groups" => [{ "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/security_groups/a929f12d-fb45-4e5e-9864-95e171ae3589", "id" => "a929f12d-fb45-4e5e-9864-95e171ae3589", "name" => "before-entrance-mountain-paralegal-photo-uninstall" }], "status" => "available", "subnet" => { "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/subnets/9270d819-c05e-4352-99e4-80c4680cdb7c", "id" => "9270d819-c05e-4352-99e4-80c4680cdb7c", "name" => "my-subnet" }, "type" => "primary"
-      }], "total_count" => 1
-    }
-    headers = {
-      "Content-Type" => "application/json"
-    }
-
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/network_interfaces?generation=2&version=2021-12-07")
-      .with(
-        headers: { "Accept" => "application/json" }
-      )
-      .to_return(status: 200, body: message_response.to_json, headers: headers)
-    service_response = service.list_security_group_network_interfaces(
-      security_group_id: "2d364f0a-a870-42c3-a554-000001099037"
-    )
-
-    assert_equal(message_response, service_response.result)
-  end
-
-  def test_remove_security_group_network_interface
-    message_response = {}
-    headers = {
-      "Content-Type" => "application/json"
-    }
-
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2021-12-07")
-      .to_return(status: 204, body: message_response.to_json, headers: headers)
-    service.remove_security_group_network_interface(
-      security_group_id: "2d364f0a-a870-42c3-a554-000001099037",
-      id: "35bd3f19-bdd4-434b-ad6a-5e9358d65e20"
-    )
-  end
-
-  def test_get_security_group_network_interface
-    message_response = { "allow_ip_spoofing" => false, "created_at" => "2019-01-31T03:42:32.993Z",
-                         "floating_ips" => [{ "address" => "192.0.2.2", "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/181b8670-52bf-47af-a5ca-7aff7f3824d1", "id" => "181b8670-52bf-47af-a5ca-7aff7f3824d1", "name" => "my-floating-ip" }], "href" => "https://us-south.iaas.cloud.ibm.com/v1/instances/123a490a-9e64-4254-a93b-9a3af3ede270/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20", "id" => "35bd3f19-bdd4-434b-ad6a-5e9358d65e20", "name" => "molecule-find-wild-name-dictionary-trench", "port_speed" => 1000, "primary_ipv4_address" => "10.0.0.32", "resource_type" => "network_interface", "security_groups" => [{ "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/security_groups/a929f12d-fb45-4e5e-9864-95e171ae3589", "id" => "a929f12d-fb45-4e5e-9864-95e171ae3589", "name" => "before-entrance-mountain-paralegal-photo-uninstall" }], "status" => "available", "subnet" => { "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/subnets/9270d819-c05e-4352-99e4-80c4680cdb7c", "id" => "9270d819-c05e-4352-99e4-80c4680cdb7c", "name" => "my-subnet" }, "type" => "primary" }
-    headers = {
-      "Content-Type" => "application/json"
-    }
-
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2021-12-07")
-      .with(
-        headers: { "Accept" => "application/json" }
-      )
-      .to_return(status: 200, body: message_response.to_json, headers: headers)
-    service_response = service.get_security_group_network_interface(
-      security_group_id: "2d364f0a-a870-42c3-a554-000001099037",
-      id: "35bd3f19-bdd4-434b-ad6a-5e9358d65e20"
-    )
-
-    assert_equal(message_response, service_response.result)
-  end
-
-  def test_add_security_group_network_interface
-    message_response = { "allow_ip_spoofing" => false, "created_at" => "2019-01-31T03:42:32.993Z",
-                         "floating_ips" => [{ "address" => "192.0.2.2", "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/floating_ips/181b8670-52bf-47af-a5ca-7aff7f3824d1", "id" => "181b8670-52bf-47af-a5ca-7aff7f3824d1", "name" => "my-floating-ip" }], "href" => "https://us-south.iaas.cloud.ibm.com/v1/instances/123a490a-9e64-4254-a93b-9a3af3ede270/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20", "id" => "35bd3f19-bdd4-434b-ad6a-5e9358d65e20", "name" => "molecule-find-wild-name-dictionary-trench", "port_speed" => 1000, "primary_ipv4_address" => "10.0.0.32", "resource_type" => "network_interface", "security_groups" => [{ "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/security_groups/a929f12d-fb45-4e5e-9864-95e171ae3589", "id" => "a929f12d-fb45-4e5e-9864-95e171ae3589", "name" => "before-entrance-mountain-paralegal-photo-uninstall" }], "status" => "available", "subnet" => { "crn" => "crn:[...]", "href" => "https://us-south.iaas.cloud.ibm.com/v1/subnets/9270d819-c05e-4352-99e4-80c4680cdb7c", "id" => "9270d819-c05e-4352-99e4-80c4680cdb7c", "name" => "my-subnet" }, "type" => "primary" }
-    headers = {
-      "Content-Type" => "application/json"
-    }
-
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/network_interfaces/35bd3f19-bdd4-434b-ad6a-5e9358d65e20?generation=2&version=2021-12-07")
-      .with(
-        headers: { "Accept" => "application/json" }
-      )
-      .to_return(status: 201, body: message_response.to_json, headers: headers)
-    service_response = service.add_security_group_network_interface(
-      security_group_id: "2d364f0a-a870-42c3-a554-000001099037",
-      id: "35bd3f19-bdd4-434b-ad6a-5e9358d65e20"
     )
 
     assert_equal(message_response, service_response.result)
@@ -3730,7 +3660,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3749,7 +3679,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3768,7 +3698,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules/b597cff2-38e8-4e6e-999d-000002173027?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules/b597cff2-38e8-4e6e-999d-000002173027?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_security_group_rule(
       security_group_id: "2d364f0a-a870-42c3-a554-000001099037",
@@ -3783,7 +3713,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules/b597cff2-38e8-4e6e-999d-000002173027?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules/b597cff2-38e8-4e6e-999d-000002173027?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3803,7 +3733,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules/b597cff2-38e8-4e6e-999d-000002173027?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/security_groups/2d364f0a-a870-42c3-a554-000001099037/rules/b597cff2-38e8-4e6e-999d-000002173027?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3824,7 +3754,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3841,7 +3771,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3862,7 +3792,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_ike_policy(
       id: "53ebcf53-2ee4-4a26-ba2c-afc62091a148"
@@ -3876,7 +3806,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3895,7 +3825,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3914,7 +3844,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148/connections?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ike_policies/53ebcf53-2ee4-4a26-ba2c-afc62091a148/connections?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3933,7 +3863,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3950,7 +3880,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -3970,7 +3900,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_ipsec_policy(
       id: "43c2f663-3960-4289-9253-f6eab23a6cd7"
@@ -3984,7 +3914,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4003,7 +3933,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4022,7 +3952,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7/connections?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/ipsec_policies/43c2f663-3960-4289-9253-f6eab23a6cd7/connections?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4041,7 +3971,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4058,7 +3988,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4076,7 +4006,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_vpn_gateway(
       id: "e630bb38-c3a7-4619-b0e5-7bff14e060fe"
@@ -4090,7 +4020,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4109,7 +4039,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4131,7 +4061,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe/connections?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/e630bb38-c3a7-4619-b0e5-7bff14e060fe/connections?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4150,7 +4080,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4169,7 +4099,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_vpn_gateway_connection(
       vpn_gateway_id: "a7d258d5-be1e-491d-83db-526d8d9a2ce9",
@@ -4184,7 +4114,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4204,7 +4134,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4218,6 +4148,480 @@ class VpcV1Test < Minitest::Test
     assert_equal(message_response, service_response.result)
   end
 
+  def test_list_vpn_servers
+    message_response = { "limit" => 10, "first" => { "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers?limit=10" }, "vpn_servers" => [{ "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:c30a05fd-7ca2-4c37-829a-dc8b3cf4358e::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1", "created_at" => "2022-07-22T08:52:35.290Z", "clients" => [{ "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:cf42568c-d6d7-4841-90f6-6d2295066324::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "c86faa8e-467f-4980-895c-4e848dfc9dbf", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:99eb688a-9d3e-4282-a64b-f7a35ff3300a::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/c86faa8e-467f-4980-895c-4e848dfc9dbf", "resource_type" => "vpn_server_client" }, { "id" => "5473db01-c13d-4e0a-8ddf-82c980525f26", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:b8d96501-7b0c-4348-b2f5-3a631729bc52::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/5473db01-c13d-4e0a-8ddf-82c980525f26", "resource_type" => "vpn_server_client" }, { "id" => "b9137493-06c4-482f-9137-877a34154ae2", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:29a2588e-fd3b-40da-9b28-579d8c5bbbe7::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/b9137493-06c4-482f-9137-877a34154ae2", "resource_type" => "vpn_server_client" }, { "id" => "15892f3f-fb1b-4314-8074-f27da41a3fef", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:7c1737dc-267c-476f-a536-dcad3601853e::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/15892f3f-fb1b-4314-8074-f27da41a3fef", "resource_type" => "vpn_server_client" }, { "id" => "791c2280-b3ae-4a1f-a729-f2a7bf8d0617", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:306f5011-a680-4368-90b7-deee448455b2::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/791c2280-b3ae-4a1f-a729-f2a7bf8d0617", "resource_type" => "vpn_server_client" }, { "id" => "3bebb5b9-f0ae-4e2f-9677-59c8dd116fe0", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:8d914653-1f92-459e-8300-64718c00f957::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/3bebb5b9-f0ae-4e2f-9677-59c8dd116fe0", "resource_type" => "vpn_server_client" }, { "id" => "c118f3c4-7efe-4e49-9b84-04b7fc5379c5", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:3b2b83dd-4f88-4bce-8137-d2e5e3676ff6::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/c118f3c4-7efe-4e49-9b84-04b7fc5379c5", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:2f26db2c-c2f3-44bb-8570-67b4896ce741::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:b81aeaa7-d95f-4cd9-b877-d387b7ac0e1a::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:6760f4c4-5412-48a6-8413-6e837aa5feec::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:1d4dbb7f-b517-4272-bd7d-d9907b62a201::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:c436abfd-04f9-4dc1-8453-05545de6be47::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:bf45d38f-55d6-49b6-99cb-17369aa80454::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:2b0b18c5-6fe9-46a6-854e-15c1a0311d5d::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:c769846e-ea44-4326-8de6-764595f5e1e0::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:ab0aefb4-b935-4ea9-a8a8-83da6149c91d::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:17fd9e26-f4c0-45d7-9704-fc84f1a57fbb::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:a2feea7b-0de4-4924-9993-1db501844b02::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:f0ec068d-63ca-4369-915c-249870bad207::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:46bf568d-b717-4152-9997-05aacb5572e7::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:4f29a59a-fe1d-4f0d-87af-c7014623ce0a::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:41acf940-1dee-4550-9b94-3e6160a3654e::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }, { "id" => "1", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:d2413685-845c-4f23-b3b5-05f1e63f5fed::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/clients/1", "resource_type" => "vpn_server_client" }], "routes" => [{ "id" => "ab984ca6-1ad0-459e-a752-bad8f1ace69b", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:d12fdd66-68fd-4ea4-878d-af5b9c58bf84::", "name" => "vpn-server-route-40359", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/routes/ab984ca6-1ad0-459e-a752-bad8f1ace69b", "resource_type" => "vpn_server_route" }, { "id" => "d608381f-53d1-4e01-bad4-27c386985ba8", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:0b15f484-5395-490f-a989-160dcab6aa42::", "name" => "vpn-server-route-54794", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/routes/d608381f-53d1-4e01-bad4-27c386985ba8", "resource_type" => "vpn_server_route" }, { "id" => "e71c6c8b-a57d-466e-a07a-494ba1c36f40", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:2b2a9416-1882-4f14-85b9-6fd3bf37e441::", "name" => "vpn-server-route-38122", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/routes/e71c6c8b-a57d-466e-a07a-494ba1c36f40", "resource_type" => "vpn_server_route" }, { "id" => "153ed98b-f9ac-4132-a369-5b6b06b80f9a", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:97506370-eac9-47fb-8742-870a924f7bd9::", "name" => "vpn-server-route-29115", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/routes/153ed98b-f9ac-4132-a369-5b6b06b80f9a", "resource_type" => "vpn_server_route" }, { "id" => "2bace512-bd1b-452f-adec-56d80aa1adac", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:470921d2-f467-4683-b823-5ac89e84fad0::", "name" => "vpn-server-route-27598", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/routes/2bace512-bd1b-452f-adec-56d80aa1adac", "resource_type" => "vpn_server_route" }, { "id" => "dfb64f42-8818-45c5-ac27-3eda85976128", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:6b24dff3-e5ef-405c-a703-7a11236e8daf::", "name" => "vpn-server-route-18217", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/routes/dfb64f42-8818-45c5-ac27-3eda85976128", "resource_type" => "vpn_server_route" }, { "id" => "de4d55c6-4a73-4186-a437-7344d35d3bce", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:ec7c5662-d172-4aea-ad82-173ffd7e6c64::", "name" => "vpn-server-route-19628", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/1/routes/de4d55c6-4a73-4186-a437-7344d35d3bce", "resource_type" => "vpn_server_route" }], "certificate" => { "crn" => "crn:v1:staging:public:cloudcerts:us-south:a/823bd195e9fd4f0db40ac2e1bffef3e0:8867331f-922c-4d92-a801-41972bb9ee6c:certificate:627556ee336337ebe448cb2553fb3784" }, "client_authentication" => [{ "crl" => "The certificate revocation list (CRL) contents in PEM format.", "client_ca" => { "crn" => "crn:v1:staging:public:cloudcerts:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:8867331f-922c-4d92-a801-41972bb9ee6b:certificate:827556ee336337ebe448cb2553fb3784" }, "method" => "certificate" }, { "method" => "username", "identity_provider" => { "provider_type" => "iam" } }], "client_auto_delete" => true, "client_auto_delete_timeout" => 7, "client_dns_server_ips" => [{ "address" => "170.219.224.21" }, { "address" => "170.8.81.90" }], "client_idle_timeout" => 1202, "client_ip_pool" => "172.240.95.0/16", "enable_split_tunneling" => true, "health_state" => "ok", "hostname" => "my-vpn-server-52151.client-vpn.cloud.ibm.com", "lifecycle_state" => "stable", "name" => "aaa-default-vpn-server-1", "port" => 1194, "protocol" => "tcp", "resource_group" => { "id" => "720a9c5878c7403ba80573f717ecf9b0", "name" => "SmokeTest", "crn" => "crn:v1:staging:public:resource-controller::a/249d926cb9bb46119e3bda8ed7f7f618::resource-group:720a9c5878c7403ba80573f717ecf9b0" }, "resource_type" => "vpn_server", "security_groups" => [{ "id" => "58fd2383-acb8-11e8-94ce-3e338a9fcdfb", "name" => "aaa-default-sg-1", "href" => "http://localhost:4000/rias-mock/us-east/v1/security_groups/58fd2383-acb8-11e8-94ce-3e338a9fcdfb" }, { "id" => "58fd2382-acb8-11e8-94ce-3e338a9fcdfb", "name" => "aaa-default-sg-3", "href" => "http://localhost:4000/rias-mock/us-east/v1/security_groups/58fd2382-acb8-11e8-94ce-3e338a9fcdfb" }], "subnets" => [{ "id" => "3052f86f-bca3-416f-b236-0df955d00e60", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:fb5fd5f5-cc54-4743-ae63-c3669476b8bd::", "name" => "subnet-assumenda-1605-us-east", "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/3052f86f-bca3-416f-b236-0df955d00e60" }], "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "private_ips" => [{ "id" => "f7cfbdd0-0e12-4b39-8562-08b3c956695e", "subnetId" => "3052f86f-bca3-416f-b236-0df955d00e60", "name" => "reservedIp-a-6325-us-east", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:29531169-6d5d-434d-bac0-f87ad2e281e3::", "created_at" => "2022-05-25T08:52:35.290Z", "address" => "244.39.39.14", "status" => "available", "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "auto_delete" => true, "owner" => "user", "meta" => { "revision" => 1, "created" => 1_658_739_155_290, "version" => 0, "updated" => 1_658_739_155_290 }, "$loki" => 1296, "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/3052f86f-bca3-416f-b236-0df955d00e60/reserved_ips/f7cfbdd0-0e12-4b39-8562-08b3c956695e", "resource_type" => "reserved_ip" }] }], "total_count" => 1 }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers?sort=name&generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.list_vpn_servers(
+      sort: "name"
+    )
+
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_create_vpn_server
+    message_response = { "id" => "970e8b78-8f09-4acf-b37a-30458bdfec95", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:64f39757-09c8-4360-a033-5182e5dd785a::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95", "created_at" => "2022-05-31T06:23:50.431Z", "clients" => [{ "id" => "c74f8cc2-a174-4522-b057-7433e5f48833", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:71a3aeca-61ad-458f-99be-57c59ca0e60b::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/c74f8cc2-a174-4522-b057-7433e5f48833", "resource_type" => "vpn_server_client" }, { "id" => "4750e2a7-a314-40f0-b659-ca69ad55dc57", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:b1213d1a-5f9d-437f-ab03-1f7a37654cb2::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/4750e2a7-a314-40f0-b659-ca69ad55dc57", "resource_type" => "vpn_server_client" }], "routes" => [{ "id" => "bc56343b-50ae-40cb-ba48-4eb9b00ff8c5", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:618a480a-31df-410e-b02f-535b2bce1b74::", "name" => "vpn-server-route-64183", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/bc56343b-50ae-40cb-ba48-4eb9b00ff8c5", "resource_type" => "vpn_server_route" }, { "id" => "68e6a4b7-3e11-4864-8e68-a46ddf2b30bc", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:baacc0cc-5983-41c4-af2f-a16c14ea85cf::", "name" => "vpn-server-route-16232", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/68e6a4b7-3e11-4864-8e68-a46ddf2b30bc", "resource_type" => "vpn_server_route" }], "certificate" => { "crn" => "crn:v1:bluemix:public:secrets-manager:us-south:a/123456:36fa422d-080d-4d83-8d2d-86851b4001df:secret:2e786aab-42fa-63ed-14f8-d66d552f4dd5" }, "client_authentication" => [{ "method" => "certificate", "identity_provider" => { "provider_type" => "iam" } }], "client_auto_delete" => true, "client_auto_delete_timeout" => 12, "client_dns_server_ips" => [{ "address" => "170.132.69.168" }, { "address" => "170.139.137.219" }], "client_idle_timeout" => 10_716, "client_ip_pool" => "172.16.0.0/16", "enable_split_tunneling" => true, "health_state" => "degraded", "hostname" => "my-vpn-server-33134.client-vpn.cloud.ibm.com", "lifecycle_state" => "deleted", "name" => "my-example-vpn-server", "port" => 1194, "protocol" => "udp", "resource_group" => { "id" => "5018a8564e8120570150b0764d39ebcc", "name" => "Default", "crn" => "crn:v1:staging:public:resource-controller::a/249d926cb9bb46119e3bda8ed7f7f618::resource-group:5018a8564e8120570150b0764d39ebcc" }, "resource_type" => "vpn_server", "security_groups" => [{ "id" => "0ded0ce9-af4e-4d55-9433-6251a9f00ea2", "name" => "sg-sed-9833-jp-tok", "href" => "http://localhost:4000/rias-mock/us-east/v1/security_groups/0ded0ce9-af4e-4d55-9433-6251a9f00ea2" }], "subnets" => [{ "id" => "0965c6b5-6c08-4545-9b26-3e620fd78839", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:51920ad2-b8c2-44da-a4eb-e455fa220d83::", "name" => "my-subnet-vpn-server", "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/0965c6b5-6c08-4545-9b26-3e620fd78839" }], "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "private_ips" => [{ "id" => "0fdd77b5-64f3-4461-9ae6-994f7a099080", "subnetId" => "0965c6b5-6c08-4545-9b26-3e620fd78839", "name" => "reservedIp-aut-5916-us-east", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:f964a2c5-e8d1-4a1a-b8ff-ae6abdcd7921::", "created_at" => "2022-04-30T06:23:50.432Z", "address" => "162.241.143.4", "status" => "available", "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "auto_delete" => true, "owner" => "user", "meta" => { "revision" => 2, "created" => 1_658_816_630_432, "version" => 0, "updated" => 1_658_816_630_433 }, "$loki" => 1407, "target" => { "resource_type" => "cloud_resource", "crn" => "crn:v1:staging:public:cloud-object-storage:global:a/4fb75f5f291f4266a40399c529aad632:e56cef34-7771-428f-b988-c86421e575ec::" }, "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/0965c6b5-6c08-4545-9b26-3e620fd78839/reserved_ips/0fdd77b5-64f3-4461-9ae6-994f7a099080", "resource_type" => "reserved_ip" }] }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    certificate_instance_identity_model = {
+      'crn': "crn:v1:bluemix:public:secrets-manager:us-south:a/123456:36fa422d-080d-4d83-8d2d-86851b4001df:secret:2e786aab-42fa-63ed-14f8-d66d552f4dd5"
+    }
+
+    vpn_server_authentication_by_username_id_provider_model = {
+      'provider_type': "iam"
+    }
+
+    vpn_server_authentication_prototype_model = {
+      'method': "certificate",
+      'identity_provider': vpn_server_authentication_by_username_id_provider_model
+    }
+
+    subnet_identity_model = {
+      'id': "970e8b78-8f09-4acf-b37a-30458bdfec96"
+    }
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 201, body: message_response.to_json, headers: headers)
+    service_response = service.create_vpn_server(
+      certificate: certificate_instance_identity_model,
+      client_authentication: [vpn_server_authentication_prototype_model],
+      client_ip_pool: "172.16.0.0/16",
+      subnets: [subnet_identity_model],
+      name: "my-example-vpn-server"
+    )
+
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_get_vpn_server
+    message_response = { "id" => "970e8b78-8f09-4acf-b37a-30458bdfec95", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:64f39757-09c8-4360-a033-5182e5dd785a::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95", "created_at" => "2022-05-31T06:23:50.431Z", "clients" => [{ "id" => "c74f8cc2-a174-4522-b057-7433e5f48833", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:71a3aeca-61ad-458f-99be-57c59ca0e60b::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/c74f8cc2-a174-4522-b057-7433e5f48833", "resource_type" => "vpn_server_client" }, { "id" => "4750e2a7-a314-40f0-b659-ca69ad55dc57", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:b1213d1a-5f9d-437f-ab03-1f7a37654cb2::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/4750e2a7-a314-40f0-b659-ca69ad55dc57", "resource_type" => "vpn_server_client" }], "routes" => [{ "id" => "bc56343b-50ae-40cb-ba48-4eb9b00ff8c5", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:618a480a-31df-410e-b02f-535b2bce1b74::", "name" => "vpn-server-route-64183", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/bc56343b-50ae-40cb-ba48-4eb9b00ff8c5", "resource_type" => "vpn_server_route" }, { "id" => "68e6a4b7-3e11-4864-8e68-a46ddf2b30bc", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:baacc0cc-5983-41c4-af2f-a16c14ea85cf::", "name" => "vpn-server-route-16232", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/68e6a4b7-3e11-4864-8e68-a46ddf2b30bc", "resource_type" => "vpn_server_route" }], "certificate" => { "crn" => "crn:v1:bluemix:public:secrets-manager:us-south:a/123456:36fa422d-080d-4d83-8d2d-86851b4001df:secret:2e786aab-42fa-63ed-14f8-d66d552f4dd5" }, "client_authentication" => [{ "method" => "certificate", "identity_provider" => { "provider_type" => "iam" } }], "client_auto_delete" => true, "client_auto_delete_timeout" => 12, "client_dns_server_ips" => [{ "address" => "170.132.69.168" }, { "address" => "170.139.137.219" }], "client_idle_timeout" => 10_716, "client_ip_pool" => "172.16.0.0/16", "enable_split_tunneling" => true, "health_state" => "degraded", "hostname" => "my-vpn-server-33134.client-vpn.cloud.ibm.com", "lifecycle_state" => "deleted", "name" => "my-example-vpn-server", "port" => 1194, "protocol" => "udp", "resource_group" => { "id" => "5018a8564e8120570150b0764d39ebcc", "name" => "Default", "crn" => "crn:v1:staging:public:resource-controller::a/249d926cb9bb46119e3bda8ed7f7f618::resource-group:5018a8564e8120570150b0764d39ebcc" }, "resource_type" => "vpn_server", "security_groups" => [{ "id" => "0ded0ce9-af4e-4d55-9433-6251a9f00ea2", "name" => "sg-sed-9833-jp-tok", "href" => "http://localhost:4000/rias-mock/us-east/v1/security_groups/0ded0ce9-af4e-4d55-9433-6251a9f00ea2" }], "subnets" => [{ "id" => "0965c6b5-6c08-4545-9b26-3e620fd78839", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:51920ad2-b8c2-44da-a4eb-e455fa220d83::", "name" => "my-subnet-vpn-server", "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/0965c6b5-6c08-4545-9b26-3e620fd78839" }], "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "private_ips" => [{ "id" => "0fdd77b5-64f3-4461-9ae6-994f7a099080", "subnetId" => "0965c6b5-6c08-4545-9b26-3e620fd78839", "name" => "reservedIp-aut-5916-us-east", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:f964a2c5-e8d1-4a1a-b8ff-ae6abdcd7921::", "created_at" => "2022-04-30T06:23:50.432Z", "address" => "162.241.143.4", "status" => "available", "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "auto_delete" => true, "owner" => "user", "meta" => { "revision" => 2, "created" => 1_658_816_630_432, "version" => 0, "updated" => 1_658_816_630_433 }, "$loki" => 1407, "target" => { "resource_type" => "cloud_resource", "crn" => "crn:v1:staging:public:cloud-object-storage:global:a/4fb75f5f291f4266a40399c529aad632:e56cef34-7771-428f-b988-c86421e575ec::" }, "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/0965c6b5-6c08-4545-9b26-3e620fd78839/reserved_ips/0fdd77b5-64f3-4461-9ae6-994f7a099080", "resource_type" => "reserved_ip" }] }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.get_vpn_server(
+      id: "970e8b78-8f09-4acf-b37a-30458bdfec95"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_update_vpn_server
+    message_response = { "id" => "970e8b78-8f09-4acf-b37a-30458bdfec95", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:64f39757-09c8-4360-a033-5182e5dd785a::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95", "created_at" => "2022-05-31T06:23:50.431Z", "clients" => [{ "id" => "c74f8cc2-a174-4522-b057-7433e5f48833", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:71a3aeca-61ad-458f-99be-57c59ca0e60b::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/c74f8cc2-a174-4522-b057-7433e5f48833", "resource_type" => "vpn_server_client" }, { "id" => "4750e2a7-a314-40f0-b659-ca69ad55dc57", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:b1213d1a-5f9d-437f-ab03-1f7a37654cb2::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/4750e2a7-a314-40f0-b659-ca69ad55dc57", "resource_type" => "vpn_server_client" }], "routes" => [{ "id" => "bc56343b-50ae-40cb-ba48-4eb9b00ff8c5", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:618a480a-31df-410e-b02f-535b2bce1b74::", "name" => "vpn-server-route-64183", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/bc56343b-50ae-40cb-ba48-4eb9b00ff8c5", "resource_type" => "vpn_server_route" }, { "id" => "68e6a4b7-3e11-4864-8e68-a46ddf2b30bc", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:baacc0cc-5983-41c4-af2f-a16c14ea85cf::", "name" => "vpn-server-route-16232", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/68e6a4b7-3e11-4864-8e68-a46ddf2b30bc", "resource_type" => "vpn_server_route" }], "certificate" => { "crn" => "crn:v1:bluemix:public:secrets-manager:us-south:a/123456:36fa422d-080d-4d83-8d2d-86851b4001df:secret:2e786aab-42fa-63ed-14f8-d66d552f4dd5" }, "client_authentication" => [{ "method" => "certificate", "identity_provider" => { "provider_type" => "iam" } }], "client_auto_delete" => true, "client_auto_delete_timeout" => 12, "client_dns_server_ips" => [{ "address" => "170.132.69.168" }, { "address" => "170.139.137.219" }], "client_idle_timeout" => 10_716, "client_ip_pool" => "172.16.0.0/16", "enable_split_tunneling" => true, "health_state" => "degraded", "hostname" => "my-vpn-server-33134.client-vpn.cloud.ibm.com", "lifecycle_state" => "deleted", "name" => "my-example-vpn-server", "port" => 1194, "protocol" => "udp", "resource_group" => { "id" => "5018a8564e8120570150b0764d39ebcc", "name" => "Default", "crn" => "crn:v1:staging:public:resource-controller::a/249d926cb9bb46119e3bda8ed7f7f618::resource-group:5018a8564e8120570150b0764d39ebcc" }, "resource_type" => "vpn_server", "security_groups" => [{ "id" => "0ded0ce9-af4e-4d55-9433-6251a9f00ea2", "name" => "sg-sed-9833-jp-tok", "href" => "http://localhost:4000/rias-mock/us-east/v1/security_groups/0ded0ce9-af4e-4d55-9433-6251a9f00ea2" }], "subnets" => [{ "id" => "0965c6b5-6c08-4545-9b26-3e620fd78839", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:51920ad2-b8c2-44da-a4eb-e455fa220d83::", "name" => "my-subnet-vpn-server", "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/0965c6b5-6c08-4545-9b26-3e620fd78839" }], "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "private_ips" => [{ "id" => "0fdd77b5-64f3-4461-9ae6-994f7a099080", "subnetId" => "0965c6b5-6c08-4545-9b26-3e620fd78839", "name" => "reservedIp-aut-5916-us-east", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:f964a2c5-e8d1-4a1a-b8ff-ae6abdcd7921::", "created_at" => "2022-04-30T06:23:50.432Z", "address" => "162.241.143.4", "status" => "available", "zone" => { "name" => "us-east-1", "region_name" => "us-east" }, "auto_delete" => true, "owner" => "user", "meta" => { "revision" => 2, "created" => 1_658_816_630_432, "version" => 0, "updated" => 1_658_816_630_433 }, "$loki" => 1407, "target" => { "resource_type" => "cloud_resource", "crn" => "crn:v1:staging:public:cloud-object-storage:global:a/4fb75f5f291f4266a40399c529aad632:e56cef34-7771-428f-b988-c86421e575ec::" }, "href" => "http://localhost:4000/rias-mock/us-east/v1/subnets/0965c6b5-6c08-4545-9b26-3e620fd78839/reserved_ips/0fdd77b5-64f3-4461-9ae6-994f7a099080", "resource_type" => "reserved_ip" }] }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    vpn_server_patch_model = {}
+    vpn_server_patch_model["name"] = "my-vpn-server-updated"
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.update_vpn_server(
+      id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      vpn_server_patch: vpn_server_patch_model
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_delete_vpn_server
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95?generation=2&version=2022-03-29")
+      .with(
+        headers: {
+          "Connection" => "close",
+          "Host" => "us-south.iaas.cloud.ibm.com",
+          "X-Ibmcloud-Sdk-Analytics" => "service_name=vpc;service_version=V1;operation_id=delete_vpn_server"
+        }
+      )
+      .to_return(status: 202, body: "", headers: {})
+    service.delete_vpn_server(
+      id: "970e8b78-8f09-4acf-b37a-30458bdfec95"
+    )
+  end
+
+  def test_get_vpn_server_client_configuration
+    # message_response = { "clients" => [{ "id" => "c74f8cc2-a174-4522-b057-7433e5f48833", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:71a3aeca-61ad-458f-99be-57c59ca0e60b::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/c74f8cc2-a174-4522-b057-7433e5f48833", "common_name" => "www.mock-certificate51610.com", "client_ip" => { "address" => "192.103.208.190" }, "data_received" => 41_053, "data_sent" => 28_914, "disconnected_at" => "", "created_at" => "2022-07-26T06:23:50.434Z", "remote_ip" => { "address" => "9.111.1.1" }, "remote_port" => 27_872, "resource_type" => "vpn_server_client", "status" => "connected" }, { "id" => "4750e2a7-a314-40f0-b659-ca69ad55dc57", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:b1213d1a-5f9d-437f-ab03-1f7a37654cb2::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/4750e2a7-a314-40f0-b659-ca69ad55dc57", "common_name" => "www.mock-certificate56773.com", "client_ip" => { "address" => "192.200.244.138" }, "data_received" => 26_558, "data_sent" => 53_975, "disconnected_at" => "2022-07-26T06:23:50.434Z", "created_at" => "2022-07-26T06:23:50.434Z", "remote_ip" => { "address" => "9.111.1.1" }, "remote_port" => 13_623, "resource_type" => "vpn_server_client", "status" => "disconnected" }], "limit" => 10, "first" => { "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients?limit=10" } }
+    message_response = "Mock data of vpn server client configuration..."
+
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/client_configuration?generation=2&version=2022-03-29")
+      .with(
+        headers: {
+          "Connection" => "close",
+          "Host" => "us-south.iaas.cloud.ibm.com",
+          "X-Ibmcloud-Sdk-Analytics" => "service_name=vpc;service_version=V1;operation_id=get_vpn_server_client_configuration"
+        }
+      )
+      .to_return(status: 200, body: message_response, headers: {})
+    service_response = service.get_vpn_server_client_configuration(
+      id: "970e8b78-8f09-4acf-b37a-30458bdfec95"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_list_vpn_server_clients
+    message_response = { "clients" => [{ "id" => "c74f8cc2-a174-4522-b057-7433e5f48833", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:71a3aeca-61ad-458f-99be-57c59ca0e60b::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/c74f8cc2-a174-4522-b057-7433e5f48833", "common_name" => "www.mock-certificate51610.com", "client_ip" => { "address" => "192.103.208.190" }, "data_received" => 41_053, "data_sent" => 28_914, "disconnected_at" => "", "created_at" => "2022-07-26T06:23:50.434Z", "remote_ip" => { "address" => "9.111.1.1" }, "remote_port" => 27_872, "resource_type" => "vpn_server_client", "status" => "connected" }, { "id" => "4750e2a7-a314-40f0-b659-ca69ad55dc57", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:b1213d1a-5f9d-437f-ab03-1f7a37654cb2::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/4750e2a7-a314-40f0-b659-ca69ad55dc57", "common_name" => "www.mock-certificate56773.com", "client_ip" => { "address" => "192.200.244.138" }, "data_received" => 26_558, "data_sent" => 53_975, "disconnected_at" => "2022-07-26T06:23:50.434Z", "created_at" => "2022-07-26T06:23:50.434Z", "remote_ip" => { "address" => "9.111.1.1" }, "remote_port" => 13_623, "resource_type" => "vpn_server_client", "status" => "disconnected" }], "limit" => 10, "first" => { "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients?limit=10" } }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients?sort=created_at&generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.list_vpn_server_clients(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      sort: "created_at"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_get_vpn_server_client
+    message_response = { "id" => "c50e2258-c3fd-4151-b422-40a2db4d752c", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:fa53fbaf-94fd-44ea-821b-6326636671ae::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/4430a134-7f73-4eb9-8f05-6c4414209459/clients/c50e2258-c3fd-4151-b422-40a2db4d752c", "common_name" => "www.mock-certificate35951.com", "client_ip" => { "address" => "192.5.149.16" }, "data_received" => 47_394, "data_sent" => 65_117, "disconnected_at" => "2022-07-26T11:16:19.251Z", "created_at" => "2022-07-26T11:16:19.251Z", "remote_ip" => { "address" => "9.111.1.1" }, "remote_port" => 15_559, "resource_type" => "vpn_server_client", "status" => "disconnected" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/c50e2258-c3fd-4151-b422-40a2db4d752c?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.get_vpn_server_client(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      id: "c50e2258-c3fd-4151-b422-40a2db4d752c"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_disconnect_vpn_client
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/clients/c50e2258-c3fd-4151-b422-40a2db4d752c/disconnect?generation=2&version=2022-03-29")
+      .with(
+        headers: {
+          "Connection" => "close",
+          "Host" => "us-south.iaas.cloud.ibm.com",
+          "X-Ibmcloud-Sdk-Analytics" => "service_name=vpc;service_version=V1;operation_id=disconnect_vpn_client"
+        }
+      )
+      .to_return(status: 202, body: "", headers: {})
+    service.disconnect_vpn_client(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      id: "c50e2258-c3fd-4151-b422-40a2db4d752c"
+    )
+  end
+
+  def test_list_vpn_server_routes
+    message_response = { "routes" => [{ "id" => "6a4053e7-c4f8-43ce-b8a2-799cf6a54cca", "name" => "vpn-server-route-10914", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:1feffe29-bca1-438d-a000-f2fb7f43ff34::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/4430a134-7f73-4eb9-8f05-6c4414209459/routes/6a4053e7-c4f8-43ce-b8a2-799cf6a54cca", "action" => "translate", "create_at" => "2022-05-10T11:16:19.252Z", "destination" => "192.99.198.0/24", "lifecycle_state" => "pending", "resource_type" => "vpn_server_route" }, { "id" => "64ed7781-c7c8-4b3b-92e6-65d7067d9949", "name" => "vpn-server-route-25134", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:97afa026-deff-4f55-bd65-e6719ed70259::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/4430a134-7f73-4eb9-8f05-6c4414209459/routes/64ed7781-c7c8-4b3b-92e6-65d7067d9949", "action" => "translate", "create_at" => "2022-05-06T11:16:19.252Z", "destination" => "192.221.154.0/24", "lifecycle_state" => "stable", "resource_type" => "vpn_server_route" }, { "id" => "bd9b698a-ce82-4a5a-b34d-d72d89b5f57e", "name" => "vpn-server-route-53876", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:13985a13-ea30-41a5-9b0e-598f9746bbc1::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/4430a134-7f73-4eb9-8f05-6c4414209459/routes/bd9b698a-ce82-4a5a-b34d-d72d89b5f57e", "action" => "drop", "create_at" => "2022-07-07T11:16:19.252Z", "destination" => "192.76.206.0/24", "lifecycle_state" => "updating", "resource_type" => "vpn_server_route" }] }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 202, body: message_response.to_json, headers: headers)
+    service_response = service.list_vpn_server_routes(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_create_vpn_server_route
+    message_response = { "id" => "5e57b6f6-3a07-4417-a3bb-fed686a0bd0b", "name" => "my-vpn-server-route", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:e0a80347-d63b-48fb-b004-9a36eed2d55c::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/4430a134-7f73-4eb9-8f05-6c4414209459/routes/5e57b6f6-3a07-4417-a3bb-fed686a0bd0b", "action" => "drop", "create_at" => "2022-07-07T11:16:19.334Z", "destination" => "172.16.0.0/16", "lifecycle_state" => "stable", "resource_type" => "vpn_server_route" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 202, body: message_response.to_json, headers: headers)
+    service_response = service.create_vpn_server_route(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      destination: "172.16.0.0/16",
+      name: "my-vpn-server-route"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_get_vpn_server_route
+    message_response = { "id" => "5e57b6f6-3a07-4417-a3bb-fed686a0bd0b", "name" => "my-vpn-server-route", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:e0a80347-d63b-48fb-b004-9a36eed2d55c::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/4430a134-7f73-4eb9-8f05-6c4414209459/routes/5e57b6f6-3a07-4417-a3bb-fed686a0bd0b", "action" => "drop", "create_at" => "2022-07-07T11:16:19.334Z", "destination" => "172.16.0.0/16", "lifecycle_state" => "stable", "resource_type" => "vpn_server_route" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/5e57b6f6-3a07-4417-a3bb-fed686a0bd0b?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 202, body: message_response.to_json, headers: headers)
+    service_response = service.get_vpn_server_route(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      id: "5e57b6f6-3a07-4417-a3bb-fed686a0bd0b"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_update_vpn_server_route
+    message_response = { "id" => "5e57b6f6-3a07-4417-a3bb-fed686a0bd0b", "name" => "my-vpn-server-route", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:e0a80347-d63b-48fb-b004-9a36eed2d55c::", "href" => "http://localhost:4000/rias-mock/us-east/v1/vpn_servers/4430a134-7f73-4eb9-8f05-6c4414209459/routes/5e57b6f6-3a07-4417-a3bb-fed686a0bd0b", "action" => "drop", "create_at" => "2022-07-07T11:16:19.334Z", "destination" => "172.16.0.0/16", "lifecycle_state" => "stable", "resource_type" => "vpn_server_route" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    vpn_server_route_patch_model = {}
+    vpn_server_route_patch_model["name"] = "my-vpnserver-route-updated"
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/5e57b6f6-3a07-4417-a3bb-fed686a0bd0b?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 202, body: message_response.to_json, headers: headers)
+    service_response = service.update_vpn_server_route(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      id: "5e57b6f6-3a07-4417-a3bb-fed686a0bd0b",
+      vpn_server_route_patch: vpn_server_route_patch_model
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_delete_vpn_server_route
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/5e57b6f6-3a07-4417-a3bb-fed686a0bd0b?generation=2&version=2022-03-29")
+      .with(
+        headers: {
+          "Connection" => "close",
+          "Host" => "us-south.iaas.cloud.ibm.com",
+          "X-Ibmcloud-Sdk-Analytics" => "service_name=vpc;service_version=V1;operation_id=delete_vpn_server_route"
+        }
+      )
+      .to_return(status: 200, body: "", headers: {})
+    service.delete_vpn_server_route(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      id: "5e57b6f6-3a07-4417-a3bb-fed686a0bd0b"
+    )
+  end
+
+  def test_delete_vpn_server_client
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_servers/970e8b78-8f09-4acf-b37a-30458bdfec95/routes/c50e2258-c3fd-4151-b422-40a2db4d752c?generation=2&version=2022-03-29")
+      .with(
+        headers: {
+          "Connection" => "close",
+          "Host" => "us-south.iaas.cloud.ibm.com",
+          "X-Ibmcloud-Sdk-Analytics" => "service_name=vpc;service_version=V1;operation_id=delete_vpn_server_route"
+        }
+      )
+      .to_return(status: 200, body: "", headers: {})
+    service.delete_vpn_server_route(
+      vpn_server_id: "970e8b78-8f09-4acf-b37a-30458bdfec95",
+      id: "c50e2258-c3fd-4151-b422-40a2db4d752c"
+    )
+  end
+
+  def test_list_backup_policies
+    message_response = { "limit" => 10, "first" => { "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies?limit=10" }, "backup_policies" => [{ "created_at" => "2022-07-08T11:46:39.284Z", "last_job_completed_at" => "2022-04-29T11:46:39.284Z", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:60e1010f-dbbf-48d0-ad78-a3e47686b414::", "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/backup-policy-1002", "id" => "backup-policy-1002", "lifecycle_state" => "stable", "match_resource_types" => ["volume"], "match_user_tags" => ["defaultPlan2:defaultPolicy1", "defaultPlan2:defaultPolicy2", "defaultPlan2:defaultPolicy3", "defaultPlan2:defaultPolicy4", "defaultPlan2:defaultPolicy5", "defaultPlan2:defaultPolicy6", "defaultPlan2:defaultPolicy7"], "name" => "aaa-default-backup-policy-2", "plans" => [{ "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/backup-policy-1002/plans/1de7bb8b-6e26-4d51-856e-8a381edbaf99", "id" => "1de7bb8b-6e26-4d51-856e-8a381edbaf99", "name" => "default-backup-policy-2-default-plan", "resource_type" => "backup_policy_plan" }], "resource_group" => { "name" => "SmokeTest", "id" => "720a9c5878c7403ba80573f717ecf9b0" }, "resource_type" => "backup_policy" }, { "created_at" => "2022-07-05T11:46:39.284Z", "last_job_completed_at" => "2022-07-08T11:46:39.284Z", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:ebac104f-077a-44a0-bc04-f9489fca5e27::", "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/backup-policy-1003", "id" => "backup-policy-1003", "lifecycle_state" => "stable", "match_resource_types" => ["volume"], "match_user_tags" => [], "name" => "aaa-default-backup-policy-3", "plans" => [{ "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/backup-policy-1003/plans/2c060bf4-0c9b-4cde-9a3d-30beb6f7111b", "id" => "2c060bf4-0c9b-4cde-9a3d-30beb6f7111b", "name" => "default-backup-policy-3-default-plan", "resource_type" => "backup_policy_plan" }], "resource_group" => { "name" => "Default", "id" => "5018a8564e8120570150b0764d39ebcc" }, "resource_type" => "backup_policy" }, { "created_at" => "2022-07-03T11:46:39.284Z", "last_job_completed_at" => "2022-07-01T11:46:39.284Z", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:cd4662bb-62a0-442b-bef3-782a58db48e0::", "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/backup-policy-1001", "id" => "backup-policy-1001", "lifecycle_state" => "stable", "match_resource_types" => ["volume"], "match_user_tags" => ["defaultBackupTag:defaultBackupTagValue"], "name" => "aaa-default-backup-policy-1", "plans" => [{ "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/backup-policy-1001/plans/3cfa3590-5481-47b0-b8b9-4f570f0afa12", "id" => "3cfa3590-5481-47b0-b8b9-4f570f0afa12", "name" => "default-backup-policy-1-default-plan", "resource_type" => "backup_policy_plan" }], "resource_group" => { "name" => "Default", "id" => "5018a8564e8120570150b0764d39ebcc" }, "resource_type" => "backup_policy" }], "total_count" => 3 }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.list_backup_policies
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_create_backup_policy
+    message_response = { "created_at" => "2022-07-26T11:48:01.147Z", "last_job_completed_at" => "2022-07-19T11:48:01.147Z", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:349162a6-0c56-4dc6-97d2-0f54611fe415::", "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1", "id" => "d5b7008f-b3da-46d4-a499-d3c8368f0ce1", "lifecycle_state" => "pending", "match_resource_types" => ["volume"], "match_user_tags" => ["my-daily-backup-policy"], "name" => "my-backup-policy", "plans" => [{ "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "name" => "my-backup-policy-plan", "resource_type" => "backup_policy_plan" }], "resource_group" => { "name" => "SmokeTest", "id" => "720a9c5878c7403ba80573f717ecf9b0" }, "resource_type" => "backup_policy", "status" => "stable" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    backup_policy_plan_deletion_trigger_prototype_model = {
+      'delete_after': 20,
+      'delete_over_count': 20
+    }
+
+    backup_policy_plan_prototype_model = {
+      'active': true,
+      'attach_user_tags': ["my-daily-backup-plan"],
+      'copy_user_tags': true,
+      'cron_spec': "*/5 1,2,3 * * *",
+      'deletion_trigger': backup_policy_plan_deletion_trigger_prototype_model,
+      'name': "my-backup-policy-plan"
+    }
+
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.create_backup_policy(
+      match_user_tags: ["my-daily-backup-policy"],
+      match_resource_types: ["volume"],
+      name: "my-backup-policy",
+      plans: [backup_policy_plan_prototype_model]
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_list_backup_policy_plans
+    message_response = { "plans" => [{ "active" => true, "attach_user_tags" => ["my-daily-backup-plan"], "copy_user_tags" => true, "created_at" => "2022-06-15T11:48:01.147Z", "cron_spec" => "*/5 1,2,3 * * *", "deletion_trigger" => { "delete_after" => 20 }, "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "lifecycle_state" => "pending", "name" => "my-backup-policy-plan", "resource_type" => "backup_policy_plan" }] }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.list_backup_policy_plans(
+      backup_policy_id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_create_backup_policy_plan
+    message_response = { "active" => true, "attach_user_tags" => ["my-daily-backup-plan"], "copy_user_tags" => true, "created_at" => "2022-06-15T11:48:01.147Z", "cron_spec" => "*/5 1,2,3 * * *", "deletion_trigger" => { "delete_after" => 20 }, "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "lifecycle_state" => "pending", "name" => "my-backup-policy-plan", "resource_type" => "backup_policy_plan" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    backup_policy_plan_deletion_trigger_prototype_model = {
+      'delete_after': 20,
+      'delete_over_count': 20
+    }
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.create_backup_policy_plan(
+      backup_policy_id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1",
+      cron_spec: "*/5 1,2,3 * * *",
+      active: true,
+      attach_user_tags: ["my-daily-backup-plan"],
+      copy_user_tags: true,
+      deletion_trigger: backup_policy_plan_deletion_trigger_prototype_model,
+      name: "my-backup-policy-plan"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_get_backup_policy_plan
+    message_response = { "active" => true, "attach_user_tags" => ["my-daily-backup-plan"], "copy_user_tags" => true, "created_at" => "2022-06-15T11:48:01.147Z", "cron_spec" => "*/5 1,2,3 * * *", "deletion_trigger" => { "delete_after" => 20 }, "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "lifecycle_state" => "pending", "name" => "my-backup-policy-plan", "resource_type" => "backup_policy_plan" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.get_backup_policy_plan(
+      backup_policy_id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1",
+      id: "9eab386c-1d86-47fb-8d86-e0732ebcce06"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_update_backup_policy_plan
+    message_response = { "active" => true, "attach_user_tags" => ["my-daily-backup-plan"], "copy_user_tags" => true, "created_at" => "2022-06-15T11:48:01.147Z", "cron_spec" => "*/5 1,2,3 * * *", "deletion_trigger" => { "delete_after" => 20 }, "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "lifecycle_state" => "pending", "name" => "my-backup-policy-plan", "resource_type" => "backup_policy_plan" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    backup_policy_plan_patch_model = {}
+    backup_policy_plan_patch_model["name"] = "my-backup-policy-plan-updated"
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.update_backup_policy_plan(
+      backup_policy_id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1",
+      id: "9eab386c-1d86-47fb-8d86-e0732ebcce06",
+      backup_policy_plan_patch: backup_policy_plan_patch_model
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_get_backup_policy
+    message_response = { "created_at" => "2022-07-26T11:48:01.147Z", "last_job_completed_at" => "2022-07-19T11:48:01.147Z", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:349162a6-0c56-4dc6-97d2-0f54611fe415::", "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1", "id" => "d5b7008f-b3da-46d4-a499-d3c8368f0ce1", "lifecycle_state" => "pending", "match_resource_types" => ["volume"], "match_user_tags" => ["my-daily-backup-policy"], "name" => "my-backup-policy", "plans" => [{ "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "name" => "my-backup-policy-plan-updated", "resource_type" => "backup_policy_plan" }, { "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/8d0c8d7f-7b61-441d-9cd7-21acef0566bf", "id" => "8d0c8d7f-7b61-441d-9cd7-21acef0566bf", "name" => "my-backup-policy-plan", "resource_type" => "backup_policy" }], "resource_group" => { "name" => "SmokeTest", "id" => "720a9c5878c7403ba80573f717ecf9b0" }, "resource_type" => "backup_policy", "status" => "stable" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.get_backup_policy(
+      id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1"
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_update_backup_policy
+    message_response = { "created_at" => "2022-07-26T11:48:01.147Z", "last_job_completed_at" => "2022-07-19T11:48:01.147Z", "crn" => "crn:v1:staging:public:is:us-east:a/823bd195e9fd4f0db40ac2e1bffef3e0:349162a6-0c56-4dc6-97d2-0f54611fe415::", "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1", "id" => "d5b7008f-b3da-46d4-a499-d3c8368f0ce1", "lifecycle_state" => "pending", "match_resource_types" => ["volume"], "match_user_tags" => ["my-daily-backup-policy"], "name" => "my-backup-policy-updated", "plans" => [{ "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "name" => "my-backup-policy-plan-updated", "resource_type" => "backup_policy_plan" }, { "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/8d0c8d7f-7b61-441d-9cd7-21acef0566bf", "id" => "8d0c8d7f-7b61-441d-9cd7-21acef0566bf", "name" => "my-backup-policy-plan", "resource_type" => "backup_policy" }], "resource_group" => { "name" => "SmokeTest", "id" => "720a9c5878c7403ba80573f717ecf9b0" }, "resource_type" => "backup_policy", "status" => "stable" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    backup_policy_patch_model = {}
+    backup_policy_patch_model["name"] = "my-backup-policy-updated"
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 200, body: message_response.to_json, headers: headers)
+    service_response = service.update_backup_policy(
+      id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1",
+      backup_policy_patch: backup_policy_patch_model
+    )
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_delete_backup_policy_plan
+    message_response = { "active" => true, "attach_user_tags" => ["my-daily-backup-plan"], "copy_user_tags" => true, "created_at" => "2022-06-15T11:48:01.147Z", "cron_spec" => "*/5 1,2,3 * * *", "deletion_trigger" => { "delete_after" => 20 }, "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06", "id" => "9eab386c-1d86-47fb-8d86-e0732ebcce06", "lifecycle_state" => "pending", "name" => "my-backup-policy-plan-updated", "resource_type" => "backup_policy_plan" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/9eab386c-1d86-47fb-8d86-e0732ebcce06?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 202, body: message_response.to_json, headers: headers)
+    service_response = service.delete_backup_policy_plan(
+      backup_policy_id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1",
+      id: "9eab386c-1d86-47fb-8d86-e0732ebcce06"
+    )
+    assert_equal(202, service_response.status)
+    assert_equal(message_response, service_response.result)
+  end
+
+  def test_delete_backup_policy
+    message_response = { "created_at" => "2022-07-26T11:48:01.147Z", "last_job_completed_at" => "2022-07-19T11:48:01.147Z", "crn" => "crn:v1:staging:public:is:eu-gb:a/823bd195e9fd4f0db40ac2e1bffef3e0:349162a6-0c56-4dc6-97d2-0f54611fe415::", "href" => "", "id" => "d5b7008f-b3da-46d4-a499-d3c8368f0ce1", "lifecycle_state" => "pending", "match_resource_types" => ["volume"], "match_user_tags" => ["my-daily-backup-policy"], "name" => "my-backup-policy-updated", "plans" => [{ "active" => true, "created_at" => "2022-04-22T11:48:01.161Z", "last_job_completed_at" => "2022-05-10T11:48:01.161Z", "href" => "http://localhost:4000/rias-mock/us-east/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1/plans/8d0c8d7f-7b61-441d-9cd7-21acef0566bf", "id" => "8d0c8d7f-7b61-441d-9cd7-21acef0566bf", "lifecycle_state" => "pending", "name" => "my-backup-policy-plan", "copy_user_tags" => true, "resource_type" => "backup_policy", "deletion_trigger" => { "delete_after" => 20 }, "cron_spec" => "*/5 1,2,3 * * *", "attach_user_tags" => ["my-daily-backup-plan"], "deletionTrigger" => { "delete_after" => 20 } }], "resource_group" => { "id" => "720a9c5878c7403ba80573f717ecf9b0" }, "resource_type" => "backup_policy", "region" => "us-east", "status" => "stable" }
+    headers = {
+      "Content-Type" => "application/json"
+    }
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/backup_policies/d5b7008f-b3da-46d4-a499-d3c8368f0ce1?generation=2&version=2022-03-29")
+      .with(
+        headers: { "Accept" => "application/json" }
+      )
+      .to_return(status: 202, body: message_response.to_json, headers: headers)
+    service_response = service.delete_backup_policy(
+      id: "d5b7008f-b3da-46d4-a499-d3c8368f0ce1"
+    )
+    assert_equal(202, service_response.status)
+    assert_equal(message_response, service_response.result)
+  end
+
   def test_list_vpn_gateway_connection_local_cidrs
     message_response = {
       "local_cidrs" => [
@@ -4228,7 +4632,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4247,7 +4651,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs/0.0.19.0/24?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs/0.0.19.0/24?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.remove_vpn_gateway_connection_local_cidr(
       vpn_gateway_id: "a7d258d5-be1e-491d-83db-526d8d9a2ce9",
@@ -4267,7 +4671,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs/0.0.19.0/24?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs/0.0.19.0/24?generation=2&version=2022-03-29")
       .to_return(status: 200, body: message_response.to_json, headers: headers)
     service.check_vpn_gateway_connection_local_cidr(
       vpn_gateway_id: "a7d258d5-be1e-491d-83db-526d8d9a2ce9",
@@ -4287,7 +4691,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs/0.0.19.0/24?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/local_cidrs/0.0.19.0/24?generation=2&version=2022-03-29")
       .to_return(status: 200, body: message_response.to_json, headers: headers)
     service.add_vpn_gateway_connection_local_cidr(
       vpn_gateway_id: "a7d258d5-be1e-491d-83db-526d8d9a2ce9",
@@ -4307,7 +4711,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4326,7 +4730,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs/0.0.150.0/24?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs/0.0.150.0/24?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.remove_vpn_gateway_connection_peer_cidr(
       vpn_gateway_id: "a7d258d5-be1e-491d-83db-526d8d9a2ce9",
@@ -4342,7 +4746,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs/0.0.150.0/24?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs/0.0.150.0/24?generation=2&version=2022-03-29")
       .to_return(status: 200, body: message_response.to_json, headers: headers)
     service.check_vpn_gateway_connection_peer_cidr(
       vpn_gateway_id: "a7d258d5-be1e-491d-83db-526d8d9a2ce9",
@@ -4358,7 +4762,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs/0.0.150.0/24?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/vpn_gateways/a7d258d5-be1e-491d-83db-526d8d9a2ce9/connections/b67efb2c-bd17-457d-be8e-7b46404062dc/peer_cidrs/0.0.150.0/24?generation=2&version=2022-03-29")
       .to_return(status: 200, body: message_response.to_json, headers: headers)
     service.add_vpn_gateway_connection_peer_cidr(
       vpn_gateway_id: "a7d258d5-be1e-491d-83db-526d8d9a2ce9",
@@ -4375,7 +4779,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancer/profiles?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancer/profiles?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4392,7 +4796,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancer/profiles/network-fixed?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancer/profiles/network-fixed?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4413,7 +4817,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4430,7 +4834,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4456,7 +4860,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_load_balancer(
       id: "7b6dc78d-49f3-435f-b767-e05f9affd3ca"
@@ -4470,7 +4874,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4489,7 +4893,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4513,7 +4917,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca/statistics?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/7b6dc78d-49f3-435f-b767-e05f9affd3ca/statistics?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4534,7 +4938,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4553,7 +4957,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4573,7 +4977,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_load_balancer_listener(
       load_balancer_id: "2c791a20-4109-4484-894a-09f332753169",
@@ -4588,7 +4992,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4608,7 +5012,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4628,7 +5032,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4647,7 +5051,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4668,7 +5072,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_load_balancer_listener_policy(
       load_balancer_id: "2c791a20-4109-4484-894a-09f332753169",
@@ -4683,7 +5087,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4703,7 +5107,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4724,7 +5128,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4744,7 +5148,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4767,7 +5171,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules/b2f46c0b-4dd6-4881-9d53-a2a6581ac43b?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules/b2f46c0b-4dd6-4881-9d53-a2a6581ac43b?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_load_balancer_listener_policy_rule(
       load_balancer_id: "2c791a20-4109-4484-894a-09f332753169",
@@ -4783,7 +5187,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules/b2f46c0b-4dd6-4881-9d53-a2a6581ac43b?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules/b2f46c0b-4dd6-4881-9d53-a2a6581ac43b?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4804,7 +5208,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules/b2f46c0b-4dd6-4881-9d53-a2a6581ac43b?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/listeners/f5ceb28b-f448-4a5e-8d9d-ec81714f20bd/policies/47d4c9f2-8e41-433d-a095-2287efe4b8ae/rules/b2f46c0b-4dd6-4881-9d53-a2a6581ac43b?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4829,7 +5233,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4848,7 +5252,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109­4484-894a-09f332753169/pools?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109­4484-894a-09f332753169/pools?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4875,7 +5279,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/64d1a65c-d759-4e87-9dc5-ff570d41e4b6/pools/528c70d0-acc1-47c7-a32d-698c350f4f81?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/64d1a65c-d759-4e87-9dc5-ff570d41e4b6/pools/528c70d0-acc1-47c7-a32d-698c350f4f81?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_load_balancer_pool(
       load_balancer_id: "64d1a65c-d759-4e87-9dc5-ff570d41e4b6",
@@ -4890,7 +5294,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/64d1a65c-d759-4e87-9dc5-ff570d41e4b6/pools/528c70d0-acc1-47c7-a32d-698c350f4f81?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/64d1a65c-d759-4e87-9dc5-ff570d41e4b6/pools/528c70d0-acc1-47c7-a32d-698c350f4f81?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4910,7 +5314,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/64d1a65c-d759-4e87-9dc5-ff570d41e4b6/pools/528c70d0-acc1-47c7-a32d-698c350f4f81?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/64d1a65c-d759-4e87-9dc5-ff570d41e4b6/pools/528c70d0-acc1-47c7-a32d-698c350f4f81?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4953,7 +5357,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -4981,7 +5385,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5002,7 +5406,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5043,7 +5447,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members/daebeb48-1658-4772-8ca9-e410cd6e1415?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members/daebeb48-1658-4772-8ca9-e410cd6e1415?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.delete_load_balancer_pool_member(
       load_balancer_id: "2c791a20-4109-4484-894a-09f332753169",
@@ -5067,7 +5471,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members/daebeb48-1658-4772-8ca9-e410cd6e1415?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members/daebeb48-1658-4772-8ca9-e410cd6e1415?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5096,7 +5500,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members/daebeb48-1658-4772-8ca9-e410cd6e1415?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/load_balancers/2c791a20-4109-4484-894a-09f332753169/pools/54ad563a-0261-11e9-8317-bec54e704988/members/daebeb48-1658-4772-8ca9-e410cd6e1415?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5122,7 +5526,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5139,7 +5543,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5166,7 +5570,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5184,7 +5588,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips/0716-9faf2f32-8528-4180-a14d-c1f6c5c83292?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips/0716-9faf2f32-8528-4180-a14d-c1f6c5c83292?generation=2&version=2022-03-29")
       .to_return(status: 204, body: message_response.to_json, headers: headers)
     service.remove_endpoint_gateway_ip(
       endpoint_gateway_id: "r134-a4841334-b584-4293-938e-3bc63b4a5b6a",
@@ -5214,7 +5618,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips/0716-9faf2f32-8528-4180-a14d-c1f6c5c83292?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips/0716-9faf2f32-8528-4180-a14d-c1f6c5c83292?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5233,7 +5637,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips/0716-9faf2f32-8528-4180-a14d-c1f6c5c83292?generation=2&version=2021-12-07")
+    stub_request(:put, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a/ips/0716-9faf2f32-8528-4180-a14d-c1f6c5c83292?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5252,7 +5656,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a?generation=2&version=2022-03-29")
       .to_return(status: 200, body: message_response.to_json, headers: headers)
     service.delete_endpoint_gateway(
       id: "r134-a4841334-b584-4293-938e-3bc63b4a5b6a"
@@ -5266,7 +5670,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5285,7 +5689,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/endpoint_gateways/r134-a4841334-b584-4293-938e-3bc63b4a5b6a?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5305,7 +5709,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5322,7 +5726,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors?generation=2&version=2021-12-07")
+    stub_request(:post, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5350,7 +5754,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors/4dd1852a-3373-46c0-9240-f9c7f0d0c1a3?generation=2&version=2021-12-07")
+    stub_request(:delete, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors/4dd1852a-3373-46c0-9240-f9c7f0d0c1a3?generation=2&version=2022-03-29")
       .to_return(status: 200, body: message_response.to_json, headers: headers)
     service.delete_flow_log_collector(
       id: "4dd1852a-3373-46c0-9240-f9c7f0d0c1a3"
@@ -5364,7 +5768,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors/4dd1852a-3373-46c0-9240-f9c7f0d0c1a3?generation=2&version=2021-12-07")
+    stub_request(:get, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors/4dd1852a-3373-46c0-9240-f9c7f0d0c1a3?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )
@@ -5383,7 +5787,7 @@ class VpcV1Test < Minitest::Test
       "Content-Type" => "application/json"
     }
 
-    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors/4dd1852a-3373-46c0-9240-f9c7f0d0c1a3?generation=2&version=2021-12-07")
+    stub_request(:patch, "https://us-south.iaas.cloud.ibm.com/v1/flow_log_collectors/4dd1852a-3373-46c0-9240-f9c7f0d0c1a3?generation=2&version=2022-03-29")
       .with(
         headers: { "Accept" => "application/json" }
       )

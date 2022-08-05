@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# (C) Copyright IBM Corp. 2021.
+# (C) Copyright IBM Corp. 2020, 2021, 2022.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# IBM OpenAPI SDK Code Generator Version: 3.43.0-49eab5c7-20211117-152138
+# IBM OpenAPI SDK Code Generator Version: 3.50.0-af9e48c4-20220523-163800
 #
 # The IBM Cloud Virtual Private Cloud (VPC) API can be used to programmatically
 # provision and manage virtual server instances, along with subnets, volumes, load
@@ -33,7 +33,7 @@ module IbmVpc
     include Concurrent::Async
     DEFAULT_SERVICE_NAME = "vpc"
     DEFAULT_SERVICE_URL = "https://us-south.iaas.cloud.ibm.com/v1"
-    DEFAULT_SERVICE_VERSION = "2021-12-07"
+    DEFAULT_SERVICE_VERSION = "2022-03-29"
     attr_accessor :version
     attr_accessor :generation
     ##
@@ -41,9 +41,8 @@ module IbmVpc
     # Construct a new client for the vpc service.
     #
     # @param args [Hash] The args to initialize with
-    # @option args version [String] Requests the API version as of a date, in format `YYYY-MM-DD`. Any date between
-    #   `2019-01-01` and the current date may be specified. Specify the current date to
-    #   request the latest version.
+    # @option args version [String] The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
+    #   specify any date between `2022-07-12` and today's date (UTC).
     # @option args service_url [String] The base service URL to use when contacting the service.
     #   The base service_url may differ between IBM Cloud regions.
     # @option args authenticator [Object] The Authenticator instance to be configured for this service.
@@ -122,14 +121,13 @@ module IbmVpc
     # This request creates a new VPC from a VPC prototype object. The prototype object
     #   is structured in the same way as a retrieved VPC, and contains the information
     #   necessary to create the new VPC.
-    # @param address_prefix_management [String] Indicates whether a default address prefix should be automatically created for
-    #   each zone in this VPC. If `manual`, this VPC will be created with no default
-    #   address prefixes.
+    # @param address_prefix_management [String] Indicates whether a default address prefix will be automatically created for each
+    #   zone in this VPC. If `manual`, this VPC will be created with no default address
+    #   prefixes.
     #
-    #   This property's value is used only when creating the VPC. Since address prefixes
-    #   are managed identically regardless of whether they were automatically created, the
-    #   value is not preserved as a VPC property.
-    # @param classic_access [Boolean] Indicates whether this VPC should be connected to Classic Infrastructure. If true,
+    #   Since address prefixes are managed identically regardless of whether they were
+    #   automatically created, the value is not preserved as a VPC property.
+    # @param classic_access [Boolean] Indicates whether this VPC will be connected to Classic Infrastructure. If true,
     #   this VPC's resources will have private network connectivity to the account's
     #   Classic Infrastructure resources. Only one VPC, per region, may be connected in
     #   this way. This value is set at creation and subsequently immutable.
@@ -700,8 +698,9 @@ module IbmVpc
     # @param name [String] The user-defined name for this route. If unspecified, the name will be a
     #   hyphenated list of randomly-selected words. Names must be unique within the VPC
     #   routing table the route resides in.
-    # @param next_hop [RouteNextHopPrototype] If `action` is `deliver`, the next hop that packets will be delivered to.  For
-    #   other `action` values, it must be omitted or specified as `0.0.0.0`.
+    # @param next_hop [RoutePrototypeNextHop] If `action` is `deliver`, the next hop that packets will be delivered to. For
+    #   other `action`
+    #   values, it must be omitted or specified as `0.0.0.0`.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_vpc_route(vpc_id:, destination:, zone:, action: nil, name: nil, next_hop: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -915,12 +914,17 @@ module IbmVpc
     end
 
     ##
-    # @!method create_vpc_routing_table(vpc_id:, name: nil, route_direct_link_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
+    # @!method create_vpc_routing_table(vpc_id:, accept_routes_from: nil, name: nil, route_direct_link_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
     # Create a routing table for a VPC.
     # This request creates a user-defined routing table from a routing table prototype
     #   object. The prototype object is structured in the same way as a retrieved routing
     #   table, and contains the information necessary to create the new routing table.
     # @param vpc_id [String] The VPC identifier.
+    # @param accept_routes_from [Array[ResourceFilter]] The filters specifying the resources that may create routes in this routing table.
+    #
+    #   At present, only the `resource_type` filter is permitted, and only the
+    #   `vpn_server` value is supported, but filter support is expected to expand in the
+    #   future.
     # @param name [String] The user-defined name for this routing table. Names must be unique within the VPC
     #   the routing table resides in. If unspecified, the name will be a hyphenated list
     #   of randomly-selected words.
@@ -931,9 +935,9 @@ module IbmVpc
     #
     #   Incoming traffic will be routed according to the routing table with one exception:
     #   routes with an `action` of `deliver` are treated as `drop` unless the `next_hop`
-    #   is an IP address within the VPC's address prefix ranges. Therefore, if an incoming
-    #   packet matches a route with a `next_hop` of an internet-bound IP address or a VPN
-    #   gateway connection, the packet will be dropped.
+    #   is an IP address bound to a network interface on a subnet in the route's `zone`.
+    #   Therefore, if an incoming packet matches a route with a `next_hop` of an
+    #   internet-bound IP address or a VPN gateway connection, the packet will be dropped.
     # @param route_transit_gateway_ingress [Boolean] If set to `true`, this routing table will be used to route traffic that originates
     #   from [Transit Gateway](https://cloud.ibm.com/cloud/transit-gateway/) to this VPC.
     #   For this to succeed, the VPC must not already have a routing table with this
@@ -941,9 +945,9 @@ module IbmVpc
     #
     #   Incoming traffic will be routed according to the routing table with one exception:
     #   routes with an `action` of `deliver` are treated as `drop` unless the `next_hop`
-    #   is an IP address within the VPC's address prefix ranges. Therefore, if an incoming
-    #   packet matches a route with a `next_hop` of an internet-bound IP address or a VPN
-    #   gateway connection, the packet will be dropped.
+    #   is an IP address bound to a network interface on a subnet in the route's `zone`.
+    #   Therefore, if an incoming packet matches a route with a `next_hop` of an
+    #   internet-bound IP address or a VPN gateway connection, the packet will be dropped.
     #
     #   If [Classic
     #   Access](https://cloud.ibm.com/docs/vpc?topic=vpc-setting-up-access-to-classic-infrastructure)
@@ -961,7 +965,7 @@ module IbmVpc
     # @param routes [Array[RoutePrototype]] The prototype objects for routes to create for this routing table. If unspecified,
     #   the routing table will be created with no routes.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_vpc_routing_table(vpc_id:, name: nil, route_direct_link_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
+    def create_vpc_routing_table(vpc_id:, accept_routes_from: nil, name: nil, route_direct_link_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -979,6 +983,7 @@ module IbmVpc
       }
 
       data = {
+        "accept_routes_from" => accept_routes_from,
         "name" => name,
         "route_direct_link_ingress" => route_direct_link_ingress,
         "route_transit_gateway_ingress" => route_transit_gateway_ingress,
@@ -1000,15 +1005,17 @@ module IbmVpc
     end
 
     ##
-    # @!method delete_vpc_routing_table(vpc_id:, id:)
+    # @!method delete_vpc_routing_table(vpc_id:, id:, if_match: nil)
     # Delete a VPC routing table.
     # This request deletes a routing table.  A routing table cannot be deleted if it is
     #   associated with any subnets in the VPC. Additionally, a VPC's default routing
     #   table cannot be deleted. This operation cannot be reversed.
     # @param vpc_id [String] The VPC identifier.
     # @param id [String] The routing table identifier.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value.
     # @return [nil]
-    def delete_vpc_routing_table(vpc_id:, id:)
+    def delete_vpc_routing_table(vpc_id:, id:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -1018,6 +1025,7 @@ module IbmVpc
       raise ArgumentError.new("id must be provided") if id.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_vpc_routing_table")
       headers.merge!(sdk_headers)
@@ -1079,7 +1087,7 @@ module IbmVpc
     end
 
     ##
-    # @!method update_vpc_routing_table(vpc_id:, id:, routing_table_patch:)
+    # @!method update_vpc_routing_table(vpc_id:, id:, routing_table_patch:, if_match: nil)
     # Update a VPC routing table.
     # This request updates a routing table with the information in a provided routing
     #   table patch. The patch object is structured in the same way as a retrieved table
@@ -1087,8 +1095,10 @@ module IbmVpc
     # @param vpc_id [String] The VPC identifier.
     # @param id [String] The routing table identifier.
     # @param routing_table_patch [Hash] The routing table patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def update_vpc_routing_table(vpc_id:, id:, routing_table_patch:)
+    def update_vpc_routing_table(vpc_id:, id:, routing_table_patch:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -1100,6 +1110,7 @@ module IbmVpc
       raise ArgumentError.new("routing_table_patch must be provided") if routing_table_patch.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_vpc_routing_table")
       headers.merge!(sdk_headers)
@@ -1128,12 +1139,12 @@ module IbmVpc
     ##
     # @!method list_vpc_routing_table_routes(vpc_id:, routing_table_id:, start: nil, limit: nil)
     # List all routes in a VPC routing table.
-    # This request lists all routes in a VPC routing table. If a subnet has been
-    #   associated with this routing table, delivery of packets sent on a subnet is
-    #   performed according to the action of the most specific matching route in the table
-    #   (provided the subnet and route are in the same zone). If multiple equally-specific
-    #   routes exist, traffic will be distributed across them. If no routes match,
-    #   delivery will be controlled by the system's built-in routes.
+    # This request lists all routes in a VPC routing table. If subnets are associated
+    #   with this routing table, delivery of packets sent on a subnet is performed
+    #   according to the action of the most specific matching route in the table (provided
+    #   the subnet and route are in the same zone). If multiple equally-specific routes
+    #   exist, traffic will be distributed across them. If no routes match, delivery will
+    #   be controlled by the system's built-in routes.
     # @param vpc_id [String] The VPC identifier.
     # @param routing_table_id [String] The routing table identifier.
     # @param start [String] A server-provided token determining what resource to start the page on.
@@ -1196,8 +1207,9 @@ module IbmVpc
     # @param name [String] The user-defined name for this route. If unspecified, the name will be a
     #   hyphenated list of randomly-selected words. Names must be unique within the VPC
     #   routing table the route resides in.
-    # @param next_hop [RouteNextHopPrototype] If `action` is `deliver`, the next hop that packets will be delivered to.  For
-    #   other `action` values, it must be omitted or specified as `0.0.0.0`.
+    # @param next_hop [RoutePrototypeNextHop] If `action` is `deliver`, the next hop that packets will be delivered to. For
+    #   other `action`
+    #   values, it must be omitted or specified as `0.0.0.0`.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_vpc_routing_table_route(vpc_id:, routing_table_id:, destination:, zone:, action: nil, name: nil, next_hop: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -1870,8 +1882,8 @@ module IbmVpc
     ##
     # @!method list_subnet_reserved_ips(subnet_id:, start: nil, limit: nil, sort: nil)
     # List all reserved IPs in a subnet.
-    # This request lists reserved IPs in a subnet that are unbound or bound to an
-    #   endpoint gateway.
+    # This request lists all reserved IPs in a subnet. A reserved IP resource will exist
+    #   for every address in the subnet which is not available for use.
     # @param subnet_id [String] The subnet identifier.
     # @param start [String] A server-provided token determining what resource to start the page on.
     # @param limit [Fixnum] The number of resources to return on a page.
@@ -1914,10 +1926,14 @@ module IbmVpc
     end
 
     ##
-    # @!method create_subnet_reserved_ip(subnet_id:, auto_delete: nil, name: nil, target: nil)
+    # @!method create_subnet_reserved_ip(subnet_id:, address: nil, auto_delete: nil, name: nil, target: nil)
     # Reserve an IP in a subnet.
-    # This request reserves a system-selected IP address in a subnet.
+    # This request reserves an IP address in a subnet. If the provided prototype object
+    #   includes an `address`, the address must not already be reserved.
     # @param subnet_id [String] The subnet identifier.
+    # @param address [String] The IP address to reserve, which must not already be reserved on the subnet.
+    #
+    #   If unspecified, an available address on the subnet will automatically be selected.
     # @param auto_delete [Boolean] Indicates whether this reserved IP member will be automatically deleted when
     #   either
     #   `target` is deleted, or the reserved IP is unbound. Must be `false` if the
@@ -1926,9 +1942,11 @@ module IbmVpc
     #   hyphenated list of randomly-selected words. Names must be unique within the subnet
     #   the reserved IP resides in. Names beginning with `ibm-` are reserved for
     #   provider-owned resources.
-    # @param target [ReservedIPTargetPrototype] The target this reserved IP is to be bound to.
+    # @param target [ReservedIPTargetPrototype] The target this reserved IP is to be bound to. The target must be an endpoint
+    #   gateway not
+    #   already bound to a reserved IP in the subnet's zone.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_subnet_reserved_ip(subnet_id:, auto_delete: nil, name: nil, target: nil)
+    def create_subnet_reserved_ip(subnet_id:, address: nil, auto_delete: nil, name: nil, target: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -1946,6 +1964,7 @@ module IbmVpc
       }
 
       data = {
+        "address" => address,
         "auto_delete" => auto_delete,
         "name" => name,
         "target" => target
@@ -1966,7 +1985,7 @@ module IbmVpc
 
     ##
     # @!method delete_subnet_reserved_ip(subnet_id:, id:)
-    # Release a reserved IP.
+    # Delete a reserved IP.
     # This request releases a reserved IP. This operation cannot be reversed.
     # @param subnet_id [String] The subnet identifier.
     # @param id [String] The reserved IP identifier.
@@ -1991,7 +2010,8 @@ module IbmVpc
       }
 
       method_url = "/subnets/%s/reserved_ips/%s" % [ERB::Util.url_encode(subnet_id), ERB::Util.url_encode(id)]
-
+      puts params
+      puts method_url
       request(
         method: "DELETE",
         url: method_url,
@@ -2188,8 +2208,10 @@ module IbmVpc
     # Delete an image.
     # This request deletes an image. This operation cannot be reversed. A
     #   system-provided image is not allowed to be deleted. Additionally, an image cannot
-    #   be deleted if it has a
-    #   `status` of `pending`, `tentative`, or `deleting`.
+    #   be deleted if it:
+    #   - has a `status` of `tentative` or `deleting`
+    #   - has a `status` of `pending` with a `status_reasons` code of
+    #   `image_request_in_progress`.
     # @param id [String] The image identifier.
     # @return [nil]
     def delete_image(id:)
@@ -3359,7 +3381,7 @@ module IbmVpc
     end
 
     ##
-    # @!method create_instance_network_interface(instance_id:, subnet:, allow_ip_spoofing: nil, name: nil, primary_ipv4_address: nil, security_groups: nil)
+    # @!method create_instance_network_interface(instance_id:, subnet:, allow_ip_spoofing: nil, name: nil, primary_ip: nil, security_groups: nil)
     # Create a network interface on an instance.
     # This request creates a new network interface from a network interface prototype
     #   object. The prototype object is structured in the same way as a retrieved network
@@ -3375,12 +3397,19 @@ module IbmVpc
     # @param name [String] The user-defined name for network interface. Names must be unique within the
     #   instance the network interface resides in. If unspecified, the name will be a
     #   hyphenated list of randomly-selected words.
-    # @param primary_ipv4_address [String] The primary IPv4 address. If specified, it must be an available address on the
-    #   network interface's subnet. If unspecified, an available address on the subnet
-    #   will be automatically selected.
-    # @param security_groups [Array[SecurityGroupIdentity]] Collection of security groups.
+    # @param primary_ip [NetworkInterfaceIPPrototype] The primary IP address to bind to the network interface. This can be specified
+    #   using
+    #   an existing reserved IP, or a prototype object for a new reserved IP.
+    #
+    #   If an existing reserved IP or a prototype object with an address is specified, it
+    #   must
+    #   be available on the network interface's subnet. Otherwise, an available address on
+    #   the
+    #   subnet will be automatically selected and reserved.
+    # @param security_groups [Array[SecurityGroupIdentity]] The security groups to use for this network interface. If unspecified, the VPC's
+    #   default security group is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_instance_network_interface(instance_id:, subnet:, allow_ip_spoofing: nil, name: nil, primary_ipv4_address: nil, security_groups: nil)
+    def create_instance_network_interface(instance_id:, subnet:, allow_ip_spoofing: nil, name: nil, primary_ip: nil, security_groups: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -3403,7 +3432,7 @@ module IbmVpc
         "subnet" => subnet,
         "allow_ip_spoofing" => allow_ip_spoofing,
         "name" => name,
-        "primary_ipv4_address" => primary_ipv4_address,
+        "primary_ip" => primary_ip,
         "security_groups" => security_groups
       }
 
@@ -3716,6 +3745,90 @@ module IbmVpc
     end
 
     ##
+    # @!method list_instance_network_interface_ips(instance_id:, network_interface_id:, start: nil, limit: nil)
+    # List all reserved IPs bound to a network interface.
+    # This request lists all reserved IPs bound to a network interface.
+    # @param instance_id [String] The instance identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_instance_network_interface_ips(instance_id:, network_interface_id:, start: nil, limit: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("instance_id must be provided") if instance_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_instance_network_interface_ips")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
+      }
+
+      method_url = "/instances/%s/network_interfaces/%s/ips" % [ERB::Util.url_encode(instance_id), ERB::Util.url_encode(network_interface_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_instance_network_interface_ip(instance_id:, network_interface_id:, id:)
+    # Retrieve bound reserved IP.
+    # This request a retrieves the specified reserved IP address if it is bound to the
+    #   network interface and instance specified in the URL.
+    # @param instance_id [String] The instance identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @param id [String] The reserved IP identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_instance_network_interface_ip(instance_id:, network_interface_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("instance_id must be provided") if instance_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_instance_network_interface_ip")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/instances/%s/network_interfaces/%s/ips/%s" % [ERB::Util.url_encode(instance_id), ERB::Util.url_encode(network_interface_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
     # @!method list_instance_volume_attachments(instance_id:)
     # List all volumes attachments on an instance.
     # This request lists all volume attachments on an instance. A volume attachment
@@ -3976,18 +4089,24 @@ module IbmVpc
     # @!method create_instance_group(instance_template:, subnets:, application_port: nil, load_balancer: nil, load_balancer_pool: nil, membership_count: nil, name: nil, resource_group: nil)
     # Create an instance group.
     # This request creates a new instance group.
-    # @param instance_template [InstanceTemplateIdentity] Identifies an instance template by a unique property.
+    # @param instance_template [InstanceTemplateIdentity] Instance template to use when creating new instances.
+    #
+    #   Instance groups are not compatible with instance templates that specify `true` for
+    #   `default_trusted_profile.auto_link`.
     # @param subnets [Array[SubnetIdentity]] The subnets to use when creating new instances.
     # @param application_port [Fixnum] Required if specifying a load balancer pool only. Used by the instance group when
     #   scaling up instances to supply the port for the load balancer pool member.
-    # @param load_balancer [LoadBalancerIdentity] The load balancer that the load balancer pool used by this group
-    #   is in. Required when using a load balancer pool.
+    # @param load_balancer [LoadBalancerIdentity] The load balancer associated with the specified load balancer pool.
+    #   Required if `load_balancer_pool` is specified.
+    #
+    #   At present, only load balancers in the `application` family are supported.
     # @param load_balancer_pool [LoadBalancerPoolIdentity] If specified, the load balancer pool will be managed by this
     #   group. Instances created by this group will have a new load
     #   balancer pool member in that pool created. Must be used with
     #   `application_port`.
     # @param membership_count [Fixnum] The number of instances in the instance group.
-    # @param name [String] The user-defined name for this instance group.
+    # @param name [String] The unique user-defined name for this instance group. If unspecified, the name
+    #   will be a hyphenated list of randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -5637,6 +5756,477 @@ module IbmVpc
       response
     end
     #########################
+    # Backup policies
+    #########################
+
+    ##
+    # @!method list_backup_policies(start: nil, limit: nil, resource_group_id: nil, name: nil, tag: nil)
+    # List all backup policies.
+    # This request lists all backup policies in the region. Backup policies control
+    #   which sources are selected for backup and include a set of backup policy plans
+    #   that provide the backup schedules and deletion triggers.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param resource_group_id [String] Filters the collection to resources in the resource group with the specified
+    #   identifier.
+    # @param name [String] Filters the collection to resources with the exact specified name.
+    # @param tag [String] Filters the collection to resources with the exact tag value.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_backup_policies(start: nil, limit: nil, resource_group_id: nil, name: nil, tag: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_backup_policies")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit,
+        "resource_group.id" => resource_group_id,
+        "name" => name,
+        "tag" => tag
+      }
+
+      method_url = "/backup_policies"
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_backup_policy(match_user_tags: nil, match_resource_types: nil, name: nil, plans: nil, resource_group: nil)
+    # Create a backup policy.
+    # This request creates a new backup policy from a backup policy prototype object.
+    #   The prototype object is structured in the same way as a retrieved backup policy,
+    #   and contains the information necessary to create the new backup policy.
+    # @param match_user_tags [Array[String]] The user tags this backup policy applies to. Resources that have both a matching
+    #   user tag and a matching type will be subject to the backup policy.
+    # @param match_resource_types [Array[String]] A resource type this backup policy applies to. Resources that have both a matching
+    #   type and a matching user tag will be subject to the backup policy.
+    # @param name [String] The user-defined name for this backup policy. Names must be unique within the
+    #   region this backup policy resides in. If unspecified, the name will be a
+    #   hyphenated list of randomly-selected words.
+    # @param plans [Array[BackupPolicyPlanPrototype]] The prototype objects for backup plans to be created for this backup policy.
+    # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
+    #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_backup_policy(match_user_tags: nil, match_resource_types: nil, name: nil, plans: nil, resource_group: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_backup_policy")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "match_user_tags" => match_user_tags,
+        "match_resource_types" => match_resource_types,
+        "name" => name,
+        "plans" => plans,
+        "resource_group" => resource_group
+      }
+
+      method_url = "/backup_policies"
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_backup_policy_plans(backup_policy_id:, name: nil)
+    # List all plans for a backup policy.
+    # This request retrieves all plans for a backup policy. Backup plans provide the
+    #   backup schedule and deletion triggers.
+    # @param backup_policy_id [String] The backup policy identifier.
+    # @param name [String] Filters the collection to resources with the exact specified name.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_backup_policy_plans(backup_policy_id:, name: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("backup_policy_id must be provided") if backup_policy_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_backup_policy_plans")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "name" => name
+      }
+
+      method_url = "/backup_policies/%s/plans" % [ERB::Util.url_encode(backup_policy_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_backup_policy_plan(backup_policy_id:, cron_spec:, active: nil, attach_user_tags: nil, copy_user_tags: nil, deletion_trigger: nil, name: nil)
+    # Create a plan for a backup policy.
+    # This request creates a new backup policy plan from a backup policy plan prototype
+    #   object. The prototype object is structured in the same way as a retrieved backup
+    #   policy plan, and contains the information necessary to create the new backup
+    #   policy plan.
+    #
+    #   Backups created by this plan will use the resource group of the source being
+    #   backed up.
+    #
+    #   Backups created by this plan will use the plan's name truncated to 46 characters,
+    #   followed by a unique 16-character suffix.
+    # @param backup_policy_id [String] The backup policy identifier.
+    # @param cron_spec [String] The cron specification for the backup schedule. The backup policy jobs
+    #   (which create and delete backups for this plan) will not start until this time,
+    #   and may start for up to 90 minutes after this time.
+    #
+    #   All backup schedules for plans in the same policy must be at least an hour apart.
+    # @param active [Boolean] Indicates whether the plan is active.
+    # @param attach_user_tags [Array[String]] User tags to attach to each backup (snapshot) created by this plan. If
+    #   unspecified, no user tags will be attached.
+    # @param copy_user_tags [Boolean] Indicates whether to copy the source's user tags to the created backups
+    #   (snapshots).
+    # @param deletion_trigger [BackupPolicyPlanDeletionTriggerPrototype]
+    # @param name [String] The user-defined name for this backup policy plan. Names must be unique within the
+    #   backup policy this plan resides in. If unspecified, the name will be a hyphenated
+    #   list of randomly-selected words.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_backup_policy_plan(backup_policy_id:, cron_spec:, active: nil, attach_user_tags: nil, copy_user_tags: nil, deletion_trigger: nil, name: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("backup_policy_id must be provided") if backup_policy_id.nil?
+
+      raise ArgumentError.new("cron_spec must be provided") if cron_spec.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_backup_policy_plan")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "cron_spec" => cron_spec,
+        "active" => active,
+        "attach_user_tags" => attach_user_tags,
+        "copy_user_tags" => copy_user_tags,
+        "deletion_trigger" => deletion_trigger,
+        "name" => name
+      }
+
+      method_url = "/backup_policies/%s/plans" % [ERB::Util.url_encode(backup_policy_id)]
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_backup_policy_plan(backup_policy_id:, id:, if_match: nil)
+    # Delete a backup policy plan.
+    # This request deletes a backup policy plan. This operation cannot be reversed. Any
+    #   backups that have been created by the plan will remain but will no longer be
+    #   subject to the plan's deletion trigger. Any running jobs associated with the plan
+    #   will run to completion before the plan is deleted.
+    #
+    #   If the request is accepted, the backup policy plan `status` will be set to
+    #   `deleting`. Once deletion processing completes, the backup policy plan will no
+    #   longer be retrievable.
+    # @param backup_policy_id [String] The backup policy identifier.
+    # @param id [String] The backup policy plan identifier.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def delete_backup_policy_plan(backup_policy_id:, id:, if_match: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("backup_policy_id must be provided") if backup_policy_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+        "If-Match" => if_match
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_backup_policy_plan")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/backup_policies/%s/plans/%s" % [ERB::Util.url_encode(backup_policy_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_backup_policy_plan(backup_policy_id:, id:)
+    # Retrieve a backup policy plan.
+    # This request retrieves a single backup policy plan specified by the identifier in
+    #   the URL.
+    # @param backup_policy_id [String] The backup policy identifier.
+    # @param id [String] The backup policy plan identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_backup_policy_plan(backup_policy_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("backup_policy_id must be provided") if backup_policy_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_backup_policy_plan")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/backup_policies/%s/plans/%s" % [ERB::Util.url_encode(backup_policy_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_backup_policy_plan(backup_policy_id:, id:, backup_policy_plan_patch:, if_match: nil)
+    # Update a backup policy plan.
+    # This request updates a backup policy plan with the information in a provided plan
+    #   patch. The plan patch object is structured in the same way as a retrieved backup
+    #   policy plan and can contains only the information to be updated.
+    # @param backup_policy_id [String] The backup policy identifier.
+    # @param id [String] The backup policy plan identifier.
+    # @param backup_policy_plan_patch [Hash] The backup policy plan patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_backup_policy_plan(backup_policy_id:, id:, backup_policy_plan_patch:, if_match: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("backup_policy_id must be provided") if backup_policy_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("backup_policy_plan_patch must be provided") if backup_policy_plan_patch.nil?
+
+      headers = {
+        "If-Match" => if_match
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_backup_policy_plan")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = backup_policy_plan_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/backup_policies/%s/plans/%s" % [ERB::Util.url_encode(backup_policy_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_backup_policy(id:, if_match: nil)
+    # Delete a backup policy.
+    # This request deletes a backup policy. This operation cannot be reversed.
+    #
+    #   If the request is accepted, the backup policy `status` will be set to `deleting`.
+    #   Once deletion processing completes, the backup policy will no longer be
+    #   retrievable.
+    # @param id [String] The backup policy identifier.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def delete_backup_policy(id:, if_match: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+        "If-Match" => if_match
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_backup_policy")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/backup_policies/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_backup_policy(id:)
+    # Retrieve a backup policy.
+    # This request retrieves a single backup policy specified by the identifier in the
+    #   URL.
+    # @param id [String] The backup policy identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_backup_policy(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_backup_policy")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/backup_policies/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_backup_policy(id:, backup_policy_patch:, if_match: nil)
+    # Update a backup policy.
+    # This request updates a backup policy with the information in a provided backup
+    #   policy patch. The backup policy patch object is structured in the same way as a
+    #   retrieved backup policy and contains only the information to be updated.
+    # @param id [String] The backup policy identifier.
+    # @param backup_policy_patch [Hash] The backup policy patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_backup_policy(id:, backup_policy_patch:, if_match: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("backup_policy_patch must be provided") if backup_policy_patch.nil?
+
+      headers = {
+        "If-Match" => if_match
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_backup_policy")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = backup_policy_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/backup_policies/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+    #########################
     # Placement groups
     #########################
 
@@ -5846,6 +6436,1035 @@ module IbmVpc
       response
     end
     #########################
+    # Bare metal servers
+    #########################
+
+    ##
+    # @!method list_bare_metal_server_profiles(start: nil, limit: nil)
+    # List all bare metal server profiles.
+    # This request lists all bare metal server profiles available in the region. A bare
+    #   metal server profile specifies the performance characteristics and pricing model
+    #   for a bare metal server.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_bare_metal_server_profiles(start: nil, limit: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_bare_metal_server_profiles")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
+      }
+
+      method_url = "/bare_metal_server/profiles"
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_bare_metal_server_profile(name:)
+    # Retrieve a bare metal server profile.
+    # This request retrieves a single bare metal server profile specified by the name in
+    #   the URL.
+    # @param name [String] The bare metal server profile name.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_bare_metal_server_profile(name:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("name must be provided") if name.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_bare_metal_server_profile")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_server/profiles/%s" % [ERB::Util.url_encode(name)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_bare_metal_servers(start: nil, limit: nil, resource_group_id: nil, name: nil, vpc_id: nil, vpc_crn: nil, vpc_name: nil, network_interfaces_subnet_id: nil, network_interfaces_subnet_crn: nil, network_interfaces_subnet_name: nil)
+    # List all bare metal servers.
+    # This request lists all bare metal servers in the region.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param resource_group_id [String] Filters the collection to resources in the resource group with the specified
+    #   identifier.
+    # @param name [String] Filters the collection to resources with the exact specified name.
+    # @param vpc_id [String] Filters the collection to resources in the VPC with the specified identifier.
+    # @param vpc_crn [String] Filters the collection to resources in the VPC with the specified CRN.
+    # @param vpc_name [String] Filters the collection to resources in the VPC with the exact specified name.
+    # @param network_interfaces_subnet_id [String] Filters the collection to bare metal servers on the subnet with the specified
+    #   identifier.
+    # @param network_interfaces_subnet_crn [String] Filters the collection to bare metal servers on the subnet with the specified CRN.
+    # @param network_interfaces_subnet_name [String] Filters the collection to bare metal servers on the subnet with the specified
+    #   name.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_bare_metal_servers(start: nil, limit: nil, resource_group_id: nil, name: nil, vpc_id: nil, vpc_crn: nil, vpc_name: nil, network_interfaces_subnet_id: nil, network_interfaces_subnet_crn: nil, network_interfaces_subnet_name: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_bare_metal_servers")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit,
+        "resource_group.id" => resource_group_id,
+        "name" => name,
+        "vpc.id" => vpc_id,
+        "vpc.crn" => vpc_crn,
+        "vpc.name" => vpc_name,
+        "network_interfaces.subnet.id" => network_interfaces_subnet_id,
+        "network_interfaces.subnet.crn" => network_interfaces_subnet_crn,
+        "network_interfaces.subnet.name" => network_interfaces_subnet_name
+      }
+
+      method_url = "/bare_metal_servers"
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_bare_metal_server(initialization:, primary_network_interface:, profile:, zone:, name: nil, network_interfaces: nil, resource_group: nil, vpc: nil)
+    # Create a bare metal server.
+    # This request provisions a new bare metal server from a prototype object. The
+    #   prototype object is structured in the same way as a retrieved bare metal server,
+    #   and contains the information necessary to provision the new bare metal server. The
+    #   bare metal server is automatically started.
+    # @param initialization [BareMetalServerInitializationPrototype]
+    # @param primary_network_interface [BareMetalServerPrimaryNetworkInterfacePrototype] Primary network interface for the bare metal server.
+    # @param profile [BareMetalServerProfileIdentity] The profile to use for this bare metal server.
+    # @param zone [ZoneIdentity] The zone this bare metal server will reside in.
+    # @param name [String] The unique user-defined name for this bare metal server (and default system
+    #   hostname). If unspecified, the name will be a hyphenated list of randomly-selected
+    #   words.
+    # @param network_interfaces [Array[BareMetalServerNetworkInterfacePrototype]] The additional network interfaces to create for the bare metal server.
+    # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
+    #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
+    # @param vpc [VPCIdentity] The VPC the bare metal server is to be a part of. If specified, it must match the
+    #   VPC referenced by the subnets of the server's network interfaces.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_bare_metal_server(initialization:, primary_network_interface:, profile:, zone:, name: nil, network_interfaces: nil, resource_group: nil, vpc: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("initialization must be provided") if initialization.nil?
+
+      raise ArgumentError.new("primary_network_interface must be provided") if primary_network_interface.nil?
+
+      raise ArgumentError.new("profile must be provided") if profile.nil?
+
+      raise ArgumentError.new("zone must be provided") if zone.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_bare_metal_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "initialization" => initialization,
+        "primary_network_interface" => primary_network_interface,
+        "profile" => profile,
+        "zone" => zone,
+        "name" => name,
+        "network_interfaces" => network_interfaces,
+        "resource_group" => resource_group,
+        "vpc" => vpc
+      }
+
+      method_url = "/bare_metal_servers"
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_bare_metal_server_console_access_token(bare_metal_server_id:, console_type:, force: nil)
+    # Create a console access token for a bare metal server.
+    # This request creates a new single-use console access token for a bare metal
+    #   server. All console configuration is provided at token create time, and the token
+    #   is subsequently used in the `access_token` query parameter for the WebSocket
+    #   request.  The access token is only valid for a short period of time, and a maximum
+    #   of one token is valid for a given bare metal server at a time.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param console_type [String] The bare metal server console type for which this token may be used.
+    # @param force [Boolean] Indicates whether to disconnect an existing serial console session as the serial
+    #   console cannot be shared.  This has no effect on VNC consoles.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_bare_metal_server_console_access_token(bare_metal_server_id:, console_type:, force: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("console_type must be provided") if console_type.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_bare_metal_server_console_access_token")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "console_type" => console_type,
+        "force" => force
+      }
+
+      method_url = "/bare_metal_servers/%s/console_access_token" % [ERB::Util.url_encode(bare_metal_server_id)]
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_bare_metal_server_disks(bare_metal_server_id:)
+    # List all disks on a bare metal server.
+    # This request lists all disks on a bare metal server.  A disk is a block device
+    #   that is locally attached to the physical server.  By default, the listed disks are
+    #   sorted by their `created_at` property values, with the newest disk first.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_bare_metal_server_disks(bare_metal_server_id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_bare_metal_server_disks")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/disks" % [ERB::Util.url_encode(bare_metal_server_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_bare_metal_server_disk(bare_metal_server_id:, id:)
+    # Retrieve a bare metal server disk.
+    # This request retrieves a single disk specified by the identifier in the URL.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param id [String] The bare metal server disk identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_bare_metal_server_disk(bare_metal_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_bare_metal_server_disk")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/disks/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_bare_metal_server_disk(bare_metal_server_id:, id:, bare_metal_server_disk_patch:)
+    # Update a bare metal server disk.
+    # This request updates the bare metal server disk with the information in a provided
+    #   patch.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param id [String] The bare metal server disk identifier.
+    # @param bare_metal_server_disk_patch [Hash] The bare metal server disk patch.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_bare_metal_server_disk(bare_metal_server_id:, id:, bare_metal_server_disk_patch:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("bare_metal_server_disk_patch must be provided") if bare_metal_server_disk_patch.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_bare_metal_server_disk")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = bare_metal_server_disk_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/bare_metal_servers/%s/disks/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_bare_metal_server_network_interfaces(bare_metal_server_id:, start: nil, limit: nil)
+    # List all network interfaces on a bare metal server.
+    # This request lists all network interfaces on a bare metal server. A network
+    #   interface is an abstract representation of a network interface card and connects a
+    #   bare metal server to a subnet. While each network interface can attach to only one
+    #   subnet, multiple network interfaces can be created to attach to multiple subnets.
+    #   Multiple interfaces may also attach to the same subnet.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_bare_metal_server_network_interfaces(bare_metal_server_id:, start: nil, limit: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_bare_metal_server_network_interfaces")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces" % [ERB::Util.url_encode(bare_metal_server_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_bare_metal_server_network_interface(bare_metal_server_id:, bare_metal_server_network_interface_prototype:)
+    # Create a network interface on a bare metal server.
+    # This request creates a new network interface from a network interface prototype
+    #   object. The prototype object is structured in the same way as a retrieved network
+    #   interface, and contains the information necessary to create the new network
+    #   interface. Any subnet in the bare metal server's VPC may be specified, even if it
+    #   is already attached to another network interface. Addresses on the network
+    #   interface must be within the specified subnet's CIDR blocks.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param bare_metal_server_network_interface_prototype [BareMetalServerNetworkInterfacePrototype] The network interface prototype object.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_bare_metal_server_network_interface(bare_metal_server_id:, bare_metal_server_network_interface_prototype:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("bare_metal_server_network_interface_prototype must be provided") if bare_metal_server_network_interface_prototype.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_bare_metal_server_network_interface")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = bare_metal_server_network_interface_prototype
+      headers["Content-Type"] = "application/json"
+
+      method_url = "/bare_metal_servers/%s/network_interfaces" % [ERB::Util.url_encode(bare_metal_server_id)]
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_bare_metal_server_network_interface(bare_metal_server_id:, id:)
+    # Delete a network interface.
+    # This request deletes a network interface. This operation cannot be reversed. Any
+    #   floating IPs associated with the network interface are implicitly disassociated.
+    #   The primary network interface is not allowed to be deleted.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param id [String] The network interface identifier.
+    # @return [nil]
+    def delete_bare_metal_server_network_interface(bare_metal_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_bare_metal_server_network_interface")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(id)]
+
+      request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method get_bare_metal_server_network_interface(bare_metal_server_id:, id:)
+    # Retrieve a network interface.
+    # This request retrieves a single network interface specified by the identifier in
+    #   the URL.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param id [String] The network interface identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_bare_metal_server_network_interface(bare_metal_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_bare_metal_server_network_interface")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_bare_metal_server_network_interface(bare_metal_server_id:, id:, bare_metal_server_network_interface_patch:)
+    # Update a network interface.
+    # This request updates a network interface with the information provided in a
+    #   network interface patch object. The network interface patch object is structured
+    #   in the same way as a retrieved network interface and needs to contain only the
+    #   information to be updated.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param id [String] The network interface identifier.
+    # @param bare_metal_server_network_interface_patch [Hash] The network interface patch.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_bare_metal_server_network_interface(bare_metal_server_id:, id:, bare_metal_server_network_interface_patch:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("bare_metal_server_network_interface_patch must be provided") if bare_metal_server_network_interface_patch.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_bare_metal_server_network_interface")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = bare_metal_server_network_interface_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_bare_metal_server_network_interface_floating_ips(bare_metal_server_id:, network_interface_id:)
+    # List all floating IPs associated with a network interface.
+    # This request lists all floating IPs associated with a network interface.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_bare_metal_server_network_interface_floating_ips(bare_metal_server_id:, network_interface_id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_bare_metal_server_network_interface_floating_ips")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s/floating_ips" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(network_interface_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method remove_bare_metal_server_network_interface_floating_ip(bare_metal_server_id:, network_interface_id:, id:)
+    # Disassociate a floating IP from a network interface.
+    # This request disassociates the specified floating IP from the specified network
+    #   interface.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @param id [String] The floating IP identifier.
+    # @return [nil]
+    def remove_bare_metal_server_network_interface_floating_ip(bare_metal_server_id:, network_interface_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "remove_bare_metal_server_network_interface_floating_ip")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s/floating_ips/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(network_interface_id), ERB::Util.url_encode(id)]
+
+      request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method get_bare_metal_server_network_interface_floating_ip(bare_metal_server_id:, network_interface_id:, id:)
+    # Retrieve associated floating IP.
+    # This request a retrieves a specified floating IP address if it is associated with
+    #   the network interface and bare metal server specified in the URL.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @param id [String] The floating IP identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_bare_metal_server_network_interface_floating_ip(bare_metal_server_id:, network_interface_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_bare_metal_server_network_interface_floating_ip")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s/floating_ips/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(network_interface_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method add_bare_metal_server_network_interface_floating_ip(bare_metal_server_id:, network_interface_id:, id:)
+    # Associate a floating IP with a network interface.
+    # This request associates the specified floating IP with the specified network
+    #   interface. If `enable_infrastructure_nat` is `false`, this adds the IP to any
+    #   existing associations. If `enable_infrastructure_nat` is `true`, this replaces any
+    #   existing association.  For this request to succeed, the existing floating IP must
+    #   not be required by another resource, such as a public gateway. A request body is
+    #   not required, and if provided, is ignored.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @param id [String] The floating IP identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def add_bare_metal_server_network_interface_floating_ip(bare_metal_server_id:, network_interface_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "add_bare_metal_server_network_interface_floating_ip")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s/floating_ips/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(network_interface_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PUT",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_bare_metal_server(id:)
+    # Delete a bare metal server.
+    # This request deletes a bare metal server. This operation cannot be reversed. Any
+    #   floating IPs associated with the bare metal server's network interfaces are
+    #   implicitly disassociated.
+    # @param id [String] The bare metal server identifier.
+    # @return [nil]
+    def delete_bare_metal_server(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_bare_metal_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s" % [ERB::Util.url_encode(id)]
+
+      request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method get_bare_metal_server(id:)
+    # Retrieve a bare metal server.
+    # This request retrieves a single bare metal server specified by the identifier in
+    #   the URL.
+    # @param id [String] The bare metal server identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_bare_metal_server(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_bare_metal_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_bare_metal_server(id:, bare_metal_server_patch:)
+    # Update a bare metal server.
+    # This request updates a bare metal server with the information in a provided patch.
+    #   The bare metal server patch object is structured in the same way as a retrieved
+    #   bare metal server and contains only the information to be updated.
+    # @param id [String] The bare metal server identifier.
+    # @param bare_metal_server_patch [Hash] The bare metal server patch.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_bare_metal_server(id:, bare_metal_server_patch:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("bare_metal_server_patch must be provided") if bare_metal_server_patch.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_bare_metal_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = bare_metal_server_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/bare_metal_servers/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_bare_metal_server_initialization(id:)
+    # Retrieve initialization configuration for a bare metal server.
+    # This request retrieves configuration variables used to initialize the bare metal
+    #   server, such as the image used, SSH keys, and any configured usernames and
+    #   passwords.  These attributes can subsequently be changed manually by the user and
+    #   so are not guaranteed to be current.
+    # @param id [String] The bare metal server identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_bare_metal_server_initialization(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_bare_metal_server_initialization")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/initialization" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method restart_bare_metal_server(id:)
+    # Restart a bare metal server.
+    # This request restarts a bare metal server.  It will run immediately regardless of
+    #   the state of the server.
+    # @param id [String] The bare metal server identifier.
+    # @return [nil]
+    def restart_bare_metal_server(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "restart_bare_metal_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/restart" % [ERB::Util.url_encode(id)]
+
+      request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method start_bare_metal_server(id:)
+    # Start a bare metal server.
+    # This request starts a bare metal server.  It will run immediately provided the
+    #   server is stopped.
+    # @param id [String] The bare metal server identifier.
+    # @return [nil]
+    def start_bare_metal_server(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "start_bare_metal_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/start" % [ERB::Util.url_encode(id)]
+
+      request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method stop_bare_metal_server(id:, type:)
+    # Stop a bare metal server.
+    # This request stops a bare metal server. It will run immediately provided the
+    #   server is running. Note: A soft stop may not complete as it relies on the
+    #   operating system to perform the operation.
+    # @param id [String] The bare metal server identifier.
+    # @param type [String] The type of stop operation:
+    #   - `soft`: signal running operating system to quiesce and shutdown cleanly
+    #   - `hard`: immediately stop the server.
+    # @return [nil]
+    def stop_bare_metal_server(id:, type:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("type must be provided") if type.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "stop_bare_metal_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "type" => type
+      }
+
+      method_url = "/bare_metal_servers/%s/stop" % [ERB::Util.url_encode(id)]
+
+      request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: false
+      )
+      nil
+    end
+    #########################
     # Volumes
     #########################
 
@@ -6004,13 +7623,15 @@ module IbmVpc
     end
 
     ##
-    # @!method delete_volume(id:)
+    # @!method delete_volume(id:, if_match: nil)
     # Delete a volume.
     # This request deletes a volume. This operation cannot be reversed. For this request
     #   to succeed, the volume must not be attached to any instances.
     # @param id [String] The volume identifier.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value.
     # @return [nil]
-    def delete_volume(id:)
+    def delete_volume(id:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -6018,6 +7639,7 @@ module IbmVpc
       raise ArgumentError.new("id must be provided") if id.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_volume")
       headers.merge!(sdk_headers)
@@ -6075,15 +7697,17 @@ module IbmVpc
     end
 
     ##
-    # @!method update_volume(id:, volume_patch:)
+    # @!method update_volume(id:, volume_patch:, if_match: nil)
     # Update a volume.
     # This request updates a volume with the information in a provided volume patch. The
     #   volume patch object is structured in the same way as a retrieved volume and
     #   contains only the information to be updated.
     # @param id [String] The volume identifier.
     # @param volume_patch [Hash] The volume patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def update_volume(id:, volume_patch:)
+    def update_volume(id:, volume_patch:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -6093,6 +7717,7 @@ module IbmVpc
       raise ArgumentError.new("volume_patch must be provided") if volume_patch.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_volume")
       headers.merge!(sdk_headers)
@@ -6159,12 +7784,13 @@ module IbmVpc
     end
 
     ##
-    # @!method list_snapshots(start: nil, limit: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil)
+    # @!method list_snapshots(start: nil, limit: nil, tag: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil, backup_policy_plan_id: nil)
     # List all snapshots.
     # This request lists all snapshots in the region. A snapshot preserves the data of a
     #   volume at the time the snapshot is created.
     # @param start [String] A server-provided token determining what resource to start the page on.
     # @param limit [Fixnum] The number of resources to return on a page.
+    # @param tag [String] Filters the collection to resources with the exact tag value.
     # @param resource_group_id [String] Filters the collection to resources in the resource group with the specified
     #   identifier.
     # @param name [String] Filters the collection to resources with the exact specified name.
@@ -6187,8 +7813,10 @@ module IbmVpc
     #   value `-created_at` sorts the collection by the `created_at` property in
     #   descending order, and the value `name` sorts it by the `name` property in
     #   ascending order.
+    # @param backup_policy_plan_id [String] Filters the collection to backup policy jobs with the backup plan with the
+    #   specified identifier.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_snapshots(start: nil, limit: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil)
+    def list_snapshots(start: nil, limit: nil, tag: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil, backup_policy_plan_id: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -6203,13 +7831,15 @@ module IbmVpc
         "generation" => @generation,
         "start" => start,
         "limit" => limit,
+        "tag" => tag,
         "resource_group.id" => resource_group_id,
         "name" => name,
         "source_volume.id" => source_volume_id,
         "source_volume.crn" => source_volume_crn,
         "source_image.id" => source_image_id,
         "source_image.crn" => source_image_crn,
-        "sort" => sort
+        "sort" => sort,
+        "backup_policy_plan.id" => backup_policy_plan_id
       }
 
       method_url = "/snapshots"
@@ -6225,23 +7855,19 @@ module IbmVpc
     end
 
     ##
-    # @!method create_snapshot(source_volume:, name: nil, resource_group: nil)
+    # @!method create_snapshot(snapshot_prototype:)
     # Create a snapshot.
     # This request creates a new snapshot from a snapshot prototype object.  The
     #   prototype object is structured in the same way as a retrieved snapshot, and
     #   contains the information necessary to provision the new snapshot.
-    # @param source_volume [VolumeIdentity] The volume to snapshot.
-    # @param name [String] The unique user-defined name for this snapshot. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words.
-    # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
-    #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
+    # @param snapshot_prototype [SnapshotPrototype] The snapshot prototype object.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_snapshot(source_volume:, name: nil, resource_group: nil)
+    def create_snapshot(snapshot_prototype:)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
 
-      raise ArgumentError.new("source_volume must be provided") if source_volume.nil?
+      raise ArgumentError.new("snapshot_prototype must be provided") if snapshot_prototype.nil?
 
       headers = {
       }
@@ -6253,11 +7879,8 @@ module IbmVpc
         "generation" => @generation
       }
 
-      data = {
-        "source_volume" => source_volume,
-        "name" => name,
-        "resource_group" => resource_group
-      }
+      data = snapshot_prototype
+      headers["Content-Type"] = "application/json"
 
       method_url = "/snapshots"
 
@@ -6266,19 +7889,21 @@ module IbmVpc
         url: method_url,
         headers: headers,
         params: params,
-        json: data,
+        data: data,
         accept_json: true
       )
       response
     end
 
     ##
-    # @!method delete_snapshot(id:)
+    # @!method delete_snapshot(id:, if_match: nil)
     # Delete a snapshot.
     # This request deletes a snapshot. This operation cannot be reversed.
     # @param id [String] The snapshot identifier.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value.
     # @return [nil]
-    def delete_snapshot(id:)
+    def delete_snapshot(id:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -6286,6 +7911,7 @@ module IbmVpc
       raise ArgumentError.new("id must be provided") if id.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_snapshot")
       headers.merge!(sdk_headers)
@@ -6343,13 +7969,15 @@ module IbmVpc
     end
 
     ##
-    # @!method update_snapshot(id:, snapshot_patch:)
+    # @!method update_snapshot(id:, snapshot_patch:, if_match: nil)
     # Update a snapshot.
     # This request updates a snapshot's name.
     # @param id [String] The snapshot identifier.
     # @param snapshot_patch [Hash] The snapshot patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def update_snapshot(id:, snapshot_patch:)
+    def update_snapshot(id:, snapshot_patch:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -6359,6 +7987,7 @@ module IbmVpc
       raise ArgumentError.new("snapshot_patch must be provided") if snapshot_patch.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_snapshot")
       headers.merge!(sdk_headers)
@@ -6760,7 +8389,7 @@ module IbmVpc
     #########################
 
     ##
-    # @!method list_floating_ips(start: nil, limit: nil, resource_group_id: nil)
+    # @!method list_floating_ips(start: nil, limit: nil, resource_group_id: nil, sort: nil)
     # List all floating IPs.
     # This request lists all floating IPs in the region. Floating IPs allow inbound and
     #   outbound traffic from the Internet to an instance.
@@ -6768,8 +8397,13 @@ module IbmVpc
     # @param limit [Fixnum] The number of resources to return on a page.
     # @param resource_group_id [String] Filters the collection to resources in the resource group with the specified
     #   identifier.
+    # @param sort [String] Sorts the returned collection by the specified property name in ascending order. A
+    #   `-` may be prepended to the name to sort in descending order. For example, the
+    #   value `-created_at` sorts the collection by the `created_at` property in
+    #   descending order, and the value `name` sorts it by the `name` property in
+    #   ascending order.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_floating_ips(start: nil, limit: nil, resource_group_id: nil)
+    def list_floating_ips(start: nil, limit: nil, resource_group_id: nil, sort: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -6784,7 +8418,8 @@ module IbmVpc
         "generation" => @generation,
         "start" => start,
         "limit" => limit,
-        "resource_group.id" => resource_group_id
+        "resource_group.id" => resource_group_id,
+        "sort" => sort
       }
 
       method_url = "/floating_ips"
@@ -6840,7 +8475,7 @@ module IbmVpc
 
     ##
     # @!method delete_floating_ip(id:)
-    # Release a floating IP.
+    # Delete a floating IP.
     # This request disassociates (if associated) and releases a floating IP. This
     #   operation cannot be reversed. For this request to succeed, the floating IP must
     #   not be required by another resource, such as a public gateway.
@@ -7474,9 +9109,8 @@ module IbmVpc
     # @!method delete_security_group(id:)
     # Delete a security group.
     # This request deletes a security group. A security group cannot be deleted if it is
-    #   referenced by any network interfaces or other security group rules. Additionally,
-    #   a VPC's default security group cannot be deleted. This operation cannot be
-    #   reversed.
+    #   referenced by any security group targets or rules. Additionally, a VPC's default
+    #   security group cannot be deleted. This operation cannot be reversed.
     # @param id [String] The security group identifier.
     # @return [nil]
     def delete_security_group(id:)
@@ -7589,169 +9223,6 @@ module IbmVpc
     end
 
     ##
-    # @!method list_security_group_network_interfaces(security_group_id:, start: nil, limit: nil)
-    # List all network interfaces associated with a security group.
-    # This request lists all network interfaces associated with a security group, to
-    #   which the rules in the security group are applied.
-    # @param security_group_id [String] The security group identifier.
-    # @param start [String] A server-provided token determining what resource to start the page on.
-    # @param limit [Fixnum] The number of resources to return on a page.
-    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_security_group_network_interfaces(security_group_id:, start: nil, limit: nil)
-      raise ArgumentError.new("version must be provided") if version.nil?
-
-      raise ArgumentError.new("generation must be provided") if generation.nil?
-
-      raise ArgumentError.new("security_group_id must be provided") if security_group_id.nil?
-
-      headers = {
-      }
-      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_security_group_network_interfaces")
-      headers.merge!(sdk_headers)
-
-      params = {
-        "version" => @version,
-        "generation" => @generation,
-        "start" => start,
-        "limit" => limit
-      }
-
-      method_url = "/security_groups/%s/network_interfaces" % [ERB::Util.url_encode(security_group_id)]
-
-      response = request(
-        method: "GET",
-        url: method_url,
-        headers: headers,
-        params: params,
-        accept_json: true
-      )
-      response
-    end
-
-    ##
-    # @!method remove_security_group_network_interface(security_group_id:, id:)
-    # Remove a network interface from a security group.
-    # This request removes a network interface from a security group. Security groups
-    #   are stateful, so any changes to a network interface's security groups are applied
-    #   to new connections. Existing connections are not affected. If the network
-    #   interface being removed has no other security groups, it will be attached to the
-    #   VPC's default security group.
-    # @param security_group_id [String] The security group identifier.
-    # @param id [String] The network interface identifier.
-    # @return [nil]
-    def remove_security_group_network_interface(security_group_id:, id:)
-      raise ArgumentError.new("version must be provided") if version.nil?
-
-      raise ArgumentError.new("generation must be provided") if generation.nil?
-
-      raise ArgumentError.new("security_group_id must be provided") if security_group_id.nil?
-
-      raise ArgumentError.new("id must be provided") if id.nil?
-
-      headers = {
-      }
-      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "remove_security_group_network_interface")
-      headers.merge!(sdk_headers)
-
-      params = {
-        "version" => @version,
-        "generation" => @generation
-      }
-
-      method_url = "/security_groups/%s/network_interfaces/%s" % [ERB::Util.url_encode(security_group_id), ERB::Util.url_encode(id)]
-
-      request(
-        method: "DELETE",
-        url: method_url,
-        headers: headers,
-        params: params,
-        accept_json: false
-      )
-      nil
-    end
-
-    ##
-    # @!method get_security_group_network_interface(security_group_id:, id:)
-    # Retrieve a network interface in a security group.
-    # This request retrieves a single network interface specified by the identifier in
-    #   the URL path. The network interface must be an existing member of the security
-    #   group.
-    # @param security_group_id [String] The security group identifier.
-    # @param id [String] The network interface identifier.
-    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def get_security_group_network_interface(security_group_id:, id:)
-      raise ArgumentError.new("version must be provided") if version.nil?
-
-      raise ArgumentError.new("generation must be provided") if generation.nil?
-
-      raise ArgumentError.new("security_group_id must be provided") if security_group_id.nil?
-
-      raise ArgumentError.new("id must be provided") if id.nil?
-
-      headers = {
-      }
-      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_security_group_network_interface")
-      headers.merge!(sdk_headers)
-
-      params = {
-        "version" => @version,
-        "generation" => @generation
-      }
-
-      method_url = "/security_groups/%s/network_interfaces/%s" % [ERB::Util.url_encode(security_group_id), ERB::Util.url_encode(id)]
-
-      response = request(
-        method: "GET",
-        url: method_url,
-        headers: headers,
-        params: params,
-        accept_json: true
-      )
-      response
-    end
-
-    ##
-    # @!method add_security_group_network_interface(security_group_id:, id:)
-    # Add a network interface to a security group.
-    # This request adds an existing network interface to an existing security group.
-    #   When a network interface is added to a security group, the security group rules
-    #   are applied to the network interface. A request body is not required, and if
-    #   provided, is ignored.
-    # @param security_group_id [String] The security group identifier.
-    # @param id [String] The network interface identifier.
-    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def add_security_group_network_interface(security_group_id:, id:)
-      raise ArgumentError.new("version must be provided") if version.nil?
-
-      raise ArgumentError.new("generation must be provided") if generation.nil?
-
-      raise ArgumentError.new("security_group_id must be provided") if security_group_id.nil?
-
-      raise ArgumentError.new("id must be provided") if id.nil?
-
-      headers = {
-      }
-      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "add_security_group_network_interface")
-      headers.merge!(sdk_headers)
-
-      params = {
-        "version" => @version,
-        "generation" => @generation
-      }
-
-      method_url = "/security_groups/%s/network_interfaces/%s" % [ERB::Util.url_encode(security_group_id), ERB::Util.url_encode(id)]
-
-      response = request(
-        method: "PUT",
-        url: method_url,
-        headers: headers,
-        params: params,
-        accept_json: true
-      )
-      response
-    end
-
-    ##
     # @!method list_security_group_rules(security_group_id:)
     # List all rules in a security group.
     # This request lists all rules in a security group. These rules define what traffic
@@ -7796,10 +9267,10 @@ module IbmVpc
     #   retrieved security group rule and contains the information necessary to create the
     #   rule. As part of creating a new rule in a security group, the rule is applied to
     #   all the networking interfaces in the security group. Rules specify which IP
-    #   traffic a security group should allow. Security group rules are stateful, such
-    #   that reverse traffic in response to allowed traffic is automatically permitted. A
-    #   rule allowing inbound TCP traffic on port 80 also allows outbound TCP traffic on
-    #   port 80 without the need for an additional rule.
+    #   traffic a security group will allow. Security group rules are stateful, such that
+    #   reverse traffic in response to allowed traffic is automatically permitted. A rule
+    #   allowing inbound TCP traffic on port 80 also allows outbound TCP traffic on port
+    #   80 without the need for an additional rule.
     # @param security_group_id [String] The security group identifier.
     # @param security_group_rule_prototype [SecurityGroupRulePrototype] The properties of the security group rule to be created.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -8012,7 +9483,9 @@ module IbmVpc
     #   target identifier can be:
     #
     #   - A network interface identifier
+    #   - A VPN server identifier
     #   - An application load balancer identifier
+    #   - An endpoint gateway identifier
     #
     #   Security groups are stateful, so any changes to a target's security groups are
     #   applied to new connections. Existing connections are not affected.
@@ -8096,7 +9569,9 @@ module IbmVpc
     #   identifier can be:
     #
     #   - A network interface identifier
+    #   - A VPN server identifier
     #   - An application load balancer identifier
+    #   - An endpoint gateway identifier
     #
     #   When a target is added to a security group, the security group rules are applied
     #   to the target. A request body is not required, and if provided, is ignored.
@@ -9025,6 +10500,8 @@ module IbmVpc
     # @!method list_vpn_gateway_connection_local_cidrs(vpn_gateway_id:, id:)
     # List all local CIDRs for a VPN gateway connection.
     # This request lists all local CIDRs for a VPN gateway connection.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -9063,6 +10540,8 @@ module IbmVpc
     # @!method remove_vpn_gateway_connection_local_cidr(vpn_gateway_id:, id:, cidr_prefix:, prefix_length:)
     # Remove a local CIDR from a VPN gateway connection.
     # This request removes a CIDR from a VPN gateway connection.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @param cidr_prefix [String] The address prefix part of the CIDR.
@@ -9106,8 +10585,10 @@ module IbmVpc
     ##
     # @!method check_vpn_gateway_connection_local_cidr(vpn_gateway_id:, id:, cidr_prefix:, prefix_length:)
     # Check if the specified local CIDR exists on a VPN gateway connection.
-    # This request succeeds if a CIDR exists on the specified VPN gateway connection and
-    #   fails otherwise.
+    # This request succeeds if a CIDR exists on the specified VPN gateway connection,
+    #   and fails otherwise.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @param cidr_prefix [String] The address prefix part of the CIDR.
@@ -9151,9 +10632,11 @@ module IbmVpc
     ##
     # @!method add_vpn_gateway_connection_local_cidr(vpn_gateway_id:, id:, cidr_prefix:, prefix_length:)
     # Set a local CIDR on a VPN gateway connection.
-    # This request adds the specified CIDR to the specified VPN gateway connection. A
-    #   request body is not required, and if provided, is ignored. This request succeeds
-    #   if the CIDR already exists on the specified VPN gateway connection.
+    # This request adds the specified CIDR to the specified VPN gateway connection. This
+    #   request succeeds if the specified CIDR already exists. A request body is not
+    #   required, and if provided, is ignored.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @param cidr_prefix [String] The address prefix part of the CIDR.
@@ -9198,6 +10681,8 @@ module IbmVpc
     # @!method list_vpn_gateway_connection_peer_cidrs(vpn_gateway_id:, id:)
     # List all peer CIDRs for a VPN gateway connection.
     # This request lists all peer CIDRs for a VPN gateway connection.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -9236,6 +10721,8 @@ module IbmVpc
     # @!method remove_vpn_gateway_connection_peer_cidr(vpn_gateway_id:, id:, cidr_prefix:, prefix_length:)
     # Remove a peer CIDR from a VPN gateway connection.
     # This request removes a CIDR from a VPN gateway connection.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @param cidr_prefix [String] The address prefix part of the CIDR.
@@ -9279,8 +10766,10 @@ module IbmVpc
     ##
     # @!method check_vpn_gateway_connection_peer_cidr(vpn_gateway_id:, id:, cidr_prefix:, prefix_length:)
     # Check if the specified peer CIDR exists on a VPN gateway connection.
-    # This request succeeds if a CIDR exists on the specified VPN gateway connection and
-    #   fails otherwise.
+    # This request succeeds if a CIDR exists on the specified VPN gateway connection,
+    #   and fails otherwise.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @param cidr_prefix [String] The address prefix part of the CIDR.
@@ -9324,9 +10813,11 @@ module IbmVpc
     ##
     # @!method add_vpn_gateway_connection_peer_cidr(vpn_gateway_id:, id:, cidr_prefix:, prefix_length:)
     # Set a peer CIDR on a VPN gateway connection.
-    # This request adds the specified CIDR to the specified VPN gateway connection. A
-    #   request body is not required, and if provided, is ignored. This request succeeds
-    #   if the CIDR already exists on the specified VPN gateway connection.
+    # This request adds the specified CIDR to the specified VPN gateway connection. This
+    #   request succeeds if the specified CIDR already exists. A request body is not
+    #   required, and if provided, is ignored.
+    #
+    #   This request is only supported for policy mode VPN gateways.
     # @param vpn_gateway_id [String] The VPN gateway identifier.
     # @param id [String] The VPN gateway connection identifier.
     # @param cidr_prefix [String] The address prefix part of the CIDR.
@@ -9365,6 +10856,700 @@ module IbmVpc
         accept_json: false
       )
       nil
+    end
+    #########################
+    # VPN servers
+    #########################
+
+    ##
+    # @!method list_vpn_servers(name: nil, start: nil, limit: nil, resource_group_id: nil, sort: nil)
+    # List all VPN servers.
+    # This request lists all VPN servers.
+    # @param name [String] Filters the collection to resources with the exact specified name.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param resource_group_id [String] Filters the collection to resources in the resource group with the specified
+    #   identifier.
+    # @param sort [String] Sorts the returned collection by the specified property name in ascending order. A
+    #   `-` may be prepended to the name to sort in descending order. For example, the
+    #   value `-created_at` sorts the collection by the `created_at` property in
+    #   descending order, and the value `name` sorts it by the `name` property in
+    #   ascending order.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_vpn_servers(name: nil, start: nil, limit: nil, resource_group_id: nil, sort: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_vpn_servers")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "name" => name,
+        "start" => start,
+        "limit" => limit,
+        "resource_group.id" => resource_group_id,
+        "sort" => sort
+      }
+
+      method_url = "/vpn_servers"
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_vpn_server(certificate:, client_authentication:, client_ip_pool:, subnets:, client_dns_server_ips: nil, client_idle_timeout: nil, enable_split_tunneling: nil, name: nil, port: nil, protocol: nil, resource_group: nil, security_groups: nil)
+    # Create a VPN server.
+    # This request creates a new VPN server.
+    # @param certificate [CertificateInstanceIdentity] The certificate instance for this VPN server.
+    # @param client_authentication [Array[VPNServerAuthenticationPrototype]] The methods used to authenticate VPN clients to this VPN server. VPN clients must
+    #   authenticate against all specified methods.
+    # @param client_ip_pool [String] The VPN client IPv4 address pool, expressed in CIDR format. The request must not
+    #   overlap with any existing address prefixes in the VPC or any of the following
+    #   reserved address ranges:
+    #     - `127.0.0.0/8` (IPv4 loopback addresses)
+    #     - `161.26.0.0/16` (IBM services)
+    #     - `166.8.0.0/14` (Cloud Service Endpoints)
+    #     - `169.254.0.0/16` (IPv4 link-local addresses)
+    #     - `224.0.0.0/4` (IPv4 multicast addresses)
+    #
+    #   The prefix length of the client IP address pool's CIDR must be between
+    #   `/9` (8,388,608 addresses) and `/22` (1024 addresses). A CIDR block that contains
+    #   twice the number of IP addresses that are required to enable the maximum number of
+    #   concurrent connections is recommended.
+    # @param subnets [Array[SubnetIdentity]] The subnets to provision this VPN server in.  Use subnets in different zones for
+    #   high availability.
+    # @param client_dns_server_ips [Array[IP]] The DNS server addresses that will be provided to VPN clients connected to this
+    #   VPN server.
+    # @param client_idle_timeout [Fixnum] The seconds a VPN client can be idle before this VPN server will disconnect it.
+    #   Specify `0` to prevent the server from disconnecting idle clients.
+    # @param enable_split_tunneling [Boolean] Indicates whether the split tunneling is enabled on this VPN server.
+    # @param name [String] The user-defined name for this VPN server. If unspecified, the name will be a
+    #   hyphenated list of randomly-selected words. Names must be unique within the VPC
+    #   this VPN server is serving.
+    # @param port [Fixnum] The port number to use for this VPN server.
+    # @param protocol [String] The transport protocol to use for this VPN server.
+    # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
+    #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
+    # @param security_groups [Array[SecurityGroupIdentity]] The security groups to use for this VPN server. If unspecified, the VPC's default
+    #   security group is used.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_vpn_server(certificate:, client_authentication:, client_ip_pool:, subnets:, client_dns_server_ips: nil, client_idle_timeout: nil, enable_split_tunneling: nil, name: nil, port: nil, protocol: nil, resource_group: nil, security_groups: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("certificate must be provided") if certificate.nil?
+
+      raise ArgumentError.new("client_authentication must be provided") if client_authentication.nil?
+
+      raise ArgumentError.new("client_ip_pool must be provided") if client_ip_pool.nil?
+
+      raise ArgumentError.new("subnets must be provided") if subnets.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_vpn_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "certificate" => certificate,
+        "client_authentication" => client_authentication,
+        "client_ip_pool" => client_ip_pool,
+        "subnets" => subnets,
+        "client_dns_server_ips" => client_dns_server_ips,
+        "client_idle_timeout" => client_idle_timeout,
+        "enable_split_tunneling" => enable_split_tunneling,
+        "name" => name,
+        "port" => port,
+        "protocol" => protocol,
+        "resource_group" => resource_group,
+        "security_groups" => security_groups
+      }
+
+      method_url = "/vpn_servers"
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_vpn_server(id:, if_match: nil)
+    # Delete a VPN server.
+    # This request deletes a VPN server. This operation cannot be reversed.
+    # @param id [String] The VPN server identifier.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value.
+    # @return [nil]
+    def delete_vpn_server(id:, if_match: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+        "If-Match" => if_match
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_vpn_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s" % [ERB::Util.url_encode(id)]
+
+      request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method get_vpn_server(id:)
+    # Retrieve a VPN server.
+    # This request retrieves a single VPN server specified by the identifier in the URL.
+    # @param id [String] The VPN server identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_vpn_server(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_vpn_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_vpn_server(id:, vpn_server_patch:, if_match: nil)
+    # Update a VPN server.
+    # This request updates the properties of an existing VPN server. Any property
+    #   changes will cause all connected VPN clients are disconnected from this VPN server
+    #   except for the name change.
+    # @param id [String] The VPN server identifier.
+    # @param vpn_server_patch [Hash] The VPN server patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_vpn_server(id:, vpn_server_patch:, if_match: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("vpn_server_patch must be provided") if vpn_server_patch.nil?
+
+      headers = {
+        "If-Match" => if_match
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_vpn_server")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = vpn_server_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/vpn_servers/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_vpn_server_client_configuration(id:)
+    # Retrieve client configuration.
+    # This request retrieves OpenVPN client configuration on a single VPN server
+    #   specified by the identifier in the URL. This configuration includes directives
+    #   compatible with OpenVPN releases 2.4 and 2.5.
+    # @param id [String] The VPN server identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_vpn_server_client_configuration(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_vpn_server_client_configuration")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s/client_configuration" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      response
+    end
+
+    ##
+    # @!method list_vpn_server_clients(vpn_server_id:, start: nil, limit: nil, sort: nil)
+    # List all VPN clients for a VPN server.
+    # This request retrieves all connected VPN clients, and any disconnected VPN clients
+    #   that the VPN server has not yet deleted based on its auto-deletion policy.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param sort [String] Sorts the returned collection by the specified property name in ascending order. A
+    #   `-` may be prepended to the name to sort in descending order. For example, the
+    #   value `-created_at` sorts the collection by the `created_at` property in
+    #   descending order.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_vpn_server_clients(vpn_server_id:, start: nil, limit: nil, sort: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_vpn_server_clients")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit,
+        "sort" => sort
+      }
+
+      method_url = "/vpn_servers/%s/clients" % [ERB::Util.url_encode(vpn_server_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_vpn_server_client(vpn_server_id:, id:)
+    # Delete a VPN client.
+    # This request disconnects and deletes the VPN client from the VPN server. The VPN
+    #   client may reconnect unless its authentication permissions for the configured
+    #   authentication methods (such as its client certificate) have been revoked.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param id [String] The VPN client identifier.
+    # @return [nil]
+    def delete_vpn_server_client(vpn_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_vpn_server_client")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s/clients/%s" % [ERB::Util.url_encode(vpn_server_id), ERB::Util.url_encode(id)]
+
+      request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method get_vpn_server_client(vpn_server_id:, id:)
+    # Retrieve a VPN client.
+    # This request retrieves a single VPN client specified by the identifier in the URL.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param id [String] The VPN client identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_vpn_server_client(vpn_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_vpn_server_client")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s/clients/%s" % [ERB::Util.url_encode(vpn_server_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method disconnect_vpn_client(vpn_server_id:, id:)
+    # Disconnect a VPN client.
+    # This request disconnects the specified VPN client, and deletes the client
+    #   according to the VPN server's auto-deletion policy. The VPN client may reconnect
+    #   unless its authentication permissions for the configured authentication methods
+    #   (such as its client certificate) have been revoked.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param id [String] The VPN client identifier.
+    # @return [nil]
+    def disconnect_vpn_client(vpn_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "disconnect_vpn_client")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s/clients/%s/disconnect" % [ERB::Util.url_encode(vpn_server_id), ERB::Util.url_encode(id)]
+
+      request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method list_vpn_server_routes(vpn_server_id:, start: nil, limit: nil, sort: nil)
+    # List all VPN routes for a VPN server.
+    # This request lists all VPN routes in a VPN server. All VPN routes are provided to
+    #   the VPN client when the connection is established.  Packets received from the VPN
+    #   client will be dropped by the VPN server if there is no VPN route matching their
+    #   specified destinations. All VPN routes must be unique within the VPN server.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param sort [String] Sorts the returned collection by the specified property name in ascending order. A
+    #   `-` may be prepended to the name to sort in descending order. For example, the
+    #   value `-created_at` sorts the collection by the `created_at` property in
+    #   descending order, and the value `name` sorts it by the `name` property in
+    #   ascending order.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_vpn_server_routes(vpn_server_id:, start: nil, limit: nil, sort: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_vpn_server_routes")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit,
+        "sort" => sort
+      }
+
+      method_url = "/vpn_servers/%s/routes" % [ERB::Util.url_encode(vpn_server_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_vpn_server_route(vpn_server_id:, destination:, action: nil, name: nil)
+    # Create a VPN route for a VPN server.
+    # This request creates a new VPN route in the VPN server. All VPN routes are
+    #   provided to the VPN client when the connection is established. Packets received
+    #   from the VPN client will be dropped by the VPN server if there is no VPN route
+    #   matching their specified destinations. All VPN routes must be unique within the
+    #   VPN server. destination of the packet.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param destination [String] The destination to use for this VPN route in the VPN server. Must be unique within
+    #   the VPN server. If an incoming packet does not match any destination, it will be
+    #   dropped.
+    # @param action [String] The action to perform with a packet matching the VPN route:
+    #   - `translate`: translate the source IP address to one of the private IP addresses
+    #   of the VPN server, then deliver the packet to target.
+    #   - `deliver`: deliver the packet to the target.
+    #   - `drop`: drop the packet
+    #
+    #   The enumerated values for this property are expected to expand in the future. When
+    #   processing this property, check for and log unknown values. Optionally halt
+    #   processing and surface the error, or bypass the VPN route on which the unexpected
+    #   property value was encountered.
+    # @param name [String] The user-defined name for this VPN route. If unspecified, the name will be a
+    #   hyphenated list of randomly-selected words. Names must be unique within the VPN
+    #   server the VPN route resides in.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_vpn_server_route(vpn_server_id:, destination:, action: nil, name: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      raise ArgumentError.new("destination must be provided") if destination.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_vpn_server_route")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "destination" => destination,
+        "action" => action,
+        "name" => name
+      }
+
+      method_url = "/vpn_servers/%s/routes" % [ERB::Util.url_encode(vpn_server_id)]
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_vpn_server_route(vpn_server_id:, id:)
+    # Delete a VPN route.
+    # This request deletes a VPN route. This operation cannot be reversed.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param id [String] The VPN route identifier.
+    # @return [nil]
+    def delete_vpn_server_route(vpn_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_vpn_server_route")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s/routes/%s" % [ERB::Util.url_encode(vpn_server_id), ERB::Util.url_encode(id)]
+
+      request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method get_vpn_server_route(vpn_server_id:, id:)
+    # Retrieve a VPN route.
+    # This request retrieves a single VPN route specified by the identifier in the URL.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param id [String] The VPN route identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_vpn_server_route(vpn_server_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_vpn_server_route")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/vpn_servers/%s/routes/%s" % [ERB::Util.url_encode(vpn_server_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_vpn_server_route(vpn_server_id:, id:, vpn_server_route_patch:)
+    # Update a VPN route.
+    # This request updates a VPN route with the information in a provided VPN route
+    #   patch. The VPN route patch object is structured in the same way as a retrieved VPN
+    #   route and contains only the information to be updated.
+    # @param vpn_server_id [String] The VPN server identifier.
+    # @param id [String] The VPN route identifier.
+    # @param vpn_server_route_patch [Hash] The VPN route patch.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_vpn_server_route(vpn_server_id:, id:, vpn_server_route_patch:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("vpn_server_id must be provided") if vpn_server_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("vpn_server_route_patch must be provided") if vpn_server_route_patch.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_vpn_server_route")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = vpn_server_route_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/vpn_servers/%s/routes/%s" % [ERB::Util.url_encode(vpn_server_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
     end
     #########################
     # Load balancers
@@ -9486,7 +11671,10 @@ module IbmVpc
     # @param is_public [Boolean] Indicates whether this load balancer is public or private.
     #
     #   At present, if route mode is enabled, the load balancer must be private.
-    # @param subnets [Array[SubnetIdentity]] The subnets to provision this load balancer.
+    # @param subnets [Array[SubnetIdentity]] The subnets to provision this load balancer in.  The load balancer's availability
+    #   will depend on the availability of the zones the specified subnets reside in.
+    #
+    #   Load balancers in the `network` family allow only one subnet to be specified.
     # @param listeners [Array[LoadBalancerListenerPrototypeLoadBalancerContext]] The listeners of this load balancer.
     # @param logging [LoadBalancerLogging] The logging configuration to use for this load balancer. See [VPC Datapath
     #   Logging](https://cloud.ibm.com/docs/vpc?topic=vpc-datapath-logging)
@@ -9497,13 +11685,16 @@ module IbmVpc
     # @param name [String] The user-defined name for this load balancer. If unspecified, the name will be a
     #   hyphenated list of randomly-selected words.
     # @param pools [Array[LoadBalancerPoolPrototype]] The pools of this load balancer.
-    # @param profile [LoadBalancerProfileIdentity] The profile to use for this load balancer.
+    # @param profile [LoadBalancerProfileIdentity] The profile to use for this load balancer
+    #
+    #   If unspecified, `application` will be used.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @param route_mode [Boolean] Indicates whether route mode is enabled for this load balancer.
     #
     #   At present, public load balancers are not supported with route mode enabled.
-    # @param security_groups [Array[SecurityGroupIdentity]] The security groups to use for this load balancer.
+    # @param security_groups [Array[SecurityGroupIdentity]] The security groups to use for this load balancer. If unspecified, the VPC's
+    #   default security group is used.
     #
     #   The load balancer profile must support security groups.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -9555,7 +11746,8 @@ module IbmVpc
     ##
     # @!method delete_load_balancer(id:)
     # Delete a load balancer.
-    # This request deletes a load balancer. This operation cannot be reversed.
+    # This request deletes a load balancer. This operation cannot be reversed. A load
+    #   balancer cannot be deleted if its `provisioning_status` is `delete_pending`.
     # @param id [String] The load balancer identifier.
     # @return [nil]
     def delete_load_balancer(id:)
@@ -9742,10 +11934,10 @@ module IbmVpc
     # @param load_balancer_id [String] The load balancer identifier.
     # @param protocol [String] The listener protocol. Each listener in the load balancer must have a unique
     #   `port` and `protocol` combination.  Additional restrictions:
-    #   - If this load balancer is in the `network` family, the protocol must be `tcp`.
-    #   - If this listener has `https_redirect` specified, the protocol must be `http`.
-    #   - If this listener is a listener's `https_redirect` target, the protocol must be
-    #   `https`.
+    #   - If this load balancer is in the `network` family:
+    #     - The protocol must be `tcp` or `udp` (if `udp_supported` is `true`).
+    #     - If `default_pool` is set, the pool protocol must match.
+    #   - If `https_redirect` is set, the protocol must be `http`.
     # @param accept_proxy_protocol [Boolean] If set to `true`, this listener will accept and forward PROXY protocol
     #   information. Supported by load balancers in the `application` family (otherwise
     #   always `false`). Additional restrictions:
@@ -9759,11 +11951,12 @@ module IbmVpc
     #   `https`
     #   protocol.
     # @param connection_limit [Fixnum] The connection limit of the listener.
-    # @param default_pool [LoadBalancerPoolIdentity] The default pool associated with the listener. The specified pool must:
+    # @param default_pool [LoadBalancerPoolIdentity] The default pool for this listener. The specified pool must:
     #
     #   - Belong to this load balancer
-    #   - Have the same `protocol` as this listener
-    #   - Not already be the default pool for another listener.
+    #   - Have the same `protocol` as this listener, or have a compatible protocol.
+    #     At present, the compatible protocols are `http` and `https`.
+    #   - Not already be the `default_pool` for another listener.
     # @param https_redirect [LoadBalancerListenerHTTPSRedirectPrototype] The target listener that requests will be redirected to. This listener must have a
     #   `protocol` of `http`, and the target listener must have a `protocol` of `https`.
     # @param policies [Array[LoadBalancerListenerPolicyPrototype]] The policy prototype objects for this listener.
@@ -9775,17 +11968,21 @@ module IbmVpc
     # @param port_max [Fixnum] The inclusive upper bound of the range of ports used by this listener. Must not be
     #   less than `port_min`.
     #
-    #   At present, only load balancers operating with route mode enabled support
-    #   different values for `port_min` and `port_max`.  When route mode is enabled, only
-    #   a value of
-    #   `65535` is supported for `port_max`.
+    #   At present, only load balancers operating with route mode enabled, and public load
+    #   balancers in the `network` family support different values for `port_min` and
+    #   `port_max`. When route mode is enabled, the value `65535` must be specified.
+    #
+    #   The specified port range must not overlap with port ranges used by other listeners
+    #   for this load balancer using the same protocol.
     # @param port_min [Fixnum] The inclusive lower bound of the range of ports used by this listener. Must not be
     #   greater than `port_max`.
     #
-    #   At present, only load balancers operating with route mode enabled support
-    #   different values for `port_min` and `port_max`.  When route mode is enabled, only
-    #   a value of
-    #   `1` is supported for `port_min`.
+    #   At present, only load balancers operating with route mode enabled, and public load
+    #   balancers in the `network` family support different values for `port_min` and
+    #   `port_max`. When route mode is enabled, the value `1` must be specified.
+    #
+    #   The specified port range must not overlap with port ranges used by other listeners
+    #   for this load balancer using the same protocol.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_load_balancer_listener(load_balancer_id:, protocol:, accept_proxy_protocol: nil, certificate_instance: nil, connection_limit: nil, default_pool: nil, https_redirect: nil, policies: nil, port: nil, port_max: nil, port_min: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -10487,9 +12684,9 @@ module IbmVpc
     # @param algorithm [String] The load balancing algorithm.
     # @param health_monitor [LoadBalancerPoolHealthMonitorPrototype] The health monitor of this pool.
     # @param protocol [String] The protocol used for this load balancer pool. Load balancers in the `network`
-    #   family support `tcp`. Load balancers in the `application` family support `tcp`,
-    #   `http`, and
-    #   `https`.
+    #   family support `tcp` and `udp` (if `udp_supported` is `true`). Load balancers in
+    #   the
+    #   `application` family support `tcp`, `http`, and `https`.
     # @param members [Array[LoadBalancerPoolMemberPrototype]] The members for this load balancer pool. For load balancers in the `network`
     #   family, the same `port` and `target` tuple cannot be shared by a pool member of
     #   any other load balancer in the same VPC.
@@ -10716,10 +12913,23 @@ module IbmVpc
     # This request creates a new member and adds the member to the pool.
     # @param load_balancer_id [String] The load balancer identifier.
     # @param pool_id [String] The pool identifier.
-    # @param port [Fixnum] The port number of the application running in the server member.
+    # @param port [Fixnum] The port the member will receive load balancer traffic on. Applies only to load
+    #   balancer traffic received on a listener with a single port. (If the traffic is
+    #   received on a listener with a port range, the member will receive the traffic on
+    #   the same port the listener received it on.)
+    #
+    #   This port will also be used for health checks unless the `port` property of
+    #   `health_monitor` property is specified.
+    #
+    #   The port must be unique across all members for all pools associated with this
+    #   pool's listener.
     # @param target [LoadBalancerPoolMemberTargetPrototype] The pool member target. Load balancers in the `network` family support virtual
     #   server
-    #   instances. Load balancers in the `application` family support IP addresses.
+    #   instances. Load balancers in the `application` family support IP addresses. If the
+    #   load
+    #   balancer has route mode enabled, the member must be in a zone the load balancer
+    #   has a
+    #   subnet in.
     # @param weight [Fixnum] Weight of the server member. Applicable only if the pool algorithm is
     #   `weighted_round_robin`.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -10989,7 +13199,7 @@ module IbmVpc
     end
 
     ##
-    # @!method create_endpoint_gateway(target:, vpc:, ips: nil, name: nil, resource_group: nil)
+    # @!method create_endpoint_gateway(target:, vpc:, ips: nil, name: nil, resource_group: nil, security_groups: nil)
     # Create an endpoint gateway.
     # This request creates a new endpoint gateway. An endpoint gateway maps one or more
     #   reserved IPs in a VPC to a target outside the VPC.
@@ -11002,8 +13212,10 @@ module IbmVpc
     #   this endpoint gateway is serving.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
+    # @param security_groups [Array[SecurityGroupIdentity]] The security groups to use for this endpoint gateway. If unspecified, the VPC's
+    #   default security group is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_endpoint_gateway(target:, vpc:, ips: nil, name: nil, resource_group: nil)
+    def create_endpoint_gateway(target:, vpc:, ips: nil, name: nil, resource_group: nil, security_groups: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -11027,7 +13239,8 @@ module IbmVpc
         "vpc" => vpc,
         "ips" => ips,
         "name" => name,
-        "resource_group" => resource_group
+        "resource_group" => resource_group,
+        "security_groups" => security_groups
       }
 
       method_url = "/endpoint_gateways"
@@ -11390,7 +13603,7 @@ module IbmVpc
     #   prototype object. The prototype object is structured in the same way as a
     #   retrieved flow log collector, and contains the information necessary to create and
     #   start the new flow log collector.
-    # @param storage_bucket [CloudObjectStorageBucketIdentity] The Cloud Object Storage bucket where the collected flows will be logged.
+    # @param storage_bucket [LegacyCloudObjectStorageBucketIdentity] The Cloud Object Storage bucket where the collected flows will be logged.
     #   The bucket must exist and an IAM service authorization must grant
     #   `IBM Cloud Flow Logs` resources of `VPC Infrastructure Services` writer
     #   access to the bucket.
