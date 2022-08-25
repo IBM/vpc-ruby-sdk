@@ -16,7 +16,7 @@ before_install:
   - git fetch --tags
   - sudo apt-get update
   - sudo apt-get install python
-  - nvm install node
+  - nvm install --lts
   - nvm use node
   - gem install bundler:2.1.4
 
