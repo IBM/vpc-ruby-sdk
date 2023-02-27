@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# (C) Copyright IBM Corp. 2020, 2021, 2022.
+# (C) Copyright IBM Corp. 2020, 2021, 2022, 2023.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# IBM OpenAPI SDK Code Generator Version: 3.50.0-af9e48c4-20220523-163800
+# IBM OpenAPI SDK Code Generator Version: 3.63.0-5dae26c1-20230111-193039
 #
 # The IBM Cloud Virtual Private Cloud (VPC) API can be used to programmatically
 # provision and manage virtual server instances, along with subnets, volumes, load
@@ -33,7 +33,7 @@ module IbmVpc
     include Concurrent::Async
     DEFAULT_SERVICE_NAME = "vpc"
     DEFAULT_SERVICE_URL = "https://us-south.iaas.cloud.ibm.com/v1"
-    DEFAULT_SERVICE_VERSION = "2022-03-29"
+    DEFAULT_SERVICE_VERSION = "2022-09-13"
     attr_accessor :version
     attr_accessor :generation
     ##
@@ -42,7 +42,7 @@ module IbmVpc
     #
     # @param args [Hash] The args to initialize with
     # @option args version [String] The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-    #   specify any date between `2022-07-12` and today's date (UTC).
+    #   specify any date between `2022-09-13` and today's date (UTC).
     # @option args service_url [String] The base service URL to use when contacting the service.
     #   The base service_url may differ between IBM Cloud regions.
     # @option args authenticator [Object] The Authenticator instance to be configured for this service.
@@ -121,9 +121,10 @@ module IbmVpc
     # This request creates a new VPC from a VPC prototype object. The prototype object
     #   is structured in the same way as a retrieved VPC, and contains the information
     #   necessary to create the new VPC.
-    # @param address_prefix_management [String] Indicates whether a default address prefix will be automatically created for each
-    #   zone in this VPC. If `manual`, this VPC will be created with no default address
-    #   prefixes.
+    # @param address_prefix_management [String] Indicates whether a [default address
+    #   prefix](https://cloud.ibm.com/docs/vpc?topic=vpc-configuring-address-prefixes)
+    #   will be automatically created for each zone in this VPC. If `manual`, this VPC
+    #   will be created with no default address prefixes.
     #
     #   Since address prefixes are managed identically regardless of whether they were
     #   automatically created, the value is not preserved as a VPC property.
@@ -131,8 +132,8 @@ module IbmVpc
     #   this VPC's resources will have private network connectivity to the account's
     #   Classic Infrastructure resources. Only one VPC, per region, may be connected in
     #   this way. This value is set at creation and subsequently immutable.
-    # @param name [String] The unique user-defined name for this VPC. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words.
+    # @param name [String] The name for this VPC. The name must not be used by another VPC in the region. If
+    #   unspecified, the name will be a hyphenated list of randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -175,10 +176,10 @@ module IbmVpc
     # @!method delete_vpc(id:)
     # Delete a VPC.
     # This request deletes a VPC. This operation cannot be reversed. For this request to
-    #   succeed, the VPC must not contain any instances, subnets, or public gateways. All
-    #   security groups and network ACLs associated with the VPC are automatically
-    #   deleted. All flow log collectors with `auto_delete` set to `true` targeting the
-    #   VPC or any resource in the VPC are automatically deleted.
+    #   succeed, the VPC must not contain any instances, subnets, public gateways, or
+    #   endpoint gateways. All security groups and network ACLs associated with the VPC
+    #   are automatically deleted. All flow log collectors with `auto_delete` set to
+    #   `true` targeting the VPC or any resource in the VPC are automatically deleted.
     # @param id [String] The VPC identifier.
     # @return [nil]
     def delete_vpc(id:)
@@ -329,8 +330,7 @@ module IbmVpc
     # Retrieve a VPC's default routing table.
     # This request retrieves the default routing table for the VPC specified by the
     #   identifier in the URL. The default routing table is associated with any subnets in
-    #   the VPC which have not been explicitly associated with a user-defined routing
-    #   table.
+    #   the VPC which have not been explicitly associated with another routing table.
     # @param id [String] The VPC identifier.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def get_vpc_default_routing_table(id:)
@@ -446,9 +446,10 @@ module IbmVpc
     #   object is structured in the same way as a retrieved prefix, and contains the
     #   information necessary to create the new prefix.
     # @param vpc_id [String] The VPC identifier.
-    # @param cidr [String] The IPv4 range of the address prefix, expressed in CIDR format. The request must
-    #   not overlap with any existing address prefixes in the VPC or any of the following
+    # @param cidr [String] The IPv4 range of the address prefix, expressed in CIDR format. The range must not
+    #   overlap with any existing address prefixes in the VPC or any of the following
     #   reserved address ranges:
+    #
     #     - `127.0.0.0/8` (IPv4 loopback addresses)
     #     - `161.26.0.0/16` (IBM services)
     #     - `166.8.0.0/14` (Cloud Service Endpoints)
@@ -460,9 +461,9 @@ module IbmVpc
     # @param zone [ZoneIdentity] The zone this address prefix will reside in.
     # @param is_default [Boolean] Indicates whether this will be the default address prefix for this zone in this
     #   VPC. If `true`, the VPC must not have a default address prefix for this zone.
-    # @param name [String] The user-defined name for this address prefix. Names must be unique within the VPC
-    #   the address prefix resides in. If unspecified, the name will be a hyphenated list
-    #   of randomly-selected words.
+    # @param name [String] The name for this address prefix. The name must not be used by another address
+    #   prefix for the VPC. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_vpc_address_prefix(vpc_id:, cidr:, zone:, is_default: nil, name: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -684,20 +685,19 @@ module IbmVpc
     # @param vpc_id [String] The VPC identifier.
     # @param destination [String] The destination of the route. At most two routes per `zone` in a table can have
     #   the same destination, and only if both routes have an `action` of `deliver` and
-    #   the
-    #   `next_hop` is an IP address.
+    #   the `next_hop` is an IP address.
     # @param zone [ZoneIdentity] The zone to apply the route to. (Traffic from subnets in this zone will be
     #   subject to this route.).
     # @param action [String] The action to perform with a packet matching the route:
-    #   - `delegate`: delegate to the system's built-in routes
-    #   - `delegate_vpc`: delegate to the system's built-in routes, ignoring
-    #   Internet-bound
-    #     routes
+    #   - `delegate`: delegate to system-provided routes
+    #   - `delegate_vpc`: delegate to system-provided routes, ignoring Internet-bound
+    #   routes
     #   - `deliver`: deliver the packet to the specified `next_hop`
     #   - `drop`: drop the packet.
-    # @param name [String] The user-defined name for this route. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words. Names must be unique within the VPC
-    #   routing table the route resides in.
+    # @param name [String] The name for this route. The name must not be used by another route in the routing
+    #   table. Names starting with `ibm-` are reserved for system-provided routes, and are
+    #   not allowed. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param next_hop [RoutePrototypeNextHop] If `action` is `deliver`, the next hop that packets will be delivered to. For
     #   other `action`
     #   values, it must be omitted or specified as `0.0.0.0`.
@@ -870,12 +870,12 @@ module IbmVpc
     ##
     # @!method list_vpc_routing_tables(vpc_id:, start: nil, limit: nil, is_default: nil)
     # List all routing tables for a VPC.
-    # This request lists all user-defined routing tables for a VPC.  Each subnet in a
-    #   VPC is associated with a routing table, which controls delivery of packets sent on
-    #   that subnet according to the action of the most specific matching route in the
-    #   table.  If multiple equally-specific routes exist, traffic will be distributed
-    #   across them. If no routes match, delivery will be controlled by the system's
-    #   built-in routes.
+    # This request lists all routing tables for a VPC. Each subnet in a VPC is
+    #   associated with a routing table, which controls delivery of packets sent on that
+    #   subnet according to the action of the most specific matching route in the table.
+    #   If multiple equally-specific routes exist, traffic will be distributed across
+    #   them. If no routes match, delivery will be controlled by the system's built-in
+    #   routes.
     # @param vpc_id [String] The VPC identifier.
     # @param start [String] A server-provided token determining what resource to start the page on.
     # @param limit [Fixnum] The number of resources to return on a page.
@@ -914,34 +914,23 @@ module IbmVpc
     end
 
     ##
-    # @!method create_vpc_routing_table(vpc_id:, accept_routes_from: nil, name: nil, route_direct_link_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
+    # @!method create_vpc_routing_table(vpc_id:, accept_routes_from: nil, name: nil, route_direct_link_ingress: nil, route_internet_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
     # Create a routing table for a VPC.
-    # This request creates a user-defined routing table from a routing table prototype
-    #   object. The prototype object is structured in the same way as a retrieved routing
-    #   table, and contains the information necessary to create the new routing table.
+    # This request creates a routing table from a routing table prototype object. The
+    #   prototype object is structured in the same way as a retrieved routing table, and
+    #   contains the information necessary to create the new routing table.
     # @param vpc_id [String] The VPC identifier.
     # @param accept_routes_from [Array[ResourceFilter]] The filters specifying the resources that may create routes in this routing table.
     #
     #   At present, only the `resource_type` filter is permitted, and only the
     #   `vpn_server` value is supported, but filter support is expected to expand in the
     #   future.
-    # @param name [String] The user-defined name for this routing table. Names must be unique within the VPC
-    #   the routing table resides in. If unspecified, the name will be a hyphenated list
-    #   of randomly-selected words.
+    # @param name [String] The name for this routing table. The name must not be used by another routing
+    #   table in the VPC. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param route_direct_link_ingress [Boolean] If set to `true`, this routing table will be used to route traffic that originates
-    #   from [Direct Link](https://cloud.ibm.com/docs/dl/) to this VPC. For this to
-    #   succeed, the VPC must not already have a routing table with this property set to
-    #   `true`.
-    #
-    #   Incoming traffic will be routed according to the routing table with one exception:
-    #   routes with an `action` of `deliver` are treated as `drop` unless the `next_hop`
-    #   is an IP address bound to a network interface on a subnet in the route's `zone`.
-    #   Therefore, if an incoming packet matches a route with a `next_hop` of an
-    #   internet-bound IP address or a VPN gateway connection, the packet will be dropped.
-    # @param route_transit_gateway_ingress [Boolean] If set to `true`, this routing table will be used to route traffic that originates
-    #   from [Transit Gateway](https://cloud.ibm.com/cloud/transit-gateway/) to this VPC.
-    #   For this to succeed, the VPC must not already have a routing table with this
-    #   property set to `true`.
+    #   from [Direct Link](https://cloud.ibm.com/docs/dl) to this VPC. The VPC must not
+    #   already have a routing table with this property set to `true`.
     #
     #   Incoming traffic will be routed according to the routing table with one exception:
     #   routes with an `action` of `deliver` are treated as `drop` unless the `next_hop`
@@ -953,9 +942,31 @@ module IbmVpc
     #   Access](https://cloud.ibm.com/docs/vpc?topic=vpc-setting-up-access-to-classic-infrastructure)
     #   is enabled for this VPC, and this property is set to `true`, its incoming traffic
     #   will also be routed according to this routing table.
+    # @param route_internet_ingress [Boolean] If set to `true`, this routing table will be used to route traffic that originates
+    #   from the internet. For this to succeed, the VPC must not already have a routing
+    #   table with this property set to `true`.
+    #
+    #   Incoming traffic will be routed according to the routing table with two
+    #   exceptions:
+    #   - Traffic destined for IP addresses associated with public gateways will not be
+    #     subject to routes in this routing table.
+    #   - Routes with an action of deliver are treated as drop unless the `next_hop` is an
+    #     IP address bound to a network interface on a subnet in the route's `zone`.
+    #     Therefore, if an incoming packet matches a route with a `next_hop` of an
+    #     internet-bound IP address or a VPN gateway connection, the packet will be
+    #   dropped.
+    # @param route_transit_gateway_ingress [Boolean] If set to `true`, this routing table will be used to route traffic that originates
+    #   from [Transit Gateway](https://cloud.ibm.com/docs/transit-gateway) to this VPC.
+    #   The VPC must not already have a routing table with this property set to `true`.
+    #
+    #   Incoming traffic will be routed according to the routing table with one exception:
+    #   routes with an `action` of `deliver` are treated as `drop` unless the `next_hop`
+    #   is an IP address bound to a network interface on a subnet in the route's `zone`.
+    #   Therefore, if an incoming packet matches a route with a `next_hop` of an
+    #   internet-bound IP address or a VPN gateway connection, the packet will be dropped.
     # @param route_vpc_zone_ingress [Boolean] If set to `true`, this routing table will be used to route traffic that originates
-    #   from subnets in other zones in this VPC. For this to succeed, the VPC must not
-    #   already have a routing table with this property set to `true`.
+    #   from subnets in other zones in this VPC. The VPC must not already have a routing
+    #   table with this property set to `true`.
     #
     #   Incoming traffic will be routed according to the routing table with one exception:
     #   routes with an `action` of `deliver` are treated as `drop` unless the `next_hop`
@@ -965,7 +976,7 @@ module IbmVpc
     # @param routes [Array[RoutePrototype]] The prototype objects for routes to create for this routing table. If unspecified,
     #   the routing table will be created with no routes.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_vpc_routing_table(vpc_id:, accept_routes_from: nil, name: nil, route_direct_link_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
+    def create_vpc_routing_table(vpc_id:, accept_routes_from: nil, name: nil, route_direct_link_ingress: nil, route_internet_ingress: nil, route_transit_gateway_ingress: nil, route_vpc_zone_ingress: nil, routes: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -986,6 +997,7 @@ module IbmVpc
         "accept_routes_from" => accept_routes_from,
         "name" => name,
         "route_direct_link_ingress" => route_direct_link_ingress,
+        "route_internet_ingress" => route_internet_ingress,
         "route_transit_gateway_ingress" => route_transit_gateway_ingress,
         "route_vpc_zone_ingress" => route_vpc_zone_ingress,
         "routes" => routes
@@ -1193,20 +1205,19 @@ module IbmVpc
     # @param routing_table_id [String] The routing table identifier.
     # @param destination [String] The destination of the route. At most two routes per `zone` in a table can have
     #   the same destination, and only if both routes have an `action` of `deliver` and
-    #   the
-    #   `next_hop` is an IP address.
+    #   the `next_hop` is an IP address.
     # @param zone [ZoneIdentity] The zone to apply the route to. (Traffic from subnets in this zone will be
     #   subject to this route.).
     # @param action [String] The action to perform with a packet matching the route:
-    #   - `delegate`: delegate to the system's built-in routes
-    #   - `delegate_vpc`: delegate to the system's built-in routes, ignoring
-    #   Internet-bound
-    #     routes
+    #   - `delegate`: delegate to system-provided routes
+    #   - `delegate_vpc`: delegate to system-provided routes, ignoring Internet-bound
+    #   routes
     #   - `deliver`: deliver the packet to the specified `next_hop`
     #   - `drop`: drop the packet.
-    # @param name [String] The user-defined name for this route. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words. Names must be unique within the VPC
-    #   routing table the route resides in.
+    # @param name [String] The name for this route. The name must not be used by another route in the routing
+    #   table. Names starting with `ibm-` are reserved for system-provided routes, and are
+    #   not allowed. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param next_hop [RoutePrototypeNextHop] If `action` is `deliver`, the next hop that packets will be delivered to. For
     #   other `action`
     #   values, it must be omitted or specified as `0.0.0.0`.
@@ -1258,7 +1269,8 @@ module IbmVpc
     ##
     # @!method delete_vpc_routing_table_route(vpc_id:, routing_table_id:, id:)
     # Delete a VPC routing table route.
-    # This request deletes a VPC route. This operation cannot be reversed.
+    # This request deletes a VPC route. This operation cannot be reversed. Only VPC
+    #   routes with an `origin` of `user` are allowed to be deleted.
     # @param vpc_id [String] The VPC identifier.
     # @param routing_table_id [String] The routing table identifier.
     # @param id [String] The VPC routing table route identifier.
@@ -1343,7 +1355,8 @@ module IbmVpc
     # Update a VPC routing table route.
     # This request updates a VPC route with the information provided in a route patch
     #   object. The patch object is structured in the same way as a retrieved VPC route
-    #   and needs to contain only the information to be updated.
+    #   and needs to contain only the information to be updated. Only VPC routes with an
+    #   `origin` of `user` are allowed to be updated.
     # @param vpc_id [String] The VPC identifier.
     # @param routing_table_id [String] The routing table identifier.
     # @param id [String] The VPC routing table route identifier.
@@ -1637,10 +1650,9 @@ module IbmVpc
 
     ##
     # @!method replace_subnet_network_acl(id:, network_acl_identity:)
-    # Attach a network ACL to a subnet.
-    # This request attaches the network ACL, specified in the request body, to the
-    #   subnet specified by the subnet identifier in the URL. This replaces the existing
-    #   network ACL on the subnet.
+    # Replace the network ACL for a subnet.
+    # This request replaces the existing network ACL for a subnet with the network ACL
+    #   specified in the request body.
     # @param id [String] The subnet identifier.
     # @param network_acl_identity [NetworkACLIdentity] The network ACL identity.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -1833,10 +1845,9 @@ module IbmVpc
 
     ##
     # @!method replace_subnet_routing_table(id:, routing_table_identity:)
-    # Attach a routing table to a subnet.
-    # This request attaches the routing table, specified in the request body, to the
-    #   subnet specified by the subnet identifier in the URL. This replaces the existing
-    #   routing table on the subnet.
+    # Replace the routing table for a subnet.
+    # This request replaces the existing routing table for a subnet with the routing
+    #   table specified in the request body.
     #
     #   For this request to succeed, the routing table `route_direct_link_ingress`,
     #   `route_transit_gateway_ingress`, and `route_vpc_zone_ingress` properties must be
@@ -1938,13 +1949,17 @@ module IbmVpc
     #   either
     #   `target` is deleted, or the reserved IP is unbound. Must be `false` if the
     #   reserved IP is unbound.
-    # @param name [String] The user-defined name for this reserved IP. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words. Names must be unique within the subnet
-    #   the reserved IP resides in. Names beginning with `ibm-` are reserved for
-    #   provider-owned resources.
-    # @param target [ReservedIPTargetPrototype] The target this reserved IP is to be bound to. The target must be an endpoint
-    #   gateway not
-    #   already bound to a reserved IP in the subnet's zone.
+    # @param name [String] The name for this reserved IP. The name must not be used by another reserved IP in
+    #   the subnet. Names starting with `ibm-` are reserved for provider-owned resources,
+    #   and are not allowed. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
+    # @param target [ReservedIPTargetPrototype] The target to bind this reserved IP to.  The target must be in the same VPC.
+    #
+    #   At present, only endpoint gateway targets are supported.  The endpoint gateway
+    #   must
+    #   not be already bound to a reserved IP in the subnet's zone.
+    #
+    #   If unspecified, the reserved IP will be created unbound.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_subnet_reserved_ip(subnet_id:, address: nil, auto_delete: nil, name: nil, target: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -1987,6 +2002,10 @@ module IbmVpc
     # @!method delete_subnet_reserved_ip(subnet_id:, id:)
     # Delete a reserved IP.
     # This request releases a reserved IP. This operation cannot be reversed.
+    #
+    #   For this request to succeed, the reserved IP must not be required by another
+    #   resource, such as a network interface for which it is the primary IP. A
+    #   provider-owned reserved IP is not allowed to be deleted.
     # @param subnet_id [String] The subnet identifier.
     # @param id [String] The reserved IP identifier.
     # @return [nil]
@@ -2010,8 +2029,7 @@ module IbmVpc
       }
 
       method_url = "/subnets/%s/reserved_ips/%s" % [ERB::Util.url_encode(subnet_id), ERB::Util.url_encode(id)]
-      puts params
-      puts method_url
+
       request(
         method: "DELETE",
         url: method_url,
@@ -2067,6 +2085,8 @@ module IbmVpc
     # This request updates a reserved IP with the information in a provided reserved IP
     #   patch. The reserved IP patch object is structured in the same way as a retrieved
     #   reserved IP and contains only the information to be updated.
+    #
+    #   A provider-owned reserved IP is not allowed to be updated.
     # @param subnet_id [String] The subnet identifier.
     # @param id [String] The reserved IP identifier.
     # @param reserved_ip_patch [Hash] The reserved IP patch.
@@ -2116,7 +2136,7 @@ module IbmVpc
     # List all images.
     # This request lists all images available in the region. An image provides source
     #   data for a volume. Images are either system-provided, or created from another
-    #   source, such as importing from object storage.
+    #   source, such as importing from Cloud Object Storage.
     #
     #   The images will be sorted by their `created_at` property values, with the newest
     #   first. Images with identical `created_at` values will be secondarily sorted by
@@ -2209,9 +2229,10 @@ module IbmVpc
     # This request deletes an image. This operation cannot be reversed. A
     #   system-provided image is not allowed to be deleted. Additionally, an image cannot
     #   be deleted if it:
-    #   - has a `status` of `tentative` or `deleting`
+    #   - has a `status` of `deleting`
     #   - has a `status` of `pending` with a `status_reasons` code of
-    #   `image_request_in_progress`.
+    #   `image_request_in_progress`
+    #   - has `catalog_offering.managed` set to `true`.
     # @param id [String] The image identifier.
     # @return [nil]
     def delete_image(id:)
@@ -2445,8 +2466,8 @@ module IbmVpc
     #   space-separated fields: the algorithm name, base64-encoded key, and a comment).
     #   The algorithm and comment fields may be omitted, as only the key field is
     #   imported.
-    # @param name [String] The unique user-defined name for this key. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words.
+    # @param name [String] The name for this key. The name must not be used by another key in the region. If
+    #   unspecified, the name will be a hyphenated list of randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @param type [String] The crypto-system used by this key.
@@ -2606,9 +2627,10 @@ module IbmVpc
     ##
     # @!method list_instance_profiles
     # List all instance profiles.
-    # This request lists provisionable instance profiles in the region. An instance
-    #   profile specifies the performance characteristics and pricing model for an
-    #   instance.
+    # This request lists provisionable [instance
+    #   profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles) in the region. An
+    #   instance profile specifies the performance characteristics and pricing model for
+    #   an instance.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def list_instance_profiles
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -3394,8 +3416,8 @@ module IbmVpc
     # @param allow_ip_spoofing [Boolean] Indicates whether source IP spoofing is allowed on this interface. If false,
     #   source IP spoofing is prevented on this interface. If true, source IP spoofing is
     #   allowed on this interface.
-    # @param name [String] The user-defined name for network interface. Names must be unique within the
-    #   instance the network interface resides in. If unspecified, the name will be a
+    # @param name [String] The name for network interface. The name must not be used by another network
+    #   interface on the virtual server instance. If unspecified, the name will be a
     #   hyphenated list of randomly-selected words.
     # @param primary_ip [NetworkInterfaceIPPrototype] The primary IP address to bind to the network interface. This can be specified
     #   using
@@ -3876,10 +3898,10 @@ module IbmVpc
     # @param instance_id [String] The instance identifier.
     # @param volume [VolumeAttachmentPrototypeVolume] An existing volume to attach to the instance, or a prototype object for a new
     #   volume.
-    # @param delete_volume_on_instance_delete [Boolean] If set to true, when deleting the instance the volume will also be deleted.
-    # @param name [String] The user-defined name for this volume attachment. Names must be unique within the
-    #   instance the volume attachment resides in. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words.
+    # @param delete_volume_on_instance_delete [Boolean] Indicates whether deleting the instance will also delete the attached volume.
+    # @param name [String] The name for this volume attachment. The name must not be used by another volume
+    #   attachment on the instance. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_instance_volume_attachment(instance_id:, volume:, delete_volume_on_instance_delete: nil, name: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -4094,19 +4116,23 @@ module IbmVpc
     #   Instance groups are not compatible with instance templates that specify `true` for
     #   `default_trusted_profile.auto_link`.
     # @param subnets [Array[SubnetIdentity]] The subnets to use when creating new instances.
-    # @param application_port [Fixnum] Required if specifying a load balancer pool only. Used by the instance group when
-    #   scaling up instances to supply the port for the load balancer pool member.
+    # @param application_port [Fixnum] The port to use for new load balancer pool members created by this instance group.
+    #
+    #   This property must be specified if and only if `load_balancer_pool` has been
+    #   specified.
     # @param load_balancer [LoadBalancerIdentity] The load balancer associated with the specified load balancer pool.
     #   Required if `load_balancer_pool` is specified.
     #
     #   At present, only load balancers in the `application` family are supported.
-    # @param load_balancer_pool [LoadBalancerPoolIdentity] If specified, the load balancer pool will be managed by this
-    #   group. Instances created by this group will have a new load
-    #   balancer pool member in that pool created. Must be used with
-    #   `application_port`.
+    # @param load_balancer_pool [LoadBalancerPoolIdentity] If specified, the load balancer pool this instance group will manage. A pool
+    #   member
+    #   will be created for each instance created by this group.
+    #
+    #   If specified, `load_balancer` and `application_port` must also be specified.
     # @param membership_count [Fixnum] The number of instances in the instance group.
-    # @param name [String] The unique user-defined name for this instance group. If unspecified, the name
-    #   will be a hyphenated list of randomly-selected words.
+    # @param name [String] The name for this instance group. The name must not be used by another instance
+    #   group in the region. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -5203,8 +5229,9 @@ module IbmVpc
     # @param _class [String] The dedicated host profile class for hosts in this group.
     # @param family [String] The dedicated host profile family for hosts in this group.
     # @param zone [ZoneIdentity] The zone this dedicated host group will reside in.
-    # @param name [String] The unique user-defined name for this dedicated host group. If unspecified, the
-    #   name will be a hyphenated list of randomly-selected words.
+    # @param name [String] The name for this dedicated host group. The name must not be used by another
+    #   dedicated host group in the region. If unspecified, the name will be a hyphenated
+    #   list of randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -5363,7 +5390,8 @@ module IbmVpc
     ##
     # @!method list_dedicated_host_profiles(start: nil, limit: nil)
     # List all dedicated host profiles.
-    # This request lists all provisionable dedicated host profiles in the region. A
+    # This request lists provisionable [dedicated host
+    #   profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-dh-profiles) in the region. A
     #   dedicated host profile specifies the hardware characteristics for a dedicated
     #   host.
     # @param start [String] A server-provided token determining what resource to start the page on.
@@ -5814,9 +5842,9 @@ module IbmVpc
     #   user tag and a matching type will be subject to the backup policy.
     # @param match_resource_types [Array[String]] A resource type this backup policy applies to. Resources that have both a matching
     #   type and a matching user tag will be subject to the backup policy.
-    # @param name [String] The user-defined name for this backup policy. Names must be unique within the
-    #   region this backup policy resides in. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words.
+    # @param name [String] The name for this backup policy. The name must not be used by another backup
+    #   policy in the region. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param plans [Array[BackupPolicyPlanPrototype]] The prototype objects for backup plans to be created for this backup policy.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
@@ -5852,6 +5880,105 @@ module IbmVpc
         headers: headers,
         params: params,
         json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_backup_policy_jobs(backup_policy_id:, status: nil, backup_policy_plan_id: nil, start: nil, limit: nil, sort: nil, source_id: nil, target_snapshots_id: nil, target_snapshots_crn: nil)
+    # List all jobs for a backup policy.
+    # This request retrieves all jobs for a backup policy. A backup job represents the
+    #   execution of a backup policy plan for a resource matching the policy's criteria.
+    # @param backup_policy_id [String] The backup policy identifier.
+    # @param status [String] Filters the collection to backup policy jobs with the specified status.
+    # @param backup_policy_plan_id [String] Filters the collection to backup policy jobs with the backup plan with the
+    #   specified identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param sort [String] Sorts the returned collection by the specified property name in ascending order. A
+    #   `-` may be prepended to the name to sort in descending order. For example, the
+    #   value `-created_at` sorts the collection by the `created_at` property in
+    #   descending order, and the value `name` sorts it by the `name` property in
+    #   ascending order.
+    # @param source_id [String] Filters the collection to backup policy jobs with a source with the specified
+    #   identifier.
+    # @param target_snapshots_id [String] Filters the collection to resources with the target snapshot with the specified
+    #   identifier.
+    # @param target_snapshots_crn [String] Filters the collection to backup policy jobs with the target snapshot with the
+    #   specified CRN.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_backup_policy_jobs(backup_policy_id:, status: nil, backup_policy_plan_id: nil, start: nil, limit: nil, sort: nil, source_id: nil, target_snapshots_id: nil, target_snapshots_crn: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("backup_policy_id must be provided") if backup_policy_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_backup_policy_jobs")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "status" => status,
+        "backup_policy_plan.id" => backup_policy_plan_id,
+        "start" => start,
+        "limit" => limit,
+        "sort" => sort,
+        "source.id" => source_id,
+        "target_snapshots[].id" => target_snapshots_id,
+        "target_snapshots[].crn" => target_snapshots_crn
+      }
+
+      method_url = "/backup_policies/%s/jobs" % [ERB::Util.url_encode(backup_policy_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_backup_policy_job(backup_policy_id:, id:)
+    # Retrieve a backup policy job.
+    # This request retrieves a single backup policy job specified by the identifier in
+    #   the URL.
+    # @param backup_policy_id [String] The backup policy identifier.
+    # @param id [String] The backup policy job identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_backup_policy_job(backup_policy_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("backup_policy_id must be provided") if backup_policy_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_backup_policy_job")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/backup_policies/%s/jobs/%s" % [ERB::Util.url_encode(backup_policy_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
         accept_json: true
       )
       response
@@ -5896,7 +6023,7 @@ module IbmVpc
     end
 
     ##
-    # @!method create_backup_policy_plan(backup_policy_id:, cron_spec:, active: nil, attach_user_tags: nil, copy_user_tags: nil, deletion_trigger: nil, name: nil)
+    # @!method create_backup_policy_plan(backup_policy_id:, cron_spec:, active: nil, attach_user_tags: nil, clone_policy: nil, copy_user_tags: nil, deletion_trigger: nil, name: nil)
     # Create a plan for a backup policy.
     # This request creates a new backup policy plan from a backup policy plan prototype
     #   object. The prototype object is structured in the same way as a retrieved backup
@@ -5917,14 +6044,15 @@ module IbmVpc
     # @param active [Boolean] Indicates whether the plan is active.
     # @param attach_user_tags [Array[String]] User tags to attach to each backup (snapshot) created by this plan. If
     #   unspecified, no user tags will be attached.
+    # @param clone_policy [BackupPolicyPlanClonePolicyPrototype]
     # @param copy_user_tags [Boolean] Indicates whether to copy the source's user tags to the created backups
     #   (snapshots).
     # @param deletion_trigger [BackupPolicyPlanDeletionTriggerPrototype]
-    # @param name [String] The user-defined name for this backup policy plan. Names must be unique within the
-    #   backup policy this plan resides in. If unspecified, the name will be a hyphenated
-    #   list of randomly-selected words.
+    # @param name [String] The name for this backup policy plan. The name must not be used by another plan
+    #   for the backup policy. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_backup_policy_plan(backup_policy_id:, cron_spec:, active: nil, attach_user_tags: nil, copy_user_tags: nil, deletion_trigger: nil, name: nil)
+    def create_backup_policy_plan(backup_policy_id:, cron_spec:, active: nil, attach_user_tags: nil, clone_policy: nil, copy_user_tags: nil, deletion_trigger: nil, name: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -5947,6 +6075,7 @@ module IbmVpc
         "cron_spec" => cron_spec,
         "active" => active,
         "attach_user_tags" => attach_user_tags,
+        "clone_policy" => clone_policy,
         "copy_user_tags" => copy_user_tags,
         "deletion_trigger" => deletion_trigger,
         "name" => name
@@ -6278,8 +6407,9 @@ module IbmVpc
     #   this property, check for and log unknown values. Optionally halt processing and
     #   surface the error, or bypass the placement group on which the unexpected strategy
     #   was encountered.
-    # @param name [String] The unique user-defined name for this placement group. If unspecified, the name
-    #   will be a hyphenated list of randomly-selected words.
+    # @param name [String] The name for this placement group. The name must not be used by another placement
+    #   group in the region. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -6442,9 +6572,10 @@ module IbmVpc
     ##
     # @!method list_bare_metal_server_profiles(start: nil, limit: nil)
     # List all bare metal server profiles.
-    # This request lists all bare metal server profiles available in the region. A bare
-    #   metal server profile specifies the performance characteristics and pricing model
-    #   for a bare metal server.
+    # This request lists all [bare metal server
+    #   profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-bare-metal-servers-profile)
+    #   available in the region. A bare metal server profile specifies the performance
+    #   characteristics and pricing model for a bare metal server.
     # @param start [String] A server-provided token determining what resource to start the page on.
     # @param limit [Fixnum] The number of resources to return on a page.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -6569,7 +6700,7 @@ module IbmVpc
     end
 
     ##
-    # @!method create_bare_metal_server(initialization:, primary_network_interface:, profile:, zone:, name: nil, network_interfaces: nil, resource_group: nil, vpc: nil)
+    # @!method create_bare_metal_server(initialization:, primary_network_interface:, profile:, zone:, enable_secure_boot: nil, name: nil, network_interfaces: nil, resource_group: nil, trusted_platform_module: nil, vpc: nil)
     # Create a bare metal server.
     # This request provisions a new bare metal server from a prototype object. The
     #   prototype object is structured in the same way as a retrieved bare metal server,
@@ -6577,18 +6708,26 @@ module IbmVpc
     #   bare metal server is automatically started.
     # @param initialization [BareMetalServerInitializationPrototype]
     # @param primary_network_interface [BareMetalServerPrimaryNetworkInterfacePrototype] Primary network interface for the bare metal server.
-    # @param profile [BareMetalServerProfileIdentity] The profile to use for this bare metal server.
+    # @param profile [BareMetalServerProfileIdentity] The [profile](https://cloud.ibm.com/docs/vpc?topic=vpc-bare-metal-servers-profile)
+    #   to use for this bare metal server.
     # @param zone [ZoneIdentity] The zone this bare metal server will reside in.
-    # @param name [String] The unique user-defined name for this bare metal server (and default system
-    #   hostname). If unspecified, the name will be a hyphenated list of randomly-selected
-    #   words.
+    # @param enable_secure_boot [Boolean] Indicates whether secure boot is enabled. If enabled, the image must support
+    #   secure boot or the server will fail to boot.
+    # @param name [String] The name for this bare metal server. The name must not be used by another bare
+    #   metal server in the region. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
+    #
+    #   The system hostname will be based on this name.
     # @param network_interfaces [Array[BareMetalServerNetworkInterfacePrototype]] The additional network interfaces to create for the bare metal server.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
-    # @param vpc [VPCIdentity] The VPC the bare metal server is to be a part of. If specified, it must match the
-    #   VPC referenced by the subnets of the server's network interfaces.
+    # @param trusted_platform_module [BareMetalServerTrustedPlatformModulePrototype]
+    # @param vpc [VPCIdentity] The VPC this bare metal server will reside in.
+    #
+    #   If specified, it must match the VPC for the subnets of the server's network
+    #   interfaces.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_bare_metal_server(initialization:, primary_network_interface:, profile:, zone:, name: nil, network_interfaces: nil, resource_group: nil, vpc: nil)
+    def create_bare_metal_server(initialization:, primary_network_interface:, profile:, zone:, enable_secure_boot: nil, name: nil, network_interfaces: nil, resource_group: nil, trusted_platform_module: nil, vpc: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -6616,9 +6755,11 @@ module IbmVpc
         "primary_network_interface" => primary_network_interface,
         "profile" => profile,
         "zone" => zone,
+        "enable_secure_boot" => enable_secure_boot,
         "name" => name,
         "network_interfaces" => network_interfaces,
         "resource_group" => resource_group,
+        "trusted_platform_module" => trusted_platform_module,
         "vpc" => vpc
       }
 
@@ -6644,7 +6785,9 @@ module IbmVpc
     #   request.  The access token is only valid for a short period of time, and a maximum
     #   of one token is valid for a given bare metal server at a time.
     # @param bare_metal_server_id [String] The bare metal server identifier.
-    # @param console_type [String] The bare metal server console type for which this token may be used.
+    # @param console_type [String] The bare metal server console type for which this token may be used
+    #
+    #   Must be `serial` for bare metal servers with a `cpu.architecture` of `s390x`.
     # @param force [Boolean] Indicates whether to disconnect an existing serial console session as the serial
     #   console cannot be shared.  This has no effect on VNC consoles.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -7192,6 +7335,86 @@ module IbmVpc
     end
 
     ##
+    # @!method list_bare_metal_server_network_interface_ips(bare_metal_server_id:, network_interface_id:)
+    # List all reserved IPs bound to a network interface.
+    # This request lists all reserved IPs bound to a network interface.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_bare_metal_server_network_interface_ips(bare_metal_server_id:, network_interface_id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_bare_metal_server_network_interface_ips")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s/ips" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(network_interface_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_bare_metal_server_network_interface_ip(bare_metal_server_id:, network_interface_id:, id:)
+    # Retrieve bound reserved IP.
+    # This request a retrieves the specified reserved IP address if it is bound to the
+    #   network interface and bare metal server specified in the URL.
+    # @param bare_metal_server_id [String] The bare metal server identifier.
+    # @param network_interface_id [String] The network interface identifier.
+    # @param id [String] The reserved IP identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_bare_metal_server_network_interface_ip(bare_metal_server_id:, network_interface_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("bare_metal_server_id must be provided") if bare_metal_server_id.nil?
+
+      raise ArgumentError.new("network_interface_id must be provided") if network_interface_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_bare_metal_server_network_interface_ip")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/bare_metal_servers/%s/network_interfaces/%s/ips/%s" % [ERB::Util.url_encode(bare_metal_server_id), ERB::Util.url_encode(network_interface_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
     # @!method delete_bare_metal_server(id:)
     # Delete a bare metal server.
     # This request deletes a bare metal server. This operation cannot be reversed. Any
@@ -7471,8 +7694,10 @@ module IbmVpc
     ##
     # @!method list_volume_profiles(start: nil, limit: nil)
     # List all volume profiles.
-    # This request lists all volume profiles available in the region. A volume profile
-    #   specifies the performance characteristics and pricing model for a volume.
+    # This request lists all [volume
+    #   profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-block-storage-profiles)
+    #   available in the region. A volume profile specifies the performance
+    #   characteristics and pricing model for a volume.
     # @param start [String] A server-provided token determining what resource to start the page on.
     # @param limit [Fixnum] The number of resources to return on a page.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -7784,7 +8009,7 @@ module IbmVpc
     end
 
     ##
-    # @!method list_snapshots(start: nil, limit: nil, tag: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil, backup_policy_plan_id: nil)
+    # @!method list_snapshots(start: nil, limit: nil, tag: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil, backup_policy_plan_id: nil, clones_zone_name: nil)
     # List all snapshots.
     # This request lists all snapshots in the region. A snapshot preserves the data of a
     #   volume at the time the snapshot is created.
@@ -7815,8 +8040,9 @@ module IbmVpc
     #   ascending order.
     # @param backup_policy_plan_id [String] Filters the collection to backup policy jobs with the backup plan with the
     #   specified identifier.
+    # @param clones_zone_name [String] Filters the collection to resources with a clone in the specified zone.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_snapshots(start: nil, limit: nil, tag: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil, backup_policy_plan_id: nil)
+    def list_snapshots(start: nil, limit: nil, tag: nil, resource_group_id: nil, name: nil, source_volume_id: nil, source_volume_crn: nil, source_image_id: nil, source_image_crn: nil, sort: nil, backup_policy_plan_id: nil, clones_zone_name: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -7839,7 +8065,8 @@ module IbmVpc
         "source_image.id" => source_image_id,
         "source_image.crn" => source_image_crn,
         "sort" => sort,
-        "backup_policy_plan.id" => backup_policy_plan_id
+        "backup_policy_plan.id" => backup_policy_plan_id,
+        "clones[].zone.name" => clones_zone_name
       }
 
       method_url = "/snapshots"
@@ -8008,6 +8235,160 @@ module IbmVpc
         headers: headers,
         params: params,
         data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_snapshot_clones(id:)
+    # List all clones for a snapshot.
+    # This request lists all clones for a snapshot. Use a clone to quickly restore a
+    #   snapshot within the clone's zone.
+    # @param id [String] The snapshot identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_snapshot_clones(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_snapshot_clones")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/snapshots/%s/clones" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_snapshot_clone(id:, zone_name:)
+    # Delete a snapshot clone.
+    # This request deletes a snapshot clone. This operation cannot be reversed, but an
+    #   equivalent clone may be recreated from the snapshot.
+    # @param id [String] The snapshot identifier.
+    # @param zone_name [String] The zone name.
+    # @return [nil]
+    def delete_snapshot_clone(id:, zone_name:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("zone_name must be provided") if zone_name.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_snapshot_clone")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/snapshots/%s/clones/%s" % [ERB::Util.url_encode(id), ERB::Util.url_encode(zone_name)]
+
+      request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: false
+      )
+      nil
+    end
+
+    ##
+    # @!method get_snapshot_clone(id:, zone_name:)
+    # Retrieve a snapshot clone.
+    # This request retrieves a single clone specified by the snapshot identifier and
+    #   zone name in the URL.
+    # @param id [String] The snapshot identifier.
+    # @param zone_name [String] The zone name.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_snapshot_clone(id:, zone_name:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("zone_name must be provided") if zone_name.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_snapshot_clone")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/snapshots/%s/clones/%s" % [ERB::Util.url_encode(id), ERB::Util.url_encode(zone_name)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_snapshot_clone(id:, zone_name:)
+    # Create a clone for a snapshot.
+    # This request creates a new clone for a snapshot in the specified zone. A request
+    #   body is not required, and if provided, is ignored. If the snapshot already has a
+    #   clone in the zone, it is returned.
+    # @param id [String] The snapshot identifier.
+    # @param zone_name [String] The zone name.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_snapshot_clone(id:, zone_name:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("zone_name must be provided") if zone_name.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_snapshot_clone")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/snapshots/%s/clones/%s" % [ERB::Util.url_encode(id), ERB::Util.url_encode(zone_name)]
+
+      response = request(
+        method: "PUT",
+        url: method_url,
+        headers: headers,
+        params: params,
         accept_json: true
       )
       response
@@ -8220,12 +8601,12 @@ module IbmVpc
     #   provided, one will be created and bound to the public gateway. Once a public
     #   gateway has been created, its floating IP cannot be unbound. A public gateway must
     #   be explicitly attached to each subnet it will provide connectivity for.
-    # @param vpc [VPCIdentity] The VPC this public gateway will serve.
+    # @param vpc [VPCIdentity] The VPC this public gateway will reside in.
     # @param zone [ZoneIdentity] The zone this public gateway will reside in.
     # @param floating_ip [PublicGatewayFloatingIPPrototype]
-    # @param name [String] The user-defined name for this public gateway. Names must be unique within the VPC
-    #   the public gateway resides in. If unspecified, the name will be a hyphenated list
-    #   of randomly-selected words.
+    # @param name [String] The name for this public gateway. The name must not be used by another public
+    #   gateway in the VPC. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -8636,9 +9017,9 @@ module IbmVpc
     ##
     # @!method create_network_acl(network_acl_prototype: nil)
     # Create a network ACL.
-    # This request creates a new network ACL from a network ACL prototype object. The
-    #   prototype object is structured in the same way as a retrieved network ACL, and
-    #   contains the information necessary to create the new network ACL.
+    # This request creates a new stateless network ACL from a network ACL prototype
+    #   object. The prototype object is structured in the same way as a retrieved network
+    #   ACL, and contains the information necessary to create the new network ACL.
     # @param network_acl_prototype [NetworkACLPrototype] The network ACL prototype object.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_network_acl(network_acl_prototype: nil)
@@ -9059,10 +9440,10 @@ module IbmVpc
     #   security group rules are included in the prototype object, those rules will be
     #   added to the security group. Each security group is scoped to one VPC. Only
     #   network interfaces on instances in that VPC can be added to the security group.
-    # @param vpc [VPCIdentity] The VPC this security group is to be a part of.
-    # @param name [String] The user-defined name for this security group. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words. Names must be unique within the VPC
-    #   the security group resides in.
+    # @param vpc [VPCIdentity] The VPC this security group will reside in.
+    # @param name [String] The name for this security group. The name must not be used by another security
+    #   group for the VPC. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @param rules [Array[SecurityGroupRulePrototype]] The prototype objects for rules to be created for this security group. If
@@ -9482,7 +9863,8 @@ module IbmVpc
     #   the target must be attached to at least one other security group.  The specified
     #   target identifier can be:
     #
-    #   - A network interface identifier
+    #   - An instance network interface identifier
+    #   - A bare metal server network interface identifier
     #   - A VPN server identifier
     #   - An application load balancer identifier
     #   - An endpoint gateway identifier
@@ -9568,7 +9950,8 @@ module IbmVpc
     # This request adds a resource to an existing security group. The specified target
     #   identifier can be:
     #
-    #   - A network interface identifier
+    #   - An instance network interface identifier
+    #   - A bare metal server network interface identifier
     #   - A VPN server identifier
     #   - An application load balancer identifier
     #   - An endpoint gateway identifier
@@ -9652,12 +10035,20 @@ module IbmVpc
     # @!method create_ike_policy(authentication_algorithm:, dh_group:, encryption_algorithm:, ike_version:, key_lifetime: nil, name: nil, resource_group: nil)
     # Create an IKE policy.
     # This request creates a new IKE policy.
-    # @param authentication_algorithm [String] The authentication algorithm.
-    # @param dh_group [Fixnum] The Diffie-Hellman group.
-    # @param encryption_algorithm [String] The encryption algorithm.
+    # @param authentication_algorithm [String] The authentication algorithm
+    #
+    #   The `md5` and `sha1` algorithms have been deprecated.
+    # @param dh_group [Fixnum] The Diffie-Hellman group
+    #
+    #   Groups `2` and `5` have been deprecated.
+    # @param encryption_algorithm [String] The encryption algorithm
+    #
+    #   The `triple_des` algorithm has been deprecated.
     # @param ike_version [Fixnum] The IKE protocol version.
     # @param key_lifetime [Fixnum] The key lifetime in seconds.
-    # @param name [String] The user-defined name for this IKE policy.
+    # @param name [String] The name for this IKE policy. The name must not be used by another IKE policies in
+    #   the region. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -9896,11 +10287,26 @@ module IbmVpc
     # @!method create_ipsec_policy(authentication_algorithm:, encryption_algorithm:, pfs:, key_lifetime: nil, name: nil, resource_group: nil)
     # Create an IPsec policy.
     # This request creates a new IPsec policy.
-    # @param authentication_algorithm [String] The authentication algorithm.
-    # @param encryption_algorithm [String] The encryption algorithm.
-    # @param pfs [String] Perfect Forward Secrecy.
+    # @param authentication_algorithm [String] The authentication algorithm
+    #
+    #   The `md5` and `sha1` algorithms have been deprecated
+    #
+    #   Must be `disabled` if and only if the `encryption_algorithm` is
+    #   `aes128gcm16`, `aes192gcm16`, or `aes256gcm16`.
+    # @param encryption_algorithm [String] The encryption algorithm
+    #
+    #   The `triple_des` algorithm has been deprecated
+    #
+    #   The `authentication_algorithm` must be `disabled` if and only if
+    #   `encryption_algorithm` is `aes128gcm16`, `aes192gcm16`, or
+    #   `aes256gcm16`.
+    # @param pfs [String] Perfect Forward Secrecy
+    #
+    #   Groups `group_2` and `group_5` have been deprecated.
     # @param key_lifetime [Fixnum] The key lifetime in seconds.
-    # @param name [String] The user-defined name for this IPsec policy.
+    # @param name [String] The name for this IPsec policy. The name must not be used by another IPsec
+    #   policies in the region. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -10098,16 +10504,21 @@ module IbmVpc
     end
 
     ##
-    # @!method list_vpn_gateways(start: nil, limit: nil, resource_group_id: nil, mode: nil)
+    # @!method list_vpn_gateways(start: nil, limit: nil, resource_group_id: nil, sort: nil, mode: nil)
     # List all VPN gateways.
     # This request lists all VPN gateways in the region.
     # @param start [String] A server-provided token determining what resource to start the page on.
     # @param limit [Fixnum] The number of resources to return on a page.
     # @param resource_group_id [String] Filters the collection to resources in the resource group with the specified
     #   identifier.
+    # @param sort [String] Sorts the returned collection by the specified property name in ascending order. A
+    #   `-` may be prepended to the name to sort in descending order. For example, the
+    #   value `-created_at` sorts the collection by the `created_at` property in
+    #   descending order, and the value `name` sorts it by the `name` property in
+    #   ascending order.
     # @param mode [String] Filters the collection to VPN gateways with the specified mode.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_vpn_gateways(start: nil, limit: nil, resource_group_id: nil, mode: nil)
+    def list_vpn_gateways(start: nil, limit: nil, resource_group_id: nil, sort: nil, mode: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -10123,6 +10534,7 @@ module IbmVpc
         "start" => start,
         "limit" => limit,
         "resource_group.id" => resource_group_id,
+        "sort" => sort,
         "mode" => mode
       }
 
@@ -10935,9 +11347,9 @@ module IbmVpc
     # @param client_idle_timeout [Fixnum] The seconds a VPN client can be idle before this VPN server will disconnect it.
     #   Specify `0` to prevent the server from disconnecting idle clients.
     # @param enable_split_tunneling [Boolean] Indicates whether the split tunneling is enabled on this VPN server.
-    # @param name [String] The user-defined name for this VPN server. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words. Names must be unique within the VPC
-    #   this VPN server is serving.
+    # @param name [String] The name for this VPN server. The name must not be used by another VPN server in
+    #   the VPC. If unspecified, the name will be a hyphenated list of randomly-selected
+    #   words.
     # @param port [Fixnum] The port number to use for this VPN server.
     # @param protocol [String] The transport protocol to use for this VPN server.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
@@ -11387,9 +11799,9 @@ module IbmVpc
     #   processing this property, check for and log unknown values. Optionally halt
     #   processing and surface the error, or bypass the VPN route on which the unexpected
     #   property value was encountered.
-    # @param name [String] The user-defined name for this VPN route. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words. Names must be unique within the VPN
-    #   server the VPN route resides in.
+    # @param name [String] The name for this VPN server route. The name must not be used by another route for
+    #   the VPN server. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_vpn_server_route(vpn_server_id:, destination:, action: nil, name: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -11665,27 +12077,30 @@ module IbmVpc
     end
 
     ##
-    # @!method create_load_balancer(is_public:, subnets:, listeners: nil, logging: nil, name: nil, pools: nil, profile: nil, resource_group: nil, route_mode: nil, security_groups: nil)
+    # @!method create_load_balancer(is_public:, subnets:, datapath: nil, listeners: nil, logging: nil, name: nil, pools: nil, profile: nil, resource_group: nil, route_mode: nil, security_groups: nil)
     # Create a load balancer.
     # This request creates and provisions a new load balancer.
-    # @param is_public [Boolean] Indicates whether this load balancer is public or private.
+    # @param is_public [Boolean] Indicates whether this load balancer is public.
     #
-    #   At present, if route mode is enabled, the load balancer must be private.
-    # @param subnets [Array[SubnetIdentity]] The subnets to provision this load balancer in.  The load balancer's availability
-    #   will depend on the availability of the zones the specified subnets reside in.
+    #   At present, if route mode is enabled, the load balancer must not be public.
+    # @param subnets [Array[SubnetIdentity]] The subnets to provision this load balancer in. The subnets must be in the same
+    #   VPC. The load balancer's availability will depend on the availability of the zones
+    #   that the subnets reside in.
     #
     #   Load balancers in the `network` family allow only one subnet to be specified.
+    # @param datapath [LoadBalancerLoggingDatapathPrototype] The datapath logging configuration for this load balancer.
     # @param listeners [Array[LoadBalancerListenerPrototypeLoadBalancerContext]] The listeners of this load balancer.
-    # @param logging [LoadBalancerLogging] The logging configuration to use for this load balancer. See [VPC Datapath
-    #   Logging](https://cloud.ibm.com/docs/vpc?topic=vpc-datapath-logging)
-    #   on the logging format, fields and permitted values.
+    # @param logging [LoadBalancerLoggingPrototype] The logging configuration to use for this load balancer. See [VPC Datapath
+    #   Logging](https://cloud.ibm.com/docs/vpc?topic=vpc-datapath-logging) on the logging
+    #   format, fields and permitted values.
     #
     #   To activate logging, the load balancer profile must support the specified logging
     #   type.
-    # @param name [String] The user-defined name for this load balancer. If unspecified, the name will be a
-    #   hyphenated list of randomly-selected words.
+    # @param name [String] The name for this load balancer. The name must not be used by another load
+    #   balancer in the VPC.  If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param pools [Array[LoadBalancerPoolPrototype]] The pools of this load balancer.
-    # @param profile [LoadBalancerProfileIdentity] The profile to use for this load balancer
+    # @param profile [LoadBalancerProfileIdentity] The profile to use for this load balancer.
     #
     #   If unspecified, `application` will be used.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
@@ -11698,7 +12113,7 @@ module IbmVpc
     #
     #   The load balancer profile must support security groups.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_load_balancer(is_public:, subnets:, listeners: nil, logging: nil, name: nil, pools: nil, profile: nil, resource_group: nil, route_mode: nil, security_groups: nil)
+    def create_load_balancer(is_public:, subnets:, datapath: nil, listeners: nil, logging: nil, name: nil, pools: nil, profile: nil, resource_group: nil, route_mode: nil, security_groups: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -11720,6 +12135,7 @@ module IbmVpc
       data = {
         "is_public" => is_public,
         "subnets" => subnets,
+        "datapath" => datapath,
         "listeners" => listeners,
         "logging" => logging,
         "name" => name,
@@ -11744,13 +12160,15 @@ module IbmVpc
     end
 
     ##
-    # @!method delete_load_balancer(id:)
+    # @!method delete_load_balancer(id:, if_match: nil)
     # Delete a load balancer.
     # This request deletes a load balancer. This operation cannot be reversed. A load
     #   balancer cannot be deleted if its `provisioning_status` is `delete_pending`.
     # @param id [String] The load balancer identifier.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value.
     # @return [nil]
-    def delete_load_balancer(id:)
+    def delete_load_balancer(id:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -11758,6 +12176,7 @@ module IbmVpc
       raise ArgumentError.new("id must be provided") if id.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_load_balancer")
       headers.merge!(sdk_headers)
@@ -11816,13 +12235,18 @@ module IbmVpc
     end
 
     ##
-    # @!method update_load_balancer(id:, load_balancer_patch:)
+    # @!method update_load_balancer(id:, load_balancer_patch:, if_match: nil)
     # Update a load balancer.
-    # This request updates a load balancer.
+    # This request updates a load balancer with the information in a provided load
+    #   balancer patch. The load balancer patch object is structured in the same way as a
+    #   retrieved load balancer and contains only the information to be updated. A load
+    #   balancer can only be updated if its `provisioning_status` is `active`.
     # @param id [String] The load balancer identifier.
     # @param load_balancer_patch [Hash] The load balancer patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def update_load_balancer(id:, load_balancer_patch:)
+    def update_load_balancer(id:, load_balancer_patch:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -11832,6 +12256,7 @@ module IbmVpc
       raise ArgumentError.new("load_balancer_patch must be provided") if load_balancer_patch.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_load_balancer")
       headers.merge!(sdk_headers)
@@ -11933,10 +12358,16 @@ module IbmVpc
     # This request creates a new listener for a load balancer.
     # @param load_balancer_id [String] The load balancer identifier.
     # @param protocol [String] The listener protocol. Each listener in the load balancer must have a unique
-    #   `port` and `protocol` combination.  Additional restrictions:
-    #   - If this load balancer is in the `network` family:
-    #     - The protocol must be `tcp` or `udp` (if `udp_supported` is `true`).
-    #     - If `default_pool` is set, the pool protocol must match.
+    #   `port` and `protocol` combination.
+    #
+    #   Load balancers in the `network` family support `tcp` and `udp` (if `udp_supported`
+    #   is `true`). Load balancers in the `application` family support `tcp`, `http` and
+    #   `https`.
+    #
+    #   Additional restrictions:
+    #   - If `default_pool` is set, the pool's protocol must match, or be compatible with
+    #     the listener's protocol. At present, the compatible protocols are `http` and
+    #     `https`.
     #   - If `https_redirect` is set, the protocol must be `http`.
     # @param accept_proxy_protocol [Boolean] If set to `true`, this listener will accept and forward PROXY protocol
     #   information. Supported by load balancers in the `application` family (otherwise
@@ -11947,19 +12378,21 @@ module IbmVpc
     #   - If this listener is the target of another listener's `https_redirect`, its
     #     `accept_proxy_protocol` value must match that listener's `accept_proxy_protocol`
     #   value.
-    # @param certificate_instance [CertificateInstanceIdentity] The certificate instance used for SSL termination. It is applicable only to
-    #   `https`
-    #   protocol.
+    # @param certificate_instance [CertificateInstanceIdentity] The certificate instance to use for SSL termination. The listener must have a
+    #   `protocol` of `https`.
     # @param connection_limit [Fixnum] The connection limit of the listener.
-    # @param default_pool [LoadBalancerPoolIdentity] The default pool for this listener. The specified pool must:
-    #
-    #   - Belong to this load balancer
+    # @param default_pool [LoadBalancerPoolIdentity] The default pool for this listener. If specified, the pool must:
+    #   - Belong to this load balancer.
     #   - Have the same `protocol` as this listener, or have a compatible protocol.
     #     At present, the compatible protocols are `http` and `https`.
     #   - Not already be the `default_pool` for another listener.
+    #
+    #   If unspecified, this listener will be created with no default pool, but one may be
+    #   subsequently set.
     # @param https_redirect [LoadBalancerListenerHTTPSRedirectPrototype] The target listener that requests will be redirected to. This listener must have a
     #   `protocol` of `http`, and the target listener must have a `protocol` of `https`.
-    # @param policies [Array[LoadBalancerListenerPolicyPrototype]] The policy prototype objects for this listener.
+    # @param policies [Array[LoadBalancerListenerPolicyPrototype]] The policy prototype objects for this listener. The load balancer must be in the
+    #   `application` family.
     # @param port [Fixnum] The listener port number, or the inclusive lower bound of the port range. Each
     #   listener in the load balancer must have a unique `port` and `protocol`
     #   combination.
@@ -12204,8 +12637,9 @@ module IbmVpc
     #   processing and surface the error, or bypass the policy on which the unexpected
     #   property value was encountered.
     # @param priority [Fixnum] Priority of the policy. Lower value indicates higher priority.
-    # @param name [String] The user-defined name for this policy. Names must be unique within the load
-    #   balancer listener the policy resides in.
+    # @param name [String] The name for this policy. The name must not be used by another policy for the load
+    #   balancer listener. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param rules [Array[LoadBalancerListenerPolicyRulePrototype]] The rule prototype objects for this policy.
     # @param target [LoadBalancerListenerPolicyTargetPrototype] - If `action` is `forward`, specify a `LoadBalancerPoolIdentity`.
     #   - If `action` is `redirect`, specify a
@@ -12690,8 +13124,9 @@ module IbmVpc
     # @param members [Array[LoadBalancerPoolMemberPrototype]] The members for this load balancer pool. For load balancers in the `network`
     #   family, the same `port` and `target` tuple cannot be shared by a pool member of
     #   any other load balancer in the same VPC.
-    # @param name [String] The user-defined name for this load balancer pool. If unspecified, the name will
-    #   be a hyphenated list of randomly-selected words.
+    # @param name [String] The name for this load balancer pool. The name must not be used by another pool
+    #   for the load balancer. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param proxy_protocol [String] The PROXY protocol setting for this pool:
     #   - `v1`: Enabled with version 1 (human-readable header format)
     #   - `v2`: Enabled with version 2 (binary header format)
@@ -13203,13 +13638,15 @@ module IbmVpc
     # Create an endpoint gateway.
     # This request creates a new endpoint gateway. An endpoint gateway maps one or more
     #   reserved IPs in a VPC to a target outside the VPC.
-    # @param target [EndpointGatewayTargetPrototype] The target for this endpoint gateway.
-    # @param vpc [VPCIdentity] The VPC this endpoint gateway will serve.
+    # @param target [EndpointGatewayTargetPrototype] The target to use for this endpoint gateway. Must not already be the target of
+    #   another
+    #   endpoint gateway in the VPC.
+    # @param vpc [VPCIdentity] The VPC this endpoint gateway will reside in.
     # @param ips [Array[EndpointGatewayReservedIP]] The reserved IPs to bind to this endpoint gateway. At most one reserved IP per
     #   zone is allowed.
-    # @param name [String] The user-defined name for this endpoint gateway. If unspecified, the name will be
-    #   a hyphenated list of randomly-selected words. Names must be unique within the VPC
-    #   this endpoint gateway is serving.
+    # @param name [String] The name for this endpoint gateway. The name must not be used by another endpoint
+    #   gateway in the VPC. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @param security_groups [Array[SecurityGroupIdentity]] The security groups to use for this endpoint gateway. If unspecified, the VPC's
@@ -13613,8 +14050,9 @@ module IbmVpc
     #   the
     #   target that are themselves the target of a more specific flow log collector.
     # @param active [Boolean] Indicates whether this collector will be active upon creation.
-    # @param name [String] The unique user-defined name for this flow log collector. If unspecified, the name
-    #   will be a hyphenated list of randomly-selected words.
+    # @param name [String] The name for this flow log collector. The name must not be used by another flow
+    #   log collector in the region. If unspecified, the name will be a hyphenated list of
+    #   randomly-selected words.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) is used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.

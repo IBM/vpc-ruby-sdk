@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
 sudo: required
+dist: focal
 
 rvm:
 - 2.5.1

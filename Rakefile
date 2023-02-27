@@ -28,6 +28,16 @@ namespace :test do
     t.warning = true
     t.deps = %i[dotenv rubocop]
   end
+
+  Rake::TestTask.new do |t|
+    t.name = "examples"
+    t.description = "Run example tests (put credentials in a .env file)"
+    t.libs << "test"
+    t.test_files = FileList["test/examples/*.rb"]
+    t.verbose = true
+    t.warning = true
+    t.deps = %i[dotenv rubocop]
+  end
 end
 
 desc "Run unit & integration tests"
