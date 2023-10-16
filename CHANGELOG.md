@@ -1,3 +1,10 @@
+## [0.6.1](https://github.com/IBM/vpc-ruby-sdk/compare/0.6.0...0.6.1) (2023-10-16)
+
+
+### Bug Fixes
+
+* **release:** Some known HTTP::ConnectionError issues resolved in http 5.1.x ([6334318](https://github.com/IBM/vpc-ruby-sdk/commit/6334318726ac52a6602b83b602926153d6aa949f)), closes [/github.com/httprb/http/blob/main/CHANGES.md#500-2021-05-12](https://github.com//github.com/httprb/http/blob/main/CHANGES.md/issues/500-2021-05-12)
+
 # [0.6.0](https://github.com/IBM/vpc-ruby-sdk/compare/0.5.0...0.6.0) (2023-03-14)
 
 
