@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "./version.rb"
+require "securerandom"
 
 module IbmVpc
   # SDK Common class
@@ -14,6 +15,8 @@ module IbmVpc
 
       headers["User-Agent"] = user_agent_string
       return headers if service_name.nil? || service_version.nil? || operation_id.nil?
+
+      headers["X-Request-Id"] = SecureRandom.uuid
 
       headers["X-IBMCloud-SDK-Analytics"] = "service_name=#{service_name};service_version=#{service_version};operation_id=#{operation_id}"
       headers
