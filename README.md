@@ -91,7 +91,7 @@ Setting up and using the API client is simple, just pass in your authenticator o
 
 # Pass the authenticator into the VpcV1 service
 vpc_v1 = IbmVpc::VpcV1.new(
-  version: "2022-09-13" # Will default to the latest version if not specified
+  version: "2023-12-19" # Will default to the latest version if not specified
   authenticator: authenticator
 )
 

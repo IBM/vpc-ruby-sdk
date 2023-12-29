@@ -1783,9 +1783,9 @@ if ENV["IBM_CREDENTIALS_FILE"]
       # sleep(30)
       # begin-delete_instance_group_load_balancer
 
-      # service.delete_instance_group_load_balancer(
-      #   instance_group_id: instance_group_id
-      # )
+      service.delete_instance_group_load_balancer(
+        instance_group_id: instance_group_id
+      )
 
       # end-delete_instance_group_load_balancer
       # sleep(30)
@@ -2167,12 +2167,8 @@ if ENV["IBM_CREDENTIALS_FILE"]
       volume_identity_model = {
         'id': volume_id
       }
-      clones = {
-        'zone_name': "us-east-1"
-      }
 
       snapshot_prototype_model = {
-        'clones': [clones],
         'source_volume': volume_identity_model,
         'name': "my-snapshot"
       }
@@ -2215,56 +2211,6 @@ if ENV["IBM_CREDENTIALS_FILE"]
       puts JSON.pretty_generate(snapshot)
 
       # end-update_snapshot
-
-      puts "list_snapshot_clones() result:"
-
-      # begin-list_snapshot_clones
-
-      response = service.list_snapshot_clones(
-        id: snapshot_id
-      )
-      snapshot_clone_collection = response.result
-
-      puts JSON.pretty_generate(snapshot_clone_collection)
-
-      # end-list_snapshot_clones
-
-      print('\nget_snapshot_clone() result:')
-
-      # begin-get_snapshot_clone
-
-      response = service.get_snapshot_clone(
-        id: snapshot_id,
-        zone_name: "us-east-1"
-      )
-      snapshot_clone = response.result
-
-      puts JSON.pretty_generate(snapshot_clone)
-
-      # end-get_snapshot_clone
-
-      puts "create_snapshot_clone() result:"
-
-      # begin-create_snapshot_clone
-
-      response = service.create_snapshot_clone(
-        id: snapshot_id,
-        zone_name: "us-east-1"
-      )
-      snapshot_clone = response.result
-
-      puts JSON.pretty_generate(snapshot_clone)
-
-      # end-create_snapshot_clone
-
-      # begin-delete_snapshot_clone
-
-      service.delete_snapshot_clone(
-        id: snapshot_id,
-        zone_name: "us-east-1"
-      )
-
-      # end-delete_snapshot_clone
 
       puts "delete_snapshot() result:"
       # begin-delete_snapshot
@@ -2888,7 +2834,7 @@ if ENV["IBM_CREDENTIALS_FILE"]
       ike_policy = service.create_ike_policy(
         authentication_algorithm: "sha256",
         dh_group: 14,
-        encryption_algorithm: "aes192",
+        encryption_algorithm: "aes128",
         ike_version: 1,
         name: "my-ike-policy"
       ).result
@@ -2949,7 +2895,7 @@ if ENV["IBM_CREDENTIALS_FILE"]
 
       i_psec_policy = service.create_ipsec_policy(
         authentication_algorithm: "sha256",
-        encryption_algorithm: "aes192",
+        encryption_algorithm: "aes128",
         pfs: "disabled",
         name: "updated-my-ipsec-policy"
       ).result
@@ -3235,26 +3181,6 @@ if ENV["IBM_CREDENTIALS_FILE"]
 
       # end-list_backup_policies
 
-      volume_profile_identity_model = {
-        'name': "5iops-tier"
-      }
-
-      zone_identity_model = {
-        'name': "us-east-1"
-      }
-
-      volume_prototype_model = {
-        'profile': volume_profile_identity_model,
-        'zone': zone_identity_model,
-        'capacity': 100,
-        'name': "my-volume-backup-policy",
-        'user_tags': ["my-daily-backup-policy"]
-      }
-
-      service.create_volume(
-        volume_prototype: volume_prototype_model
-      ).result
-
       puts "create_backup_policy() result:"
       # begin-create_backup_policy
       backup_policy_plan_deletion_trigger_prototype_model = {
@@ -3271,11 +3197,14 @@ if ENV["IBM_CREDENTIALS_FILE"]
         'name': "my-backup-policy-plan"
       }
 
+      backup_policy_prototype_model = {
+        'match_user_tags': ["my-daily-backup-policy"],
+        'match_resource_type': ["volume"],
+        'name': "my-backup-policy",
+        'plans': [backup_policy_plan_prototype_model]
+      }
       backup_policy_response = service.create_backup_policy(
-        match_user_tags: ["my-daily-backup-policy"],
-        match_resource_types: ["volume"],
-        name: "my-backup-policy",
-        plans: [backup_policy_plan_prototype_model]
+        backup_policy_prototype: backup_policy_prototype_model
       )
       backup_policy = backup_policy_response.result
       backup_policy_etag = backup_policy_response.headers["ETag"]
@@ -3303,20 +3232,13 @@ if ENV["IBM_CREDENTIALS_FILE"]
         'delete_after': 20,
         'delete_over_count': 20
       }
-      zone_identity_model = {
-        'name': "us-east-1"
-      }
-      backup_policy_plan_clone_policy_prototype_model = {
-        'max_snapshots': 38,
-        'zones': [zone_identity_model]
-      }
+
       backup_policy_plan_response = service.create_backup_policy_plan(
         backup_policy_id: backup_policy_id,
         cron_spec: "*/5 1,2,3 * * *",
         active: true,
         attach_user_tags: ["my-daily-backup-plan"],
         copy_user_tags: true,
-        clone_policy: backup_policy_plan_clone_policy_prototype_model,
         deletion_trigger: backup_policy_plan_deletion_trigger_prototype_model,
         name: "my-backup-policy-plan"
       )
@@ -3356,27 +3278,6 @@ if ENV["IBM_CREDENTIALS_FILE"]
       puts JSON.pretty_generate(backup_policy_plan)
 
       # end-update_backup_policy_plan
-
-      puts "list_backup_policy_jobs() result:"
-      # begin-list_backup_policy_jobs
-
-      backup_policy_jobs = service.list_backup_policy_jobs(backup_policy_id: backup_policy_id, backup_policy_plan_id: backup_policy_plan_id).result
-
-      # end-list_backup_policy_jobs
-      puts JSON.pretty_generate(backup_policy_jobs)
-      backup_policy_job_id = backup_policy_jobs["jobs"][0]["id"]
-
-      print('\nget_backup_policy_job() result:')
-      # begin-get_backup_policy_job
-
-      response = service.get_backup_policy_job(
-        backup_policy_id: backup_policy_id,
-        id: backup_policy_job_id
-      )
-      backup_policy_job = response.result
-
-      # end-get_backup_policy_job
-      assert !backup_policy_job.nil?
 
       puts "get_backup_policy() result:"
       # begin-get_backup_policy
@@ -4490,12 +4391,6 @@ if ENV["IBM_CREDENTIALS_FILE"]
 
       subnet_id = subnet["id"]
 
-      # reserved_ip = service.create_subnet_reserved_ip(
-      #   name: "my-bm-reserved-ip",
-      #   subnet_id: subnet_id
-      # ).result
-      # reserved_ip_id = reserved_ip["id"]
-
       puts "list_bare_metal_server_profiles() result "
       # begin-list_bare_metal_server_profiles
 
@@ -4567,16 +4462,19 @@ if ENV["IBM_CREDENTIALS_FILE"]
       zone_identity_model = {
         'name': "us-east-1"
       }
-
-      bare_metal_server = service.create_bare_metal_server(
-        initialization: bare_metal_server_initialization_prototype_model,
-        primary_network_interface:
+      profile = {
+        'name': "bmx2-48x768"
+      }
+      bare_metal_server_prototype = {
+        'initialization': bare_metal_server_initialization_prototype_model,
+        'primary_network_interface':
           bare_metal_server_primary_network_interface_prototype_model,
-        profile: {
-          'name': "bmx2-48x768"
-        },
-        name: "my-baremetal-server",
-        zone: zone_identity_model
+        'profile': profile,
+        'name': "my-baremetal-server",
+        'zone': zone_identity_model
+      }
+      bare_metal_server = service.create_bare_metal_server(
+        bare_metal_server_prototype: bare_metal_server_prototype
       ).result
 
       # end-create_bare_metal_server
@@ -4723,30 +4621,6 @@ if ENV["IBM_CREDENTIALS_FILE"]
         floating_ip_prototype: floating_ip_prototype_model
       ).result
       floating_ip_id = floating_ip["id"]
-
-      # Commenting for now as mock does not support these APIs
-      # puts "list_bare_metal_server_network_interface_ips() result:"
-      # # begin-list_bare_metal_server_network_interface_ips
-
-      # reserved_ips = service.list_bare_metal_server_network_interface_ips(
-      #   bare_metal_server_id: bare_metal_id,
-      #   network_interface_id: bm_nic_id
-      # ).result
-
-      # # end-list_bare_metal_server_network_interface_ips
-      # assert !reserved_ips.nil?
-
-      # puts "get_bare_metal_server_network_interface_ip() result:"
-      # # begin-get_bare_metal_server_network_interface_ip
-
-      # reserved_ip = service.get_bare_metal_server_network_interface_ip(
-      #   bare_metal_server_id: bare_metal_id,
-      #   network_interface_id: bm_nic_id,
-      #   id: reserved_ip_id
-      # ).result
-
-      # # end-get_bare_metal_server_network_interface_ip
-      # assert !reserved_ip.nil?
 
       print(
         '\nadd_bare_metal_server_network_interface_floating_ip() result:'
