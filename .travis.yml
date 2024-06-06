@@ -16,7 +16,7 @@ jobs:
 before_install:
   - sudo apt-get update
   - sudo apt-get install python
-  - nvm install node
+  - nvm install --lts
   - nvm use node
   - gem install bundler -v 2.4.22
 
