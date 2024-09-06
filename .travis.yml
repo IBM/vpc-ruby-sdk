@@ -4,7 +4,7 @@ dist: bionic
 
 rvm:
 - 2.7
-- 3.0
+- 3.0.6 # NOTE: there is an issue with missing development tools with 3.0.7
 - 3.1
 - 3.2
 
