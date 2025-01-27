@@ -25,7 +25,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
-        bundler: '2.4.22'
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -35,7 +34,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '16.15.1'
+        node-version: 'lts/*'
 
     - name: Install dependencies
       run: |
@@ -57,16 +56,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
       run: |
         npx semantic-release
         # If semantic-release was successful, publish to RubyGems
         if [ $? -eq 0 ]; then
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}\n" > $HOME/.gem/credentials
           gem build *.gemspec
           gem push *.gem
-          rm -f $HOME/.gem/credentials
         fi
