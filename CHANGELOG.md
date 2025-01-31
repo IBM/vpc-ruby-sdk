@@ -1,3 +1,23 @@
+# [0.8.0](https://github.com/IBM/vpc-ruby-sdk/compare/0.7.0...0.8.0) (2025-01-31)
+
+
+### Bug Fixes
+
+* **build:** update travis ([2ccb79a](https://github.com/IBM/vpc-ruby-sdk/commit/2ccb79af909ede6eeeb3d99fbfd6abc6a599f90b))
+* **build:** update travis ([02df594](https://github.com/IBM/vpc-ruby-sdk/commit/02df59401b2f6808f7bb95be097a41c47ae0e2b7))
+* **build:** update travis gem bundler version ([720ad65](https://github.com/IBM/vpc-ruby-sdk/commit/720ad6587a69ef21bd2a88001677ecbd4b1b1105))
+* **build:** update travis nvm ([dade8fd](https://github.com/IBM/vpc-ruby-sdk/commit/dade8fda88d6b91a42c1370b5ce25aa6c0f19720))
+* **build:** update travis.yml remove deprecated ruby version ([4886347](https://github.com/IBM/vpc-ruby-sdk/commit/48863474edb3dce6767520deb79788ad9a36cac7))
+
+
+### Features
+
+* **release:** fixed github workflow ([5c76c27](https://github.com/IBM/vpc-ruby-sdk/commit/5c76c27085a03705eb309177035ff530ec6c8086))
+* **release:** fixed github workflow ([f97a261](https://github.com/IBM/vpc-ruby-sdk/commit/f97a2614f21acfc188464a39e2a150687bdbf12d))
+* **release:** fixed github workflow ([889f380](https://github.com/IBM/vpc-ruby-sdk/commit/889f380c2dd594fb34c0f0a0223a364afdb1ee07))
+* **release:** fixed github workflow ([a83e6b0](https://github.com/IBM/vpc-ruby-sdk/commit/a83e6b07100c81b5ccc40214f5171a17d521d535))
+* **release:** Update SDK to support VPC API version 2024-08-20 ([#28](https://github.com/IBM/vpc-ruby-sdk/issues/28)) ([d97d0df](https://github.com/IBM/vpc-ruby-sdk/commit/d97d0df05735adf6d96276eddf906b5ba1c71e1a))
+
 # [0.7.0](https://github.com/IBM/vpc-ruby-sdk/compare/0.6.1...0.7.0) (2023-12-29)
 
 
