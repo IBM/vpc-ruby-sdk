@@ -13,13 +13,18 @@ jobs:
     environment: ci
     strategy:
       matrix:
-        ruby-version: ['2.7', '3.0.6', '3.1', '3.2']
+        ruby-version:
+        - '2.7'
+        - '3.0'
+        - '3.1'
+        - '3.2'
+        - '3.3'
 
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -45,12 +50,12 @@ jobs:
 
     - name: Run tests
       run: bundle exec rake
-      
+
     - name: Install release dependencies
       if: github.ref == 'refs/heads/master' && matrix.ruby-version == '2.7'
       run: |
         npm install -g semantic-release @semantic-release/changelog @semantic-release/exec @semantic-release/git @semantic-release/github
-        
+
     - name: Semantic Release and Publish
       if: github.ref == 'refs/heads/master' && matrix.ruby-version == '2.7'
       env:
