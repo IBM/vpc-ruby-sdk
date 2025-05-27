@@ -1,6 +1,7 @@
-[![Build Status](https://travis.ibm.com/ibmcloud/vpc-ruby-sdk.svg?token=swhipuowmWLkVNjPbrfs&branch=master)](https://travis.ibm.com/ibmcloud/vpc-ruby-sdk)
+[![Build](https://img.shields.io/github/actions/workflow/status/IBM/vpc-ruby-sdk/ci.yml?branch=master&label=Build)](https://github.com/IBM/vpc-ruby-sdk/actions/workflows/ci.yml)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Gem Version](https://badge.fury.io/rb/ibm_vpc.svg)](https://badge.fury.io/rb/ibm_vpc)
+
 # IBM Cloud VPC Ruby SDK
 
 Ruby client library to interact with various [IBM Cloud VPC APIs](https://cloud.ibm.com/apidocs?category=compute).
