@@ -48,7 +48,7 @@ end
 
 desc "Run tests and generate a code coverage report"
 task :coverage do
-  ENV["COVERAGE"] = "true" if ENV["TRAVIS_RUBY_VERSION"] == "2.5.1" || ENV["CI"].nil?
+  ENV["COVERAGE"] = "true" if ENV["GITHUB_ACTIONS"] || ENV["CI"].nil?
   Rake::Task["test"].execute
 end
 
