@@ -33,7 +33,7 @@ module IbmVpc
     include Concurrent::Async
     DEFAULT_SERVICE_NAME = "vpc"
     DEFAULT_SERVICE_URL = "https://us-south.iaas.cloud.ibm.com/v1"
-    DEFAULT_SERVICE_VERSION = "2025-05-13"
+    DEFAULT_SERVICE_VERSION = "2025-07-15"
     attr_accessor :version
     attr_accessor :generation
     ##
@@ -42,7 +42,7 @@ module IbmVpc
     #
     # @param args [Hash] The args to initialize with
     # @option args version [String] The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-    #   specify any date between `2025-04-08` and `2025-05-22`.
+    #   specify any date between `2025-06-30` and `2025-07-15`.
     # @option args service_url [String] The base service URL to use when contacting the service.
     #   The base service_url may differ between IBM Cloud regions.
     # @option args authenticator [Object] The Authenticator instance to be configured for this service.
@@ -209,7 +209,8 @@ module IbmVpc
     #
     #   All security groups and network ACLs associated with the VPC are automatically
     #   deleted. All flow log collectors with `auto_delete` set to `true` targeting the
-    #   VPC or any resource in the VPC are automatically deleted.
+    #   VPC or any resource in the VPC are automatically deleted. All public address
+    #   ranges attached to the VPC are automatically detached.
     # @param id [String] The VPC identifier.
     # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
     #   resource's current ETag value.
@@ -752,9 +753,16 @@ module IbmVpc
     #   retrieved DNS resolution binding, and contains the information necessary to create
     #   the new DNS resolution binding.
     #
-    #   For this request to succeed, `dns.enable_hub` must be `false` for the VPC
-    #   specified by the identifier in the URL, and the VPC must not already have a DNS
-    #   resolution binding.
+    #   For this request to succeed:
+    #   - The VPC specified by the identifier in the URL must not already have a DNS
+    #   resolution
+    #     binding
+    #   - The VPC specified by the identifier in the URL must have `dns.enable_hub` set to
+    #     `false`
+    #   - The updated DNS sharing connected topology must not contain more than one
+    #   endpoint
+    #     gateway with `allow_dns_resolution_binding` set to `true` targeting the same
+    #   service.
     #
     #   See [About DNS sharing for VPE gateways](/docs/vpc?topic=vpc-vpe-dns-sharing) for
     #   more information.
@@ -2526,7 +2534,7 @@ module IbmVpc
     #########################
 
     ##
-    # @!method list_images(start: nil, limit: nil, resource_group_id: nil, name: nil, status: nil, visibility: nil, user_data_format: nil, owner_type: nil)
+    # @!method list_images(start: nil, limit: nil, resource_group_id: nil, name: nil, status: nil, visibility: nil, user_data_format: nil, remote_account_id: nil)
     # List images.
     # This request lists images available in the region. An image provides source data
     #   for a volume. Images are either system-provided, or created from another source,
@@ -2543,10 +2551,14 @@ module IbmVpc
     #   specified value.
     # @param user_data_format [Array[String]] Filters the collection to images with a `user_data_format` property matching one
     #   of the specified comma-separated values.
-    # @param owner_type [String] Filters the collection to images with an `owner_type` property matching the
-    #   specified value.
+    # @param remote_account_id [String] Filters the collection to images with a `remote.account.id` property matching the
+    #   specified account identifier.
+    #
+    #   This parameter also supports the values null and not:null which filter the
+    #   collection to resources which have no remote account identifier or any remote
+    #   account identifier, respectively.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_images(start: nil, limit: nil, resource_group_id: nil, name: nil, status: nil, visibility: nil, user_data_format: nil, owner_type: nil)
+    def list_images(start: nil, limit: nil, resource_group_id: nil, name: nil, status: nil, visibility: nil, user_data_format: nil, remote_account_id: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -2568,7 +2580,7 @@ module IbmVpc
         "status" => status,
         "visibility" => visibility,
         "user_data_format" => user_data_format,
-        "owner_type" => owner_type
+        "remote.account.id" => remote_account_id
       }
 
       method_url = "/images"
@@ -2630,9 +2642,8 @@ module IbmVpc
     # @!method delete_image(id:)
     # Delete an image.
     # This request deletes an image. Any active image export jobs will be completed
-    #   first. This operation cannot be reversed. An image with an `owner_type` of
-    #   `provider` is not allowed to be deleted.  Additionally, an image cannot be deleted
-    #   if it:
+    #   first. This operation cannot be reversed. An image with `remote.account` set is
+    #   not allowed to be deleted. Additionally, an image cannot be deleted if it:
     #   - has a `status` of `deleting`
     #   - has a `status` of `pending` with a `status_reasons` code of
     #   `image_request_in_progress`
@@ -2708,9 +2719,8 @@ module IbmVpc
     # Update an image.
     # This request updates an image with the information in a provided image patch. The
     #   image patch object is structured in the same way as a retrieved image and contains
-    #   only the information to be updated. An image with an `owner_type` of `provider` is
-    #   not allowed to be updated. An image with a `status` of `deleting` cannot be
-    #   updated.
+    #   only the information to be updated. An image with `remote.account` set is not
+    #   allowed to be updated. An image with a `status` of `deleting` cannot be updated.
     # @param id [String] The image identifier.
     # @param image_patch [Hash] The image patch.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -2750,6 +2760,47 @@ module IbmVpc
     end
 
     ##
+    # @!method list_image_bare_metal_server_profiles(id:, start: nil, limit: nil)
+    # List bare metal server profiles compatible with an image.
+    # This request lists bare metal server profiles compatible with an image's
+    #   `allowed_use.bare_metal_server`, `operating_system.architecture` and
+    #   `user_data_format` properties, sorted by ascending `name` property values.
+    # @param id [String] The image identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_image_bare_metal_server_profiles(id:, start: nil, limit: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_image_bare_metal_server_profiles")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
+      }
+
+      method_url = "/images/%s/bare_metal_server_profiles" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
     # @!method deprecate_image(id:)
     # Deprecate an image.
     # This request deprecates an image, resulting in its `status` becoming `deprecated`
@@ -2761,7 +2812,7 @@ module IbmVpc
     #   - have `catalog_offering.managed` set to `false`
     #   - not have `deprecation_at` set
     #
-    #   An image with an `owner_type` of `provider` is not allowed to be deprecated.
+    #   An image with `remote.account` set is not allowed to be deprecated.
     # @param id [String] The image identifier.
     # @return [nil]
     def deprecate_image(id:)
@@ -2794,6 +2845,47 @@ module IbmVpc
     end
 
     ##
+    # @!method list_image_instance_profiles(id:, start: nil, limit: nil)
+    # List instance profiles compatible with an image.
+    # This request lists instance profiles compatible with an image's
+    #   `allowed_use.instance`, `operating_system.architecture` and
+    #   `user_data_format` properties, sorted by ascending `name` property values.
+    # @param id [String] The image identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_image_instance_profiles(id:, start: nil, limit: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_image_instance_profiles")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
+      }
+
+      method_url = "/images/%s/instance_profiles" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
     # @!method obsolete_image(id:)
     # Obsolete an image.
     # This request obsoletes an image, resulting in its `status` becoming `obsolete` and
@@ -2805,7 +2897,7 @@ module IbmVpc
     #   - not have `deprecation_at` set in the future
     #   - not have `obsolescence_at` set
     #
-    #   An image with an `owner_type` of `provider` is not allowed to be obsoleted.
+    #   An image with `remote.account` set is not allowed to be obsoleted.
     # @param id [String] The image identifier.
     # @return [nil]
     def obsolete_image(id:)
@@ -3718,6 +3810,10 @@ module IbmVpc
     #   prototype object is structured in the same way as a retrieved instance, and
     #   contains the information necessary to provision the new instance. The instance is
     #   automatically started.
+    #
+    #   For this request to succeed, the properties in the request must adhere to the
+    #   source's
+    #   `allowed_use` property.
     # @param instance_prototype [InstancePrototype] The instance prototype object.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_instance(instance_prototype:)
@@ -3839,6 +3935,10 @@ module IbmVpc
     # This request updates an instance with the information in a provided instance
     #   patch. The instance patch object is structured in the same way as a retrieved
     #   instance and contains only the information to be updated.
+    #
+    #   For this request to succeed, the properties in the request must adhere to the
+    #   `allowed_use` property in the volume referenced by
+    #   `boot_volume_attachment.volume`.
     # @param id [String] The virtual server instance identifier.
     # @param instance_patch [Hash] The instance patch.
     # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
@@ -4019,8 +4119,7 @@ module IbmVpc
     # @param cluster_network_interface [InstanceClusterNetworkAttachmentPrototypeClusterNetworkInterface] A cluster network interface for the instance cluster network attachment. This can
     #   be
     #   specified using an existing cluster network interface that does not already have a
-    #   `target`,
-    #   or a prototype object for a new cluster network interface.
+    #   `target`, or a prototype object for a new cluster network interface.
     #
     #   This instance must reside in the same VPC as the specified cluster network
     #   interface. The
@@ -7713,6 +7812,9 @@ module IbmVpc
     #   prototype object is structured in the same way as a retrieved bare metal server,
     #   and contains the information necessary to provision the new bare metal server. The
     #   bare metal server is automatically started.
+    #
+    #   For this request to succeed, the properties in the request must adhere to the
+    #   source image's `allowed_use` property.
     # @param bare_metal_server_prototype [BareMetalServerPrototype] The bare metal server prototype object.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def create_bare_metal_server(bare_metal_server_prototype:)
@@ -8728,6 +8830,9 @@ module IbmVpc
     # This request updates a bare metal server with the information in a provided patch.
     #   The bare metal server patch object is structured in the same way as a retrieved
     #   bare metal server and contains only the information to be updated.
+    #
+    #   For this request to succeed, the properties in the request must adhere to the
+    #   `allowed_use` property of the disk referenced in the server's `boot_target`.
     # @param id [String] The bare metal server identifier.
     # @param bare_metal_server_patch [Hash] The bare metal server patch.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
@@ -8852,6 +8957,9 @@ module IbmVpc
     # This request reinitializes a bare metal server with the specified image and SSH
     #   keys. The server must be stopped. Upon successful reinitiatilization, the bare
     #   metal server will be started automatically.
+    #
+    #   For this request to succeed, the properties of the server which would result from
+    #   the reinitialization must adhere to the specified image's `allowed_use` property.
     # @param id [String] The bare metal server identifier.
     # @param image [ImageIdentity] The image to be used when provisioning the bare metal server.
     # @param keys [Array[KeyIdentity]] The public SSH keys to install on the bare metal server. Keys will be made
@@ -9325,6 +9433,49 @@ module IbmVpc
         headers: headers,
         params: params,
         data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_volume_instance_profiles(id:, start: nil, limit: nil)
+    # List instance profiles compatible with a volume.
+    # This request lists instance profiles compatible with a volume's
+    #   `allowed_use.instance`, `operating_system.architecture` and
+    #   `operating_system.user_data_format` properties, sorted by ascending `name`
+    #   property values. The specified volume must be bootable (have an `operating_system`
+    #   property).
+    # @param id [String] The volume identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_volume_instance_profiles(id:, start: nil, limit: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_volume_instance_profiles")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
+      }
+
+      method_url = "/volumes/%s/instance_profiles" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
         accept_json: true
       )
       response
@@ -10001,6 +10152,48 @@ module IbmVpc
 
       response = request(
         method: "PUT",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method list_snapshot_instance_profiles(id:, start: nil, limit: nil)
+    # List instance profiles compatible with a snapshot.
+    # This request lists instance profiles compatible with a snapshot's
+    #   `allowed_use.instance`, `operating_system.architecture` and
+    #   `operating_system.user_data_format` properties, sorted by ascending `name`
+    #   property values. The specified snapshot must be bootable.
+    # @param id [String] The snapshot identifier.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_snapshot_instance_profiles(id:, start: nil, limit: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_snapshot_instance_profiles")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
+      }
+
+      method_url = "/snapshots/%s/instance_profiles" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
         url: method_url,
         headers: headers,
         params: params,
@@ -13880,6 +14073,224 @@ module IbmVpc
       headers["Content-Type"] = "application/merge-patch+json"
 
       method_url = "/floating_ips/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+    #########################
+    # Public address ranges
+    #########################
+
+    ##
+    # @!method list_public_address_ranges(start: nil, limit: nil, resource_group_id: nil)
+    # List public address ranges.
+    # This request lists [public address
+    #   ranges](https://cloud.ibm.com/docs/vpc?topic=vpc-about-par) in the region. A
+    #   public address range is a contiguous block of public IP addresses that can be
+    #   bound to a `target` that specifies a `vpc` and a `zone`. Incoming traffic for
+    #   these IP addresses will be routed according to the VPC's ingress routing table.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param resource_group_id [String] Filters the collection to resources with a `resource_group.id` property matching
+    #   the specified identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_public_address_ranges(start: nil, limit: nil, resource_group_id: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_public_address_ranges")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit,
+        "resource_group.id" => resource_group_id
+      }
+
+      method_url = "/public_address_ranges"
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method create_public_address_range(ipv4_address_count:, name: nil, resource_group: nil, target: nil)
+    # Create a public address range.
+    # This request creates a new public address range from a public address range
+    #   prototype object. The prototype object is structured in the same way as a
+    #   retrieved public address range, and contains the information necessary to create
+    #   the new public address range.
+    # @param ipv4_address_count [Fixnum] The total number of public IPv4 addresses required. Must be a power of 2.
+    # @param name [String] The name for this public address range. The name must not be used by another
+    #   public address range in the region. If unspecified, the name will be a hyphenated
+    #   list of randomly-selected words.
+    # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
+    #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) will be used.
+    # @param target [PublicAddressRangeTargetPrototype] The target to bind this public address range to. If unspecified, the public
+    #   address
+    #   range will not be bound to a target at creation.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def create_public_address_range(ipv4_address_count:, name: nil, resource_group: nil, target: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("ipv4_address_count must be provided") if ipv4_address_count.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_public_address_range")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = {
+        "ipv4_address_count" => ipv4_address_count,
+        "name" => name,
+        "resource_group" => resource_group,
+        "target" => target
+      }
+
+      method_url = "/public_address_ranges"
+
+      response = request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        json: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method delete_public_address_range(id:)
+    # Delete a public address range.
+    # This request deletes a public address range. If the public address range is bound
+    #   to a
+    #   `target`, it will be unbound. This operation cannot be reversed.
+    # @param id [String] The public address range identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def delete_public_address_range(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "delete_public_address_range")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/public_address_ranges/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "DELETE",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_public_address_range(id:)
+    # Retrieve a public address range.
+    # This request retrieves a single public address range specified by the identifier
+    #   in the URL.
+    # @param id [String] The public address range identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_public_address_range(id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_public_address_range")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/public_address_ranges/%s" % [ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_public_address_range(id:, public_address_range_patch:)
+    # Update a public address range.
+    # This request updates a public address range with the information in a provided
+    #   public address range patch. The public address range patch object is structured in
+    #   the same way as a retrieved public address range and contains only the information
+    #   to be updated.
+    # @param id [String] The public address range identifier.
+    # @param public_address_range_patch [Hash] The public address range patch.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_public_address_range(id:, public_address_range_patch:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("public_address_range_patch must be provided") if public_address_range_patch.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_public_address_range")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = public_address_range_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/public_address_ranges/%s" % [ERB::Util.url_encode(id)]
 
       response = request(
         method: "PATCH",
@@ -18624,6 +19035,10 @@ module IbmVpc
     # List endpoint gateways.
     # This request lists endpoint gateways in the region. An endpoint gateway maps one
     #   or more reserved IPs in a VPC to a target outside the VPC.
+    #
+    #   The endpoint gateways will be sorted by their `created_at` property values, with
+    #   newest endpoint gateway first. Endpoint gateways with identical `created_at`
+    #   property values will in turn be sorted by ascending `name` property values.
     # @param name [String] Filters the collection to resources with a `name` property matching the exact
     #   specified name.
     # @param start [String] A server-provided token determining what resource to start the page on.
@@ -18681,17 +19096,36 @@ module IbmVpc
     ##
     # @!method create_endpoint_gateway(target:, vpc:, allow_dns_resolution_binding: nil, ips: nil, name: nil, resource_group: nil, security_groups: nil)
     # Create an endpoint gateway.
-    # This request creates a new endpoint gateway. An endpoint gateway maps one or more
-    #   reserved IPs in a VPC to a target outside the VPC.
+    # This request creates a new endpoint gateway from an endpoint gateway prototype
+    #   object. The prototype object is structured in the same way as a retrieved endpoint
+    #   gateway, and contains the information necessary to create a new endpoint gateway.
+    #   An endpoint gateway maps one or more reserved IPs in a VPC to a target service
+    #   outside the VPC.
     # @param target [EndpointGatewayTargetPrototype] The target to use for this endpoint gateway. The target:
     #   - Must not already be the target of another endpoint gateway in the VPC
-    #   - Must not have a service endpoint that duplicates or overlaps with any
-    #   `service_endpoints`
-    #     of another endpoint gateway in the VPC.
+    #   - Must not have a service endpoint that overlaps with any `service_endpoints` of
+    #     another endpoint gateway in the VPC.
+    #
+    #   If `allow_dns_resolution_binding` is `true`, then there must not be another
+    #   endpoint
+    #   gateway with `allow_dns_resolution_binding` set to `true` in the [DNS
+    #   sharing](/docs/vpc?topic=vpc-vpe-dns-sharing) connected topology that:
+    #   - Has the same `target` as this endpoint gateway
+    #   - Has `service_endpoints` that overlap with the `service_endpoints` for this
+    #   endpoint
+    #     gateway.
     # @param vpc [VPCIdentity] The VPC this endpoint gateway will reside in.
     # @param allow_dns_resolution_binding [Boolean] Indicates whether to allow DNS resolution for this endpoint gateway when the VPC
     #   this endpoint gateway resides in has a DNS resolution binding to a VPC with
     #   `dns.enable_hub` set to `true`.
+    #
+    #   If `true`, then there must not be another endpoint gateway with
+    #   `allow_dns_resolution_binding` set to `true` in the [DNS
+    #   sharing](/docs/vpc?topic=vpc-vpe-dns-sharing) connected topology that:
+    #   - Has the same `target` as this endpoint gateway
+    #   - Has `service_endpoints` that overlap with the `service_endpoints` for this
+    #   endpoint
+    #     gateway.
     #
     #   Must be `true` if the VPC this endpoint gateway resides in has `dns.enable_hub`
     #   set to
@@ -18992,7 +19426,10 @@ module IbmVpc
     ##
     # @!method update_endpoint_gateway(id:, endpoint_gateway_patch:)
     # Update an endpoint gateway.
-    # This request updates an endpoint gateway's name.
+    # This request updates an endpoint gateway with the information in a provided
+    #   endpoint gateway patch. The endpoint gateway patch object is structured in the
+    #   same way as a retrieved endpoint gateway and contains only the information to be
+    #   updated.
     # @param id [String] The endpoint gateway identifier.
     # @param endpoint_gateway_patch [Hash] The endpoint gateway patch.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
