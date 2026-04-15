@@ -7,3 +7,5 @@ gemspec
 
 gem "rake", "~> 13.0"
 gem "rspec", "~> 3.0"
+gem "minitest", "~> 5.25"
+gem "http-cookie", "~> 1.0.5"

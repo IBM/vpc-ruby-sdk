@@ -15,7 +15,7 @@ namespace :test do
     t.libs << "test"
     t.test_files = FileList["test/unit/*.rb"]
     t.verbose = true
-    t.warning = true
+    t.warning = false
     t.deps = [:rubocop]
   end
 
@@ -25,7 +25,7 @@ namespace :test do
     t.libs << "test"
     t.test_files = FileList["test/integration/*.rb"]
     t.verbose = true
-    t.warning = true
+    t.warning = false
     t.deps = %i[dotenv rubocop]
   end
 
@@ -35,7 +35,7 @@ namespace :test do
     t.libs << "test"
     t.test_files = FileList["test/examples/*.rb"]
     t.verbose = true
-    t.warning = true
+    t.warning = false
     t.deps = %i[dotenv rubocop]
   end
 end
