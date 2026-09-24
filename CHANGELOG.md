@@ -1,3 +1,10 @@
+# [0.12.0](https://github.com/IBM/vpc-ruby-sdk/compare/0.11.0...0.12.0) (2026-09-24)
+
+
+### Features
+
+* **release:** Update SDK to support VPC API version 2026-09-01 ([#39](https://github.com/IBM/vpc-ruby-sdk/issues/39)) ([e652c8a](https://github.com/IBM/vpc-ruby-sdk/commit/e652c8a2bbfbe3097ce3be714435950d23435648))
+
 # [0.11.0](https://github.com/IBM/vpc-ruby-sdk/compare/0.10.0...0.11.0) (2026-04-15)
 
 
