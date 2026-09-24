@@ -33,7 +33,7 @@ module IbmVpc
     include Concurrent::Async
     DEFAULT_SERVICE_NAME = "vpc"
     DEFAULT_SERVICE_URL = "https://us-south.iaas.cloud.ibm.com/v1"
-    DEFAULT_SERVICE_VERSION = "2026-03-24"
+    DEFAULT_SERVICE_VERSION = "2026-09-01"
     attr_accessor :version
     attr_accessor :generation
     ##
@@ -42,7 +42,7 @@ module IbmVpc
     #
     # @param args [Hash] The args to initialize with
     # @option args version [String] The API version, in format `YYYY-MM-DD`. For the API behavior documented here,
-    #   specify any date between `2025-12-09` and `2026-03-24`.
+    #   specify any date between `2026-09-01` and `2026-09-03`.
     # @option args service_url [String] The base service URL to use when contacting the service.
     #   The base service_url may differ between IBM Cloud regions.
     # @option args authenticator [Object] The Authenticator instance to be configured for this service.
@@ -636,6 +636,48 @@ module IbmVpc
     #########################
     # Bare metal servers
     #########################
+
+    ##
+    # @!method list_bare_metal_server_capacities(start: nil, limit: nil, profile_name: nil, zone_name: nil)
+    # List capacities for bare metal servers.
+    # This request lists bare metal server capacities in the region.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
+    # @param profile_name [String] Filters the collection to resources with a `profile.name` property matching the
+    #   specified profile name.
+    # @param zone_name [String] Filters the collection to resources with a `zone.name` property matching the exact
+    #   specified name.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_bare_metal_server_capacities(start: nil, limit: nil, profile_name: nil, zone_name: nil)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_bare_metal_server_capacities")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit,
+        "profile.name" => profile_name,
+        "zone.name" => zone_name
+      }
+
+      method_url = "/bare_metal_server/capacities"
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
 
     ##
     # @!method list_bare_metal_server_profiles(start: nil, limit: nil)
@@ -1935,14 +1977,16 @@ module IbmVpc
     #   [default
     #   user](https://cloud.ibm.com/docs/vpc?topic=vpc-vsi_is_connecting_linux#determining-default-user-account).
     #
-    #   For Windows images, at least one key must be specified, and one will be selected
-    #   to encrypt the administrator password. Keys are optional for other images, but if
-    #   no keys are specified, the bare metal server will be inaccessible unless the
-    #   specified image provides another means of access.
+    #   For Windows images, at least one SSH key of type `rsa` must be specified. One of
+    #   the provided keys is selected to encrypt the administrator password. SSH keys are
+    #   optional for other images; however, if no keys are specified, the bare metal
+    #   server will be inaccessible unless the selected image provides an alternative
+    #   access mechanism.
     # @param default_trusted_profile [BareMetalServerInitializationDefaultTrustedProfilePrototype] The default trusted profile to be used when initializing the bare metal server.
     #
     #   If unspecified, no default trusted profile will be made available.
-    # @param user_data [String] The user data to be made available when initializing the bare metal server.
+    # @param user_data [String] The [user data](https://cloud.ibm.com/docs/vpc?topic=vpc-user-data) to make
+    #   available when setting up the bare metal server.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
     def replace_bare_metal_server_initialization(id:, image:, keys:, default_trusted_profile: nil, user_data: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
@@ -5225,8 +5269,6 @@ module IbmVpc
     #   first. This operation cannot be reversed. An image with `remote.account` set is
     #   not allowed to be deleted. Additionally, an image cannot be deleted if it:
     #   - has a `status` of `deleting`
-    #   - has a `status` of `pending` with a `status_reasons` code of
-    #     `image_request_in_progress`
     #   - has `catalog_offering.managed` set to `true`.
     # @param id [String] The image identifier.
     # @return [nil]
@@ -7126,14 +7168,16 @@ module IbmVpc
     #########################
 
     ##
-    # @!method list_instance_profiles
+    # @!method list_instance_profiles(start: nil, limit: nil)
     # List instance profiles.
     # This request lists provisionable [instance
     #   profiles](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles) in the region. An
     #   instance profile specifies the performance characteristics and pricing model for
     #   an instance.
+    # @param start [String] A server-provided token determining what resource to start the page on.
+    # @param limit [Fixnum] The number of resources to return on a page.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_instance_profiles
+    def list_instance_profiles(start: nil, limit: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -7145,7 +7189,9 @@ module IbmVpc
 
       params = {
         "version" => @version,
-        "generation" => @generation
+        "generation" => @generation,
+        "start" => start,
+        "limit" => limit
       }
 
       method_url = "/instance/profiles"
@@ -7508,6 +7554,57 @@ module IbmVpc
         accept_json: true
       )
       response
+    end
+
+    ##
+    # @!method create_instance_reinitialization(id:, instance_reinitialize_prototype:)
+    # Reinitialize an instance.
+    # This request reinitializes an instance with the information in a provided instance
+    #   reinitialize prototype object. The instance must be stopped. Upon successful
+    #   reinitiatilization, the instance will be started automatically. Capacity may not
+    #   be available for the instance to become `running`.
+    #
+    #   Instances provisioned from a `catalog_offering` cannot be reinitialized.
+    #
+    #   This operation cannot be reversed. The previous initialization data will be fully
+    #   replaced, the current boot volume will be destroyed and replaced, any local disks
+    #   will be wiped, and the boot volume attachment identifier will change.
+    # @param id [String] The instance identifier.
+    # @param instance_reinitialize_prototype [InstanceReinitializePrototype] The instance reinitialize prototype object.
+    # @return [nil]
+    def create_instance_reinitialization(id:, instance_reinitialize_prototype:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("instance_reinitialize_prototype must be provided") if instance_reinitialize_prototype.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "create_instance_reinitialization")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = instance_reinitialize_prototype
+      headers["Content-Type"] = "application/json"
+
+      method_url = "/instances/%s/reinitialize" % [ERB::Util.url_encode(id)]
+
+      request(
+        method: "POST",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: false
+      )
+      nil
     end
 
     ##
@@ -8722,6 +8819,134 @@ module IbmVpc
     end
 
     ##
+    # @!method list_instance_software_attachments(instance_id:)
+    # List instance software attachments associated with an instance.
+    # This request lists software attachments associated with an instance.
+    #
+    #   The instance software attachments will be sorted by their `created_at` property
+    #   values, with newest instance software attachments first. Software attachments with
+    #   identical
+    #   `created_at` property values will in turn be sorted by ascending `name` property
+    #   values.
+    # @param instance_id [String] The virtual server instance identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def list_instance_software_attachments(instance_id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("instance_id must be provided") if instance_id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "list_instance_software_attachments")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/instances/%s/software_attachments" % [ERB::Util.url_encode(instance_id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method get_instance_software_attachment(instance_id:, id:)
+    # Retrieve an instance software attachment.
+    # This request retrieves a single instance software attachment specified by
+    #   identifier in the URL.
+    # @param instance_id [String] The virtual server instance identifier.
+    # @param id [String] The instance software attachment identifier.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def get_instance_software_attachment(instance_id:, id:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("instance_id must be provided") if instance_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "get_instance_software_attachment")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      method_url = "/instances/%s/software_attachments/%s" % [ERB::Util.url_encode(instance_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "GET",
+        url: method_url,
+        headers: headers,
+        params: params,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
+    # @!method update_instance_software_attachment(instance_id:, id:, instance_software_attachment_patch:)
+    # Update an instance software attachment.
+    # This request updates an instance software attachment with the information provided
+    #   in an instance software attachment patch object. The instance software attachment
+    #   patch object is structured in the same way as a retrieved instance software
+    #   attachment and needs to contain only the information to be updated.
+    # @param instance_id [String] The virtual server instance identifier.
+    # @param id [String] The instance software attachment identifier.
+    # @param instance_software_attachment_patch [Hash] The instance software attachment patch.
+    # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
+    def update_instance_software_attachment(instance_id:, id:, instance_software_attachment_patch:)
+      raise ArgumentError.new("version must be provided") if version.nil?
+
+      raise ArgumentError.new("generation must be provided") if generation.nil?
+
+      raise ArgumentError.new("instance_id must be provided") if instance_id.nil?
+
+      raise ArgumentError.new("id must be provided") if id.nil?
+
+      raise ArgumentError.new("instance_software_attachment_patch must be provided") if instance_software_attachment_patch.nil?
+
+      headers = {
+      }
+      sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_instance_software_attachment")
+      headers.merge!(sdk_headers)
+
+      params = {
+        "version" => @version,
+        "generation" => @generation
+      }
+
+      data = instance_software_attachment_patch
+      headers["Content-Type"] = "application/merge-patch+json"
+
+      method_url = "/instances/%s/software_attachments/%s" % [ERB::Util.url_encode(instance_id), ERB::Util.url_encode(id)]
+
+      response = request(
+        method: "PATCH",
+        url: method_url,
+        headers: headers,
+        params: params,
+        data: data,
+        accept_json: true
+      )
+      response
+    end
+
+    ##
     # @!method list_instance_volume_attachments(instance_id:)
     # List volumes attachments on an instance.
     # This request lists volume attachments on an instance. A volume attachment connects
@@ -9563,7 +9788,7 @@ module IbmVpc
     end
 
     ##
-    # @!method create_load_balancer_listener(load_balancer_id:, protocol:, accept_proxy_protocol: nil, certificate_instance: nil, connection_limit: nil, default_pool: nil, https_redirect: nil, idle_connection_timeout: nil, policies: nil, port: nil, port_max: nil, port_min: nil)
+    # @!method create_load_balancer_listener(load_balancer_id:, protocol:, accept_proxy_protocol: nil, certificate_instance: nil, client_authentication: nil, connection_limit: nil, default_pool: nil, https_redirect: nil, idle_connection_timeout: nil, policies: nil, port: nil, port_max: nil, port_min: nil)
     # Create a listener for a load balancer.
     # This request creates a new listener for a load balancer.
     # @param load_balancer_id [String] The load balancer identifier.
@@ -9590,6 +9815,10 @@ module IbmVpc
     #   value.
     # @param certificate_instance [CertificateInstanceIdentity] The certificate instance to use for SSL termination. The listener must have a
     #   `protocol` of `https`.
+    # @param client_authentication [LoadBalancerListenerClientAuthenticationPrototype] The client authentication to use for this listener.
+    #
+    #   Supported by load balancers with `mtls_supported` set to `true`. The listener must
+    #   have a `protocol` of `https`.
     # @param connection_limit [Fixnum] The concurrent connection limit for the listener. If reached, incoming connections
     #   may be queued or rejected.
     #
@@ -9659,7 +9888,7 @@ module IbmVpc
     #   and
     #   `https` share the TCP port space.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_load_balancer_listener(load_balancer_id:, protocol:, accept_proxy_protocol: nil, certificate_instance: nil, connection_limit: nil, default_pool: nil, https_redirect: nil, idle_connection_timeout: nil, policies: nil, port: nil, port_max: nil, port_min: nil)
+    def create_load_balancer_listener(load_balancer_id:, protocol:, accept_proxy_protocol: nil, certificate_instance: nil, client_authentication: nil, connection_limit: nil, default_pool: nil, https_redirect: nil, idle_connection_timeout: nil, policies: nil, port: nil, port_max: nil, port_min: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -9682,6 +9911,7 @@ module IbmVpc
         "protocol" => protocol,
         "accept_proxy_protocol" => accept_proxy_protocol,
         "certificate_instance" => certificate_instance,
+        "client_authentication" => client_authentication,
         "connection_limit" => connection_limit,
         "default_pool" => default_pool,
         "https_redirect" => https_redirect,
@@ -10376,12 +10606,25 @@ module IbmVpc
     end
 
     ##
-    # @!method create_load_balancer_pool(load_balancer_id:, algorithm:, health_monitor:, protocol:, failsafe_policy: nil, members: nil, name: nil, proxy_protocol: nil, session_persistence: nil)
+    # @!method create_load_balancer_pool(load_balancer_id:, algorithm:, health_monitor:, protocol:, client_authentication: nil, failsafe_policy: nil, members: nil, name: nil, proxy_protocol: nil, server_authentication: nil, session_persistence: nil)
     # Create a load balancer pool.
     # This request creates a new pool from a pool prototype object.
     # @param load_balancer_id [String] The load balancer identifier.
-    # @param algorithm [String] The load balancing algorithm. The `least_connections` algorithm is only supported
-    #   for load balancers that have `availability` with value `subnet` in the profile.
+    # @param algorithm [String] The load balancing algorithm.
+    #
+    #   - `least_connections`: Routes traffic to the pool member with the least active
+    #     connections. Supported by `application` and `network` family load balancers that
+    #     have `availability` with value `subnet` in the profile.
+    #   - `round_robin`: Distributes traffic sequentially across pool members. Supported
+    #   by
+    #     `application` and `network` family load balancers.
+    #   - `weighted_round_robin`: Distributes traffic across pool members proportionally
+    #   to
+    #     configured member weights. Supported by `application` and `network`
+    #     family load balancers.
+    #   - `weighted_forwarding`: Forwards the layer 4 packets across backend pools
+    #     proportionally to configured member weights. Supported by `network` family
+    #     load balancers with an `asymmetric_routing_supported` value of `true`.
     # @param health_monitor [LoadBalancerPoolHealthMonitorPrototype] The health monitor of this pool.
     #
     #   If this pool has a member targeting a load balancer then:
@@ -10402,6 +10645,16 @@ module IbmVpc
     #   family support `tcp` and `udp` (if `udp_supported` is `true`). Load balancers in
     #   the
     #   `application` family support `tcp`, `http`, and `https`.
+    #
+    #   **NOTE**: HTTP sends data in plain text, making it vulnerable to eavesdropping and
+    #   tampering. Additionally, HTTP has no built-in mechanism to verify the identity of
+    #   the server you are connecting to. It is recommended to choose `https` instead of
+    #   `http`. For more details, see:
+    #   https://www.cloudflare.com/learning/ssl/why-is-http-not-secure.
+    # @param client_authentication [LoadBalancerPoolClientAuthenticationPrototype] The client authentication to use for this pool.
+    #
+    #   Supported by load balancers with `mtls_supported` set to `true`. The pool must
+    #   have a `protocol` of `https`.
     # @param failsafe_policy [LoadBalancerPoolFailsafePolicyPrototype] The failsafe policy to use for this pool.
     #
     #   If unspecified, the default failsafe policy action from the profile will be used.
@@ -10417,6 +10670,10 @@ module IbmVpc
     #   - `disabled`: Disabled
     #
     #   For load balancers in the `network` family, this property must be `disabled`.
+    # @param server_authentication [LoadBalancerPoolServerAuthenticationPrototype] The server authentication to use for this pool.
+    #
+    #   Supported by load balancers with `mtls_supported` set to `true`. The pool must
+    #   have a `protocol` of `https`.
     # @param session_persistence [LoadBalancerPoolSessionPersistencePrototype] The session persistence of this pool. If specified, the load balancer must have
     #   `source_ip_session_persistence_supported` set to `true` in its profile.
     #
@@ -10424,7 +10681,7 @@ module IbmVpc
     #   distributed
     #   across members of the pool.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_load_balancer_pool(load_balancer_id:, algorithm:, health_monitor:, protocol:, failsafe_policy: nil, members: nil, name: nil, proxy_protocol: nil, session_persistence: nil)
+    def create_load_balancer_pool(load_balancer_id:, algorithm:, health_monitor:, protocol:, client_authentication: nil, failsafe_policy: nil, members: nil, name: nil, proxy_protocol: nil, server_authentication: nil, session_persistence: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -10451,10 +10708,12 @@ module IbmVpc
         "algorithm" => algorithm,
         "health_monitor" => health_monitor,
         "protocol" => protocol,
+        "client_authentication" => client_authentication,
         "failsafe_policy" => failsafe_policy,
         "members" => members,
         "name" => name,
         "proxy_protocol" => proxy_protocol,
+        "server_authentication" => server_authentication,
         "session_persistence" => session_persistence
       }
 
@@ -10550,14 +10809,16 @@ module IbmVpc
     end
 
     ##
-    # @!method update_load_balancer_pool(load_balancer_id:, id:, load_balancer_pool_patch:)
+    # @!method update_load_balancer_pool(load_balancer_id:, id:, load_balancer_pool_patch:, if_match: nil)
     # Update a load balancer pool.
     # This request updates a load balancer pool from a pool patch.
     # @param load_balancer_id [String] The load balancer identifier.
     # @param id [String] The pool identifier.
     # @param load_balancer_pool_patch [Hash] The load balancer pool patch.
+    # @param if_match [String] If present, the request will fail if the specified ETag value does not match the
+    #   resource's current ETag value. Required if the request body includes an array.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def update_load_balancer_pool(load_balancer_id:, id:, load_balancer_pool_patch:)
+    def update_load_balancer_pool(load_balancer_id:, id:, load_balancer_pool_patch:, if_match: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -10569,6 +10830,7 @@ module IbmVpc
       raise ArgumentError.new("load_balancer_pool_patch must be provided") if load_balancer_pool_patch.nil?
 
       headers = {
+        "If-Match" => if_match
       }
       sdk_headers = Common.new.get_sdk_headers("vpc", "V1", "update_load_balancer_pool")
       headers.merge!(sdk_headers)
@@ -14704,7 +14966,7 @@ module IbmVpc
     #########################
 
     ##
-    # @!method list_snapshot_consistency_groups(start: nil, limit: nil, resource_group_id: nil, name: nil, sort: nil, backup_policy_plan_id: nil)
+    # @!method list_snapshot_consistency_groups(start: nil, limit: nil, resource_group_id: nil, name: nil, sort: nil, backup_policy_plan_id: nil, backup_policy_job_id: nil)
     # List snapshot consistency groups.
     # This request lists snapshot consistency groups in the region. A snapshot
     #   consistency group is a collection of individual snapshots taken at the same time.
@@ -14721,8 +14983,10 @@ module IbmVpc
     #   ascending order.
     # @param backup_policy_plan_id [String] Filters the collection to backup policy jobs with a `backup_policy_plan.id`
     #   property matching the specified identifier.
+    # @param backup_policy_job_id [String] Filters the collection to snapshot consistency groups with a
+    #   `backup_policy_job.id` property matching the specified identifier.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def list_snapshot_consistency_groups(start: nil, limit: nil, resource_group_id: nil, name: nil, sort: nil, backup_policy_plan_id: nil)
+    def list_snapshot_consistency_groups(start: nil, limit: nil, resource_group_id: nil, name: nil, sort: nil, backup_policy_plan_id: nil, backup_policy_job_id: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
@@ -14740,7 +15004,8 @@ module IbmVpc
         "resource_group.id" => resource_group_id,
         "name" => name,
         "sort" => sort,
-        "backup_policy_plan.id" => backup_policy_plan_id
+        "backup_policy_plan.id" => backup_policy_plan_id,
+        "backup_policy_job.id" => backup_policy_job_id
       }
 
       method_url = "/snapshot_consistency_groups"
@@ -19178,13 +19443,53 @@ module IbmVpc
     end
 
     ##
-    # @!method create_ike_policy(authentication_algorithm:, dh_group:, encryption_algorithm:, ike_version:, key_lifetime: nil, name: nil, resource_group: nil)
+    # @!method create_ike_policy(ike_version:, authentication_algorithm: nil, authentication_algorithms: nil, dh_group: nil, dh_groups: nil, encryption_algorithm: nil, encryption_algorithms: nil, key_lifetime: nil, name: nil, resource_group: nil)
     # Create an IKE policy.
     # This request creates a new IKE policy.
-    # @param authentication_algorithm [String] The authentication algorithm.
-    # @param dh_group [Fixnum] The Diffie-Hellman group.
-    # @param encryption_algorithm [String] The encryption algorithm.
     # @param ike_version [Fixnum] The IKE protocol version.
+    # @param authentication_algorithm [String] The authentication algorithm.
+    #
+    #   `authentication_algorithm` has been deprecated. Use `authentication_algorithms`
+    #   instead.
+    #
+    #   If  specified, `authentication_algorithms` must not be specified.
+    # @param authentication_algorithms [Array[String]] The authentication algorithms to use for IKE Negotiation.
+    #
+    #   If specified, `authentication_algorithm` must not be specified.
+    #
+    #   If the IKE policy's `ike_version` is `1`, this array must contain exactly one
+    #   algorithm.
+    #
+    #   The order of the algorithms in this array indicates their priority for
+    #   negotiation, with each algorithm having priority over the one after it.
+    # @param dh_group [Fixnum] The Diffie-Hellman group.
+    #
+    #   `dh_group` has been deprecated. Use `dh_groups` instead.
+    #
+    #   If  specified, `dh_groups` must not be specified.
+    # @param dh_groups [Array[Fixnum]] The Diffie-Hellman groups to use for IKE negotiation.
+    #
+    #   If  specified, `dh_group` must not be specified.
+    #
+    #   If the IKE policy's `ike_version` is `1`, this array must contain exactly one
+    #   algorithm.
+    #
+    #   The order of the Diffie-Hellman groups in this array indicates their priority for
+    #   negotiation, with each Diffie-Hellman group having priority over the one after it.
+    # @param encryption_algorithm [String] The encryption algorithm.
+    #
+    #   `encryption_algorithm` has been deprecated. Use `encryption_algorithms` instead.
+    #
+    #   If  specified, `encryption_algorithms` must not be specified.
+    # @param encryption_algorithms [Array[String]] The encryption algorithms to use for IKE Negotiation.
+    #
+    #   If  specified, `encryption_algorithm` must not be specified.
+    #
+    #   If the IKE policy's `ike_version` is `1`, this array must contain exactly one
+    #   algorithm.
+    #
+    #   The order of the algorithms in this array indicates their priority for
+    #   negotiation, with each algorithm having priority over the one after it.
     # @param key_lifetime [Fixnum] The key lifetime in seconds.
     # @param name [String] The name for this IKE policy. The name must not be used by another IKE policy in
     #   the region. If unspecified, the name will be a hyphenated list of
@@ -19192,16 +19497,10 @@ module IbmVpc
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) will be used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_ike_policy(authentication_algorithm:, dh_group:, encryption_algorithm:, ike_version:, key_lifetime: nil, name: nil, resource_group: nil)
+    def create_ike_policy(ike_version:, authentication_algorithm: nil, authentication_algorithms: nil, dh_group: nil, dh_groups: nil, encryption_algorithm: nil, encryption_algorithms: nil, key_lifetime: nil, name: nil, resource_group: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
-
-      raise ArgumentError.new("authentication_algorithm must be provided") if authentication_algorithm.nil?
-
-      raise ArgumentError.new("dh_group must be provided") if dh_group.nil?
-
-      raise ArgumentError.new("encryption_algorithm must be provided") if encryption_algorithm.nil?
 
       raise ArgumentError.new("ike_version must be provided") if ike_version.nil?
 
@@ -19216,10 +19515,13 @@ module IbmVpc
       }
 
       data = {
-        "authentication_algorithm" => authentication_algorithm,
-        "dh_group" => dh_group,
-        "encryption_algorithm" => encryption_algorithm,
         "ike_version" => ike_version,
+        "authentication_algorithm" => authentication_algorithm,
+        "authentication_algorithms" => authentication_algorithms,
+        "dh_group" => dh_group,
+        "dh_groups" => dh_groups,
+        "encryption_algorithm" => encryption_algorithm,
+        "encryption_algorithms" => encryption_algorithms,
         "key_lifetime" => key_lifetime,
         "name" => name,
         "resource_group" => resource_group
@@ -19428,41 +19730,81 @@ module IbmVpc
     end
 
     ##
-    # @!method create_ipsec_policy(authentication_algorithm:, encryption_algorithm:, pfs:, key_lifetime: nil, name: nil, resource_group: nil)
+    # @!method create_ipsec_policy(authentication_algorithm: nil, authentication_algorithms: nil, encryption_algorithm: nil, encryption_algorithms: nil, key_lifetime: nil, name: nil, pfs: nil, pfs_groups: nil, resource_group: nil)
     # Create an IPsec policy.
     # This request creates a new IPsec policy.
-    # @param authentication_algorithm [String] The authentication algorithm
+    # @param authentication_algorithm [String] The authentication algorithm.
+    #
+    #   `authentication_algorithm` has been deprecated. Use `authentication_algorithms`
+    #   instead.
+    #
+    #   If specified, `authentication_algorithms` must not be specified.
     #
     #   Must be `disabled` if and only if the `encryption_algorithm` is `aes128gcm16`,
     #   `aes192gcm16`, or `aes256gcm16`
     #
     #   The `md5` and `sha1` algorithms have been deprecated.
-    # @param encryption_algorithm [String] The encryption algorithm
+    # @param authentication_algorithms [Array[String]] The authentication algorithms to use for IPsec negotiation.
+    #
+    #   If specified, `authentication_algorithm` must not be specified.
+    #
+    #   Must be `["disabled"]` when `encryption_algorithms` has only combined-mode
+    #   algorithms
+    #   (`aes128gcm16`, `aes192gcm16`, and `aes256gcm16`).
+    #
+    #   The `md5` and `sha1` algorithms have been deprecated.
+    #
+    #   The order of the algorithms in this array indicates their priority for
+    #   negotiation, with each algorithm having priority over the one after it.
+    # @param encryption_algorithm [String] The encryption algorithm.
+    #
+    #   `encryption_algorithm` has been deprecated. Use `encryption_algorithms` instead.
+    #
+    #   If specified, `encryption_algorithms` must not be specified.
     #
     #   The `authentication_algorithm` must be `disabled` if and only if
     #   `encryption_algorithm` is `aes128gcm16`, `aes192gcm16`, or `aes256gcm16`
     #
     #   The `triple_des` algorithm has been deprecated.
-    # @param pfs [String] The Perfect Forward Secrecy group.
+    # @param encryption_algorithms [Array[String]] The encryption algorithms to use for IPsec negotiation.
     #
-    #   Groups `group_2` and `group_5` have been deprecated.
+    #   If specified, `encryption_algorithm` must not be specified.
+    #
+    #   If only combined-mode encryption algorithms (`aes128gcm16`, `aes192gcm16`, and
+    #   `aes256gcm16`) are to be used, then `authentication_algorithms` must be
+    #   `["disabled"]`.
+    #
+    #   The `triple_des` algorithm has been deprecated.
+    #
+    #   The order of the algorithms in this array indicates their priority for
+    #   negotiation, with each algorithm having priority over the one after it.
     # @param key_lifetime [Fixnum] The key lifetime in seconds.
     # @param name [String] The name for this IPsec policy. The name must not be used by another IPsec policy
     #   in the region. If unspecified, the name will be a hyphenated list of
     #   randomly-selected words.
+    # @param pfs [String] The Perfect Forward Secrecy group.
+    #
+    #   `pfs` has been deprecated. Use `pfs_groups` instead.
+    #
+    #   If specified, `pfs_groups` must not be specified.
+    #
+    #   Groups `group_2` and `group_5` have been deprecated.
+    # @param pfs_groups [Array[String]] The Perfect Forward Secrecy groups to use for IPsec negotiation.
+    #
+    #   If specified, `pfs` must not be specified.
+    #
+    #   Groups `group_2` and `group_5` have been deprecated.
+    #
+    #   The order of the Perfect Forward Secrecy groups in this array indicates their
+    #   priority for negotiation, with each Perfect Forward Secrecy group having priority
+    #   over the one after it.
     # @param resource_group [ResourceGroupIdentity] The resource group to use. If unspecified, the account's [default resource
     #   group](https://cloud.ibm.com/apidocs/resource-manager#introduction) will be used.
     # @return [IBMCloudSdkCore::DetailedResponse] A `IBMCloudSdkCore::DetailedResponse` object representing the response.
-    def create_ipsec_policy(authentication_algorithm:, encryption_algorithm:, pfs:, key_lifetime: nil, name: nil, resource_group: nil)
+    def create_ipsec_policy(authentication_algorithm: nil, authentication_algorithms: nil, encryption_algorithm: nil, encryption_algorithms: nil, key_lifetime: nil, name: nil, pfs: nil, pfs_groups: nil, resource_group: nil)
       raise ArgumentError.new("version must be provided") if version.nil?
 
       raise ArgumentError.new("generation must be provided") if generation.nil?
-
-      raise ArgumentError.new("authentication_algorithm must be provided") if authentication_algorithm.nil?
-
-      raise ArgumentError.new("encryption_algorithm must be provided") if encryption_algorithm.nil?
-
-      raise ArgumentError.new("pfs must be provided") if pfs.nil?
 
       headers = {
       }
@@ -19476,10 +19818,13 @@ module IbmVpc
 
       data = {
         "authentication_algorithm" => authentication_algorithm,
+        "authentication_algorithms" => authentication_algorithms,
         "encryption_algorithm" => encryption_algorithm,
-        "pfs" => pfs,
+        "encryption_algorithms" => encryption_algorithms,
         "key_lifetime" => key_lifetime,
         "name" => name,
+        "pfs" => pfs,
+        "pfs_groups" => pfs_groups,
         "resource_group" => resource_group
       }
 
