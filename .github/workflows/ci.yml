@@ -34,22 +34,6 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 'lts/*'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install bumpversion
-        bundle install
-
     - name: Run tests
       run: bundle exec rake
 
@@ -72,6 +56,11 @@ jobs:
         ruby-version: '2.7'
         bundler-cache: true
 
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -79,6 +68,8 @@ jobs:
 
     - name: Install release dependencies
       run: |
+        python -m pip install --upgrade pip
+        pip install bumpversion
         npm install -g semantic-release @semantic-release/changelog @semantic-release/exec @semantic-release/git @semantic-release/github @semantic-release/commit-analyzer
 
     - name: Semantic Release and Publish
