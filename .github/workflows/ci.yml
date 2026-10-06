@@ -14,8 +14,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: ci
-    permissions:
-      contents: write
     strategy:
       matrix:
         ruby-version:
@@ -55,13 +53,35 @@ jobs:
     - name: Run tests
       run: bundle exec rake
 
+  release:
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.7'
+        bundler-cache: true
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
+
     - name: Install release dependencies
-      if: github.ref == 'refs/heads/master' && matrix.ruby-version == '2.7'
       run: |
         npm install -g semantic-release @semantic-release/changelog @semantic-release/exec @semantic-release/git @semantic-release/github @semantic-release/commit-analyzer
 
     - name: Semantic Release and Publish
-      if: github.ref == 'refs/heads/master' && matrix.ruby-version == '2.7'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
