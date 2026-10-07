@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "IBM Cloud VPC Ruby SDK"
   spec.homepage      = "https://github.com/IBM/vpc-ruby-sdk"
   spec.licenses      = ["Apache-2.0"]
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 

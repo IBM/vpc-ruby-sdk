@@ -50,7 +50,7 @@ Service Name | Imported Class Name
 
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one [here](https://cloud.ibm.com/iam/apikeys).
-* Ruby 2.3.0 or above.
+* Ruby 2.7.0 or above.
 
 ## Installation
 
