@@ -1,3 +1,10 @@
+# [0.13.0](https://github.com/IBM/vpc-ruby-sdk/compare/0.12.0...0.13.0) (2026-10-07)
+
+
+### Features
+
+* **release:** Bump required_ruby_version to 2.7 ([7e1d6db](https://github.com/IBM/vpc-ruby-sdk/commit/7e1d6db217387662600ce5bc2474c6296a80cd1c))
+
 # [0.12.0](https://github.com/IBM/vpc-ruby-sdk/compare/0.11.0...0.12.0) (2026-09-24)
 
 
